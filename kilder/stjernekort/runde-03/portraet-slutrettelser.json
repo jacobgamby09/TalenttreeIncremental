@@ -1,0 +1,20 @@
+[
+  {
+    "id": "portraetter/rotte",
+    "source": "C:\\Users\\JacobGamby\\.codex\\generated_images\\01a143d4-3a41-7381-8ad7-26e4c94f7916\\exec-7028eec0-924a-43db-a08f-0cd434c56ac3.png",
+    "prompt": "Edit this rat illustration: turn the entire pose so the rat faces LEFT, nose on the left side, tail curling forward to the left. Keep the correct rat anatomy and rodent incisors, colour and hand-painted style, the full body, feet and tail completely within the image. Keep warm lighting from UPPER LEFT and cool blue-violet fill from RIGHT after changing direction. Make the posture lower and leaner, tense and threatening with small narrowed beady eyes. Keep flat mid-grey #6B6B73 background, square 1024x1024, 10% clear margin. No dog fangs.",
+    "reference": "C:/Users/JacobGamby/.codex/generated_images/01a143d4-3a41-7381-8ad7-26e4c94f7916/exec-9450f24b-2442-4eeb-88a3-cba977bb5d57.png"
+  },
+  {
+    "id": "portraetter/rasende-egern",
+    "source": "C:\\Users\\JacobGamby\\.codex\\generated_images\\01a143d4-3a41-7381-8ad7-26e4c94f7916\\exec-e84ff435-e3c8-48ff-ae74-366d96dd651d.png",
+    "prompt": "Targeted anatomical correction to this aggressive red squirrel portrait. Preserve its left-facing tense crouch, splayed claws, rust-red fur and large raised S-curved tail, scale, lighting and painterly material style. Replace ALL pointed canine fangs with the correct squirrel dentition: only a pair of broad small flat upper incisors and small lower incisors, no canine teeth. Make muzzle shorter, like an actual red squirrel rather than a fox or cat. Small narrowed dark eyes, ear tufts swept BACK against the head, alert and angry wild animal, not cute. Keep entire body and tail inside canvas with margin, flat neutral mid-grey #6B6B73 background. Square 1024x1024.",
+    "reference": "C:/Users/JacobGamby/.codex/generated_images/01a143d4-3a41-7381-8ad7-26e4c94f7916/exec-42ffca18-c70f-4bea-9316-3a69aeab5c30.png"
+  },
+  {
+    "id": "portraetter/traeets-vogter",
+    "source": "C:\\Users\\JacobGamby\\.codex\\generated_images\\01a143d4-3a41-7381-8ad7-26e4c94f7916\\exec-97ac8f07-43e5-4bef-b96c-0546406b8379.png",
+    "prompt": "Edit this oak guardian portrait, preserving the same bark face and figure, painterly style and upper-left warm/cool-right lighting. Reframe slightly farther back so ALL branch tips of the entire leafless crown are completely contained with 12% space ABOVE the highest branch and at least 7% at each SIDE. Torso still continues beyond and is cut by the BOTTOM edge. Eyes near 40% canvas height. Change the orange fire in the chest and eyes to restrained DEEP DARK CRIMSON red, no yellow, no orange, no white flame. Red light stays inside cavities and casts no glow outside. Keep the flat uniform mid-grey #6B6B73 background. Square 1024x1024.",
+    "reference": "C:/Users/JacobGamby/.codex/generated_images/01a143d4-3a41-7381-8ad7-26e4c94f7916/exec-039f14f7-e0cd-4a07-8555-0cc65a2ccfee.png"
+  }
+]

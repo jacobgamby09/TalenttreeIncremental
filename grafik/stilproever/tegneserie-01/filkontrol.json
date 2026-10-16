@@ -1,0 +1,38 @@
+[
+  {
+    "fil": "originaler\\noder\\eg.png",
+    "maal": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alfa": [
+      0,
+      255
+    ]
+  },
+  {
+    "fil": "originaler\\noder\\kobberbrystplade.png",
+    "maal": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alfa": [
+      0,
+      255
+    ]
+  },
+  {
+    "fil": "originaler\\portraetter\\goblin.png",
+    "maal": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alfa": [
+      0,
+      255
+    ]
+  }
+]

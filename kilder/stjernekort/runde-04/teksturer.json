@@ -1,0 +1,23 @@
+[
+  {
+    "id": "baggrunde/taage",
+    "alpha_min": 51,
+    "alpha_max": 217,
+    "seed": 41026,
+    "method": "periodic Gaussian fBm / wrap-around domain warp"
+  },
+  {
+    "id": "baggrunde/nebula",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "seed": 41026,
+    "method": "periodic Gaussian fBm / wrap-around domain warp"
+  },
+  {
+    "id": "baggrunde/klyngesloer",
+    "alpha_min": 0,
+    "alpha_max": 255,
+    "seed": 41026,
+    "method": "periodic Gaussian fBm / wrap-around domain warp"
+  }
+]

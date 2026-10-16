@@ -1,0 +1,7 @@
+Tema: temaer\stjernekort
+106 af 106 assets er leveret og godkendt.
+
+Advarsler:
+- baggrunde/stjernehimmel: sømtjek udføres kun for PNG; test jpg-flisen som 3×3
+
+Exitkode: 0

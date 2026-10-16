@@ -1,0 +1,17 @@
+[
+  {
+    "id": "emblemer/minedrift",
+    "source": "C:\\Users\\JacobGamby\\.codex\\generated_images\\01a143d4-3a41-7381-8ad7-26e4c94f7916\\exec-1f7975dd-6400-4028-8311-a5bd3d0e3765.png",
+    "prompt": "Use case: precise-object-edit. Edit this neutral silver medallion for a 24px RPG cluster icon. Keep the exact thin plain circular rim, enamel background, greyscale palette, upper-left lighting, large diagonal pickaxe and framing. Change only the crystal cluster: replace the numerous small crystals with exactly THREE broad, bold angular crystals in a simple fan, one tall central crystal and two shorter flanking crystals. No small shards, no extra detail. Create clearly separated large shapes that survive reduction to 24 pixels. Transparent outside disc. 1024x1024."
+  },
+  {
+    "id": "emblemer/den-hule-eg",
+    "source": "C:\\Users\\JacobGamby\\.codex\\generated_images\\01a143d4-3a41-7381-8ad7-26e4c94f7916\\exec-95923616-7511-4baf-9c46-d0e2f4687eb5.png",
+    "prompt": "Use case: precise-object-edit. Simplify the central motif of this silver RPG medallion so it is instantly recognizable at 24 pixels. Keep exactly the same circular plain thin silver rim, dark neutral grey enamel, upper-left light and transparent outside disc. Replace the elaborate complete tree with a close-up emblem of ONLY a massive old oak TRUNK with a large black hollow opening like a doorway in its lower center, two short thick branch stubs at the top, and THREE broad spreading roots. No canopy, NO leaves, no tiny branches, no fine roots, no decorative knots. The hollow doorway must be a strong large dark negative shape, occupying approximately 25 percent of disc height and 18 percent of disc width. Bright pale silver inlay, strong simple masses, restrained bark grooves. All motif inside the rim, neutral greyscale only. Square1024."
+  },
+  {
+    "id": "silhuetter/den-hule-eg",
+    "source": "C:\\Users\\JacobGamby\\.codex\\generated_images\\01a143d4-3a41-7381-8ad7-26e4c94f7916\\exec-3ae45cf0-9321-404a-b3aa-ce9c34d42781.png",
+    "prompt": "Use case: precise-object-edit. Recompose this distant ancient oak silhouette on pure black. Preserve the broad partly leafless twisted oak, subtle grey internal shading, pale-grey solid silhouette, and no light sources. IMPORTANT exact square composition: crown top about 12 percent from top, broad canopy extending from y=12 to 48 percent, long massive trunk extending from y=42 to 82 percent, roots reaching y=96 percent. Keep 8 percent empty black margin left and right. The large DARK HOLLOW DOORWAY must be clearly visible in the trunk entirely between y=57 and y=72 percent, above the bottom quarter that will be faded away later. Extend the roots and lower trunk beneath the hollow, so the whole hollow remains visible above y=75 percent. No mist or haze painted around base, no glow, no eyes, no red, no stars, no additional scenery. This is a clear distant landmark silhouette, subtle internal values not detailed painting. Pure black background. 1024x1024."
+  }
+]

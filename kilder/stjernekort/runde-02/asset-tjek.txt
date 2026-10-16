@@ -1,0 +1,9 @@
+Tema: temaer\stjernekort
+52 af 106 assets er leveret og godkendt.
+Mangler P1 (40): noder/kobbersvaerd, noder/kobberhjelm, noder/kobberbenskinner, noder/kobberstoevler, noder/jernsvaerd, noder/jernhjelm, noder/jernbenskinner, noder/jernbrystplade, noder/jernstoevler, noder/styrke, noder/udholdenhed, noder/forsvar, noder/hurtige-haender, noder/kritisk-slag, noder/sav, noder/malmvogn, noder/slibesten, noder/baalplads, noder/blaesebaelg, noder/tilbygning, ressourcer/eg, ressourcer/pil, ressourcer/kobbermalm, ressourcer/jernmalm, ressourcer/jernbarre, ressourcer/rottehale, ressourcer/laeder, ressourcer/ulveskind, portraetter/rotte, portraetter/goblin, portraetter/barkbille, portraetter/mosklump, portraetter/rasende-egern, portraetter/traeets-vogter, emblemer/minedrift, emblemer/smedje, emblemer/kamp, emblemer/hjemmebase, emblemer/den-hule-eg, baggrunde/taage
+Mangler P2 (14): noder/rodnet, noder/tornehud, noder/urtemedicin, noder/plant-et-trae, noder/baeredygtig-faeldning, ressourcer/ask, emblemer/druide, emblemer/skovbrug, baggrunde/nebula, baggrunde/klyngesloer, silhuetter/bjergtinde, silhuetter/ruin, silhuetter/taarn, silhuetter/den-hule-eg
+
+Advarsler:
+- baggrunde/stjernehimmel: sømtjek udføres kun for PNG; test jpg-flisen som 3×3
+
+Exitkode: 1

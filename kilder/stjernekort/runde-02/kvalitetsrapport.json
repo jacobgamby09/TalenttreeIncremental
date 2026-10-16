@@ -1,0 +1,425 @@
+{
+  "assets": [
+    {
+      "id": "noder/eg",
+      "bytes": 82628,
+      "sha256": "9058d65eb095dd1f0b7c08e1ac217f578c6721f188506da4bebcb32245cee6d0",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/skarp-oekse",
+      "bytes": 60268,
+      "sha256": "38d48d85aa8140dc27ba13162bb1c6b66c659802e57a24f89a85758d1ee84951",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/rigelig-hoest",
+      "bytes": 87621,
+      "sha256": "170ab6a12517248b1eb68b29dc8a55e0dbfdb157641e275ee76b645d8bf711fc",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/pil",
+      "bytes": 96415,
+      "sha256": "02cb8dfb1fff6b7baca86051c2fa67e39b66dcb71230d260b2b648b676293ad2",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/smidig-faeldning",
+      "bytes": 69019,
+      "sha256": "b6ac310a8569279e4105f6a7f0d6aa1a60282b846b7ecfd1ee3ed87966795543",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/grenrigdom",
+      "bytes": 78557,
+      "sha256": "8f05c22e9cb5e4df3e9710389307baf2ae6472bec3e122cba0a9adb2efd4e84f",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/ask",
+      "bytes": 45374,
+      "sha256": "89491855b8527667168e2689bf3e3644078b22ef3771e6a8410c1a3c89e0b609",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/kobbermalm",
+      "bytes": 90937,
+      "sha256": "73c2f66c477230bbef23d411d79e5dabcb78d46c738c6bf28bb4711703da2897",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/haard-hakke",
+      "bytes": 65222,
+      "sha256": "843c51c09aada8a01d4d2e2fc60fad5816b28f0bebdadc39824fd87e8f287a97",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/rig-aare",
+      "bytes": 73867,
+      "sha256": "6e5d5dd3ce30429f8b528b039880ec2005d17005ba987a6eeb4a829889af36df",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/jernmalm",
+      "bytes": 84667,
+      "sha256": "709a35b8f76fecc3df5bfbfaf285cd84d3a1d47c0f9982b5910bbe1d3a526bb5",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/tung-hakke",
+      "bytes": 57506,
+      "sha256": "c3e2b1934ba1a35fb5369ed3c2c1f9fd3475867aefc7ed85d2a243e1f6650f36",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/dyb-aare",
+      "bytes": 90550,
+      "sha256": "7872a30562453e57fc7fae440ee0ed7250d5882266018f599d85c7bb78f5857c",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/smelt-kobber",
+      "bytes": 73952,
+      "sha256": "496dcfbf127defe6175c742f1e33d9c87df85ec68747d4c0aabe889c8be82b2a",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/smelt-jern",
+      "bytes": 65549,
+      "sha256": "150282aad297d5f4188d3413c6c0d4593e85b16cd3cd760ba40d7cfedf169552",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/varm-ovn",
+      "bytes": 75305,
+      "sha256": "e93ff6947631475d352da74c3e160e3f34f4b93cdc56f393a8999e4cfe55854a",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/sparsom-fyring",
+      "bytes": 80500,
+      "sha256": "5098d5da7b164b749c80a9fda7251cd662188f0e4f23e8e4e26138c41ded992b",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "noder/kobberbrystplade",
+      "bytes": 75580,
+      "sha256": "fce9d73e07d0a1396ab3b8b133cb567868fb6920ac436ea5e193705684125fdf",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 76.17,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "ressourcer/kobberbarre",
+      "bytes": 17175,
+      "sha256": "11790ad9d60b23ae4f9bcbc9b8be81289036bdda83e7fd8a0aa4acacfb6f5614",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 84.38,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "glyffer/slot-vaaben",
+      "bytes": 1018,
+      "sha256": "b94282089ef09d2e239ae8dec2de6cf5f3a97764f75237b03ea04d4bfc033a78"
+    },
+    {
+      "id": "glyffer/slot-hoved",
+      "bytes": 1353,
+      "sha256": "d0331d0fa506d70059b59c0fef645025096c7a392f368b113ff003bb4c77a3e8"
+    },
+    {
+      "id": "glyffer/slot-bryst",
+      "bytes": 884,
+      "sha256": "ec2f4f0bbc2650661431631080b3554b77ce9990ba29c502b84d9bb80968929a"
+    },
+    {
+      "id": "glyffer/slot-ben",
+      "bytes": 901,
+      "sha256": "d23d7a86885a3dd1a41756e4d2be745eaa3452d271a6caeff304ddc24118bc52"
+    },
+    {
+      "id": "glyffer/slot-foedder",
+      "bytes": 613,
+      "sha256": "ae7635a6d2d4ac7c2a89de714767111aed5561fe6f976e7e124ea49cc13172b9"
+    },
+    {
+      "id": "glyffer/socket-bygning",
+      "bytes": 603,
+      "sha256": "9c21fe05ed189ad02399b3fadedad5f30c0b2a95f6866be668925e85a993455d"
+    },
+    {
+      "id": "glyffer/atk",
+      "bytes": 915,
+      "sha256": "c3ebbaa32fcc60bd9d8686119f882eaee92c464e2a74086bad4b218eb9ae2b4b"
+    },
+    {
+      "id": "glyffer/hp",
+      "bytes": 907,
+      "sha256": "6fe279d9ceb659bedcb7a2ebdafebb963c7d57805c964322f76520c5539ccf8e"
+    },
+    {
+      "id": "glyffer/def",
+      "bytes": 759,
+      "sha256": "465957571cc0915a2b72be0d3539c2d5363289f47b3300b700213d3facc84f75"
+    },
+    {
+      "id": "glyffer/angrebstid",
+      "bytes": 974,
+      "sha256": "483aa92c07eba9030dc6be7a6e695ab9ccf2b0a747ef4da68ef01afef1a5f2e7"
+    },
+    {
+      "id": "glyffer/xp",
+      "bytes": 241,
+      "sha256": "bf9361e9878e0301e158807ed9759c5575c1c6af489c96511af3f7d1774aaad0"
+    },
+    {
+      "id": "glyffer/kamppoint",
+      "bytes": 314,
+      "sha256": "bdfaa8536f95c37f8f6f31396603610bfdfce1118ebc81cae31c1fdf3a2b61f5"
+    },
+    {
+      "id": "glyffer/laas",
+      "bytes": 1826,
+      "sha256": "6c6ed90706a25750b38bdbde005148917b21714d745ca6aebed1222ea53e1dc1"
+    },
+    {
+      "id": "glyffer/taage",
+      "bytes": 4304,
+      "sha256": "b647400cd299972648ea11e5f435e99b9f581d251528fa9554635bfb7648f361"
+    },
+    {
+      "id": "glyffer/level",
+      "bytes": 346,
+      "sha256": "dbdb198ec8ba14790fc32fef53cfc453b9c61965cdb28008695e8e666bdca164"
+    },
+    {
+      "id": "glyffer/boss",
+      "bytes": 3055,
+      "sha256": "0f2ceff95d8ed2b26f34f39f31cbf41014b3530b613567e6ddf760864f650fb2"
+    },
+    {
+      "id": "glyffer/besejret",
+      "bytes": 3548,
+      "sha256": "56153cddc8667bf25755212e9d00eb4aff2eedfb4dde85da2a9b0d942c8b91ec"
+    },
+    {
+      "id": "glyffer/ny-opdagelse",
+      "bytes": 415,
+      "sha256": "f54fff172273bb7c7c23e171d4920935043f6dd185c9ceba7bc9e9acea1124a6"
+    },
+    {
+      "id": "glyffer/farmingomraade",
+      "bytes": 2093,
+      "sha256": "b66abc3670cae342d989d14f2aa8fc98d3f1291ab18a5b51b60f7022fde7641b"
+    },
+    {
+      "id": "glyffer/dungeon",
+      "bytes": 1880,
+      "sha256": "8b6559ce0e3a3c6bcf87b7e25c314f30a376c0b3f7c1b3dbabdf4cdb21d163d8"
+    },
+    {
+      "id": "glyffer/kritisk-slag",
+      "bytes": 218,
+      "sha256": "aae8fa4fa71d549f422e4935d9d181ece77dd2eba79a1de14d29bbd0bffe4b34"
+    },
+    {
+      "id": "glyffer/drab",
+      "bytes": 2507,
+      "sha256": "346918ca93d7503cf3e1cacf5810451a8cecb08ae82dcbe1a1763c7dfa1eb73c"
+    },
+    {
+      "id": "glyffer/nederlag",
+      "bytes": 968,
+      "sha256": "0e27a08f80ed81d62eec118ca47424023a7d8df7aa10a22b6bf908fda4e2abd7"
+    },
+    {
+      "id": "glyffer/helbredelse",
+      "bytes": 992,
+      "sha256": "880a28cf65ff7758fe499de641e37d8508bfdf7c77f8cb412dfd27daf6192501"
+    },
+    {
+      "id": "glyffer/varighed",
+      "bytes": 1387,
+      "sha256": "56313148494117ad14373974e91222710782914fb5116e8ada6f7f3339577d07"
+    },
+    {
+      "id": "glyffer/chance",
+      "bytes": 2161,
+      "sha256": "aec34a8924a07a15fc195629cce3d1c53e5ecf9bb55333f60f6df965869bb4ea"
+    },
+    {
+      "id": "glyffer/braendsel",
+      "bytes": 1291,
+      "sha256": "518c892793df44e43d99101a33e691973f2b60c5994af00b351a932c1662beb5"
+    },
+    {
+      "id": "glyffer/torne",
+      "bytes": 1010,
+      "sha256": "635a015d816532ad41f9595d82717c5b700f7008fcb2b0a95d73d895d34df4f0"
+    },
+    {
+      "id": "portraetter/spiller",
+      "bytes": 239416,
+      "sha256": "6ee96b1030bee30305559e7d3f2caa6e1605e8e95de0ea06ed498c77811168ef",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 78.12,
+      "bund_synlige_pixels": 397
+    },
+    {
+      "id": "portraetter/ulv",
+      "bytes": 295842,
+      "sha256": "7cc22539a6d3ef5d9f1681ea9778a10187f14b4f0ca2ab5572e717278fa213bd",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 80.08,
+      "bund_synlige_pixels": 383
+    },
+    {
+      "id": "emblemer/traefaeldning",
+      "bytes": 85334,
+      "sha256": "d161f67f3d5e5905cd595c623b70bff333302ad26fc8d05b1a14977a7e66a3ee",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "fyld_pct": 90.62,
+      "bund_synlige_pixels": 0
+    },
+    {
+      "id": "baggrunde/stjernehimmel",
+      "bytes": 158941,
+      "sha256": "b2dac47743f795fcbdccc6d32eaed274b274029a408ecb68656125fbddf1915c"
+    },
+    {
+      "id": "baggrunde/portraet",
+      "bytes": 13441,
+      "sha256": "889c3f91f524d518e853fd88628bb438d743df2822d0f604a26dbdd3e3380a94"
+    }
+  ],
+  "jpg_soemme": {
+    "x": 0.21891276041666666,
+    "y": 0.12190755208333333,
+    "nabopixels_x": 0.15551411936675621,
+    "nabopixels_y": 0.15421442138393585
+  },
+  "visuel_kontrol": "Kontaktark i farve og gr\u00e5toner; JPG 3x3 gennemg\u00e5et."
+}

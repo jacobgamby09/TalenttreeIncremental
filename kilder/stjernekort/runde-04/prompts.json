@@ -1,0 +1,333 @@
+{
+  "noder/styrke": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A clenched fist in a steel plate gauntlet with crimson leather straps, raised upright and seen in three-quarter view so the curled fingers, knuckle plates and cuff are all clearly visible.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/udholdenhed": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A smooth heart-shaped ruby standing upright, with a single band of riveted iron with bright edge highlights wrapped across its front.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/forsvar": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A sturdy heater shield with a riveted steel rim and a completely plain, unmarked crimson field, seen from the front and slightly tilted.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/hurtige-haender": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A small brass hourglass with crimson sand running through it and a pair of swept-back feathered wings attached to its sides.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/kritisk-slag": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A short dagger with a bright steel blade and a crimson-wrapped hilt driven point-first into the top of a pale grey stone block, with deep dark cracks radiating outward across the stone from the point of impact.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/sav": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A sturdy wooden sawhorse holding a half-cut oak log with a large wooden frame saw resting in the cut, standing on a small round patch of ground scattered with sawdust.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/malmvogn": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A wooden mine cart with iron bands and iron wheels, heaped with chunks of copper ore, standing on a short stretch of rail track on a small round patch of ground.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/slibesten": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A round sandstone grinding wheel mounted in a wooden frame with an iron crank handle and a small water trough beneath, a short iron blade leaning against the stone, on a small round patch of ground.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/baalplads": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A crackling campfire inside a ring of rough stones, with a small stack of split oak logs and a log seat beside it, on a small round patch of ground. No smoke, steam, haze, or sparks and embers drifting away from the fire. The fire and hot metal light only the object itself; no glow spills beyond the subject.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/blaesebaelg": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A large pair of forge bellows made of leather and wooden boards with a brass nozzle, mounted on a low wooden stand and pointed at a small heap of red-hot coals, on a small round patch of ground. No smoke, steam, haze, or sparks and embers drifting away from the fire. The fire and hot metal light only the object itself; no glow spills beyond the subject.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/tilbygning": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: The unfinished timber frame of a small building under construction, with a simple wooden scaffold, a stack of planks and a few copper fittings, on a small round patch of ground.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "emblemer/minedrift": {
+    "prompt": "Use case: precise-object-edit. Edit this neutral silver medallion for a 24px RPG cluster icon. Keep the exact thin plain circular rim, enamel background, greyscale palette, upper-left lighting, large diagonal pickaxe and framing. Change only the crystal cluster: replace the numerous small crystals with exactly THREE broad, bold angular crystals in a simple fan, one tall central crystal and two shorter flanking crystals. No small shards, no extra detail. Create clearly separated large shapes that survive reduction to 24 pixels. Transparent outside disc. 1024x1024.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "reference/tom-medaljon"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py",
+    "foerste_prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: round cluster emblem. The medallion itself is the subject, not an interface frame. Rendering: a perfectly circular medallion seen straight on, in dark neutral silver-grey enamel with a thin, plain silver rim and one simple central motif inlaid in bright pale silver, with bold shapes. The rim is completely plain: no inscriptions, lettering, notches, beads, laurels, ribbons, banners, stars or extra rings. Centered, filling about 90% of the canvas, fully transparent outside the disc. Greyscale only; colour is added afterwards.\nSubject: A round medallion emblem showing a pickaxe crossed over a cluster of angular crystals.\nInput image is the exact shared empty medallion. Preserve its plain thin circular rim and neutral grey enamel. Add only the requested central silver motif, bold and large, readable at 24px. No extra decorations.",
+    "reference_revision": "Første generering for samme id; se kilder.json",
+    "valgt_kilde": "rettelser.json"
+  },
+  "emblemer/smedje": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: round cluster emblem. The medallion itself is the subject, not an interface frame. Rendering: a perfectly circular medallion seen straight on, in dark neutral silver-grey enamel with a thin, plain silver rim and one simple central motif inlaid in bright pale silver, with bold shapes. The rim is completely plain: no inscriptions, lettering, notches, beads, laurels, ribbons, banners, stars or extra rings. Centered, filling about 90% of the canvas, fully transparent outside the disc. Greyscale only; colour is added afterwards.\nSubject: A round medallion emblem showing an anvil with a smith's hammer resting on top of it.\nInput image is the exact shared empty medallion. Preserve its plain thin circular rim and neutral grey enamel. Add only the requested central silver motif, bold and large, readable at 24px. No extra decorations.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "reference/tom-medaljon"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "emblemer/kamp": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: round cluster emblem. The medallion itself is the subject, not an interface frame. Rendering: a perfectly circular medallion seen straight on, in dark neutral silver-grey enamel with a thin, plain silver rim and one simple central motif inlaid in bright pale silver, with bold shapes. The rim is completely plain: no inscriptions, lettering, notches, beads, laurels, ribbons, banners, stars or extra rings. Centered, filling about 90% of the canvas, fully transparent outside the disc. Greyscale only; colour is added afterwards.\nSubject: A round medallion emblem showing two crossed swords with their points upward.\nInput image is the exact shared empty medallion. Preserve its plain thin circular rim and neutral grey enamel. Add only the requested central silver motif, bold and large, readable at 24px. No extra decorations.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "reference/tom-medaljon"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "emblemer/hjemmebase": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: round cluster emblem. The medallion itself is the subject, not an interface frame. Rendering: a perfectly circular medallion seen straight on, in dark neutral silver-grey enamel with a thin, plain silver rim and one simple central motif inlaid in bright pale silver, with bold shapes. The rim is completely plain: no inscriptions, lettering, notches, beads, laurels, ribbons, banners, stars or extra rings. Centered, filling about 90% of the canvas, fully transparent outside the disc. Greyscale only; colour is added afterwards.\nSubject: A round medallion emblem showing a small cottage with a pitched roof, a chimney and one lit window.\nInput image is the exact shared empty medallion. Preserve its plain thin circular rim and neutral grey enamel. Add only the requested central silver motif, bold and large, readable at 24px. No extra decorations.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "reference/tom-medaljon"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "emblemer/den-hule-eg": {
+    "prompt": "Use case: precise-object-edit. Simplify the central motif of this silver RPG medallion so it is instantly recognizable at 24 pixels. Keep exactly the same circular plain thin silver rim, dark neutral grey enamel, upper-left light and transparent outside disc. Replace the elaborate complete tree with a close-up emblem of ONLY a massive old oak TRUNK with a large black hollow opening like a doorway in its lower center, two short thick branch stubs at the top, and THREE broad spreading roots. No canopy, NO leaves, no tiny branches, no fine roots, no decorative knots. The hollow doorway must be a strong large dark negative shape, occupying approximately 25 percent of disc height and 18 percent of disc width. Bright pale silver inlay, strong simple masses, restrained bark grooves. All motif inside the rim, neutral greyscale only. Square1024.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "reference/tom-medaljon"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py",
+    "foerste_prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: round cluster emblem. The medallion itself is the subject, not an interface frame. Rendering: a perfectly circular medallion seen straight on, in dark neutral silver-grey enamel with a thin, plain silver rim and one simple central motif inlaid in bright pale silver, with bold shapes. The rim is completely plain: no inscriptions, lettering, notches, beads, laurels, ribbons, banners, stars or extra rings. Centered, filling about 90% of the canvas, fully transparent outside the disc. Greyscale only; colour is added afterwards.\nSubject: A round medallion emblem showing a massive old oak trunk with a dark hollow opening at its base like a doorway, gnarled roots spreading around it.\nInput image is the exact shared empty medallion. Preserve its plain thin circular rim and neutral grey enamel. Add only the requested central silver motif, bold and large, readable at 24px. No extra decorations.",
+    "reference_revision": "Første generering for samme id; se kilder.json",
+    "valgt_kilde": "rettelser.json"
+  },
+  "noder/rodnet": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A tangle of living gnarled roots growing together into a loose, roughly round clump, with a single acorn nestled at its center and small violet flowers sprouting from the roots.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/tornehud": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: An empty forearm bracer standing upright on its own, made of hardened dark bark with lighter worn ridges, wrapped in thorny bramble vines with long sharp thorns pointing outward and small violet buds along the vines.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/urtemedicin": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A stone mortar and pestle filled with crushed green herbs, with a small bundle of dried herbs and lavender tied with twine lying beside it.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/plant-et-trae": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A young oak sapling with a few fresh leaves with a faint teal sheen, growing from a small mound of dark soil, with a wooden-handled trowel stuck in the ground beside it.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "noder/baeredygtig-faeldning": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms.\nSubject: A cleanly cut oak stump with a vigorous young shoot with a faint teal-green tint growing from its side, and a small neat stack of split logs next to it.\nInput image is a STYLE reference only for painting quality, upper-left light, crisp cutout and materials. Do not reproduce its breastplate. Paint only the requested subject, large simple forms. Transparent background.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "noder/kobberbrystplade"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "emblemer/druide": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: round cluster emblem. The medallion itself is the subject, not an interface frame. Rendering: a perfectly circular medallion seen straight on, in dark neutral silver-grey enamel with a thin, plain silver rim and one simple central motif inlaid in bright pale silver, with bold shapes. The rim is completely plain: no inscriptions, lettering, notches, beads, laurels, ribbons, banners, stars or extra rings. Centered, filling about 90% of the canvas, fully transparent outside the disc. Greyscale only; colour is added afterwards.\nSubject: A round medallion emblem showing a crescent moon cradling a sprig of mistletoe with small berries.\nInput image is the exact shared empty medallion. Preserve its plain thin circular rim and neutral grey enamel. Add only the requested central silver motif, bold and large, readable at 24px. No extra decorations.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "reference/tom-medaljon"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "emblemer/skovbrug": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nGame art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.\nAsset type: round cluster emblem. The medallion itself is the subject, not an interface frame. Rendering: a perfectly circular medallion seen straight on, in dark neutral silver-grey enamel with a thin, plain silver rim and one simple central motif inlaid in bright pale silver, with bold shapes. The rim is completely plain: no inscriptions, lettering, notches, beads, laurels, ribbons, banners, stars or extra rings. Centered, filling about 90% of the canvas, fully transparent outside the disc. Greyscale only; colour is added afterwards.\nSubject: A round medallion emblem showing a young sapling with two leaves sprouting from a small seed on a short line of soil.\nInput image is the exact shared empty medallion. Preserve its plain thin circular rim and neutral grey enamel. Add only the requested central silver motif, bold and large, readable at 24px. No extra decorations.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [
+      "reference/tom-medaljon"
+    ],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "silhuetter/bjergtinde": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nAsset type: distant landmark silhouette for unexplored fog. Draw a clear, solid light-grey silhouette mass on pure black, clearly brighter than the background, with aerial perspective and only subtle internal shading, anchored at the bottom center with clear empty space above and to the sides. No linework, outlines, lit windows or light sources, and nothing else in the image: no stars, moon, sky glow, ground plane, text or signature.\nSubject: A distant range of jagged snow-capped mountain peaks with one tall dominant summit.\nKeep generous black margins at top and sides. Large recognizable silhouette. Pure black background; solid pale grey mass; subtle internal shading.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "silhuetter/ruin": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nAsset type: distant landmark silhouette for unexplored fog. Draw a clear, solid light-grey silhouette mass on pure black, clearly brighter than the background, with aerial perspective and only subtle internal shading, anchored at the bottom center with clear empty space above and to the sides. No linework, outlines, lit windows or light sources, and nothing else in the image: no stars, moon, sky glow, ground plane, text or signature.\nSubject: Distant ancient ruins: a row of broken stone arches and crumbling walls beside a collapsed tower stump.\nKeep generous black margins at top and sides. Large recognizable silhouette. Pure black background; solid pale grey mass; subtle internal shading.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "silhuetter/taarn": {
+    "prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nAsset type: distant landmark silhouette for unexplored fog. Draw a clear, solid light-grey silhouette mass on pure black, clearly brighter than the background, with aerial perspective and only subtle internal shading, anchored at the bottom center with clear empty space above and to the sides. No linework, outlines, lit windows or light sources, and nothing else in the image: no stars, moon, sky glow, ground plane, text or signature.\nSubject: A solitary slender stone tower with a pointed spire standing on a rocky outcrop far in the distance.\nKeep generous black margins at top and sides. Large recognizable silhouette. Pure black background; solid pale grey mass; subtle internal shading.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py"
+  },
+  "silhuetter/den-hule-eg": {
+    "prompt": "Use case: precise-object-edit. Recompose this distant ancient oak silhouette on pure black. Preserve the broad partly leafless twisted oak, subtle grey internal shading, pale-grey solid silhouette, and no light sources. IMPORTANT exact square composition: crown top about 12 percent from top, broad canopy extending from y=12 to 48 percent, long massive trunk extending from y=42 to 82 percent, roots reaching y=96 percent. Keep 8 percent empty black margin left and right. The large DARK HOLLOW DOORWAY must be clearly visible in the trunk entirely between y=57 and y=72 percent, above the bottom quarter that will be faded away later. Extend the roots and lower trunk beneath the hollow, so the whole hollow remains visible above y=75 percent. No mist or haze painted around base, no glow, no eyes, no red, no stars, no additional scenery. This is a clear distant landmark silhouette, subtle internal values not detailed painting. Pure black background. 1024x1024.",
+    "model": "Indbygget image_gen; model valgt af værktøjet",
+    "dato": "2026-10-16",
+    "referencer": [],
+    "mode": "built-in",
+    "kilde": "kilder.json",
+    "efterbehandling": "eksporter.py",
+    "foerste_prompt": "Use case: stylized-concept. One square 1024x1024 game asset.\nAsset type: distant landmark silhouette for unexplored fog. Draw a clear, solid light-grey silhouette mass on pure black, clearly brighter than the background, with aerial perspective and only subtle internal shading, anchored at the bottom center with clear empty space above and to the sides. No linework, outlines, lit windows or light sources, and nothing else in the image: no stars, moon, sky glow, ground plane, text or signature.\nSubject: A colossal ancient oak far in the distance, with a broad, partly leafless crown of twisted branches and a dark hollow opening low in its massive trunk, just above the mist that hides its roots.\nKeep generous black margins at top and sides. Large recognizable silhouette. Pure black background; solid pale grey mass; subtle internal shading.",
+    "reference_revision": "Første generering for samme id; se kilder.json",
+    "valgt_kilde": "rettelser.json"
+  },
+  "baggrunde/taage": {
+    "prompt": "Asset type: seamless tileable greyscale texture, not an illustration. Greyscale only: white mist on pure black, no stars, no colour, using the full range from dark grey to bright white, evenly distributed all the way to every edge with no focal point. No text, signature or watermark.\nSubject: Soft, wispy drifting cosmic mist with varied density, from thicker billows to thin veils, evenly spread with no focal point and no hard edges.",
+    "model": "Procedurel fBm med wrap-around (tilladt i asset-listen)",
+    "dato": "2026-10-16",
+    "referencer": [],
+    "generator": "tonbare-lag.py",
+    "seed": 41026
+  },
+  "baggrunde/nebula": {
+    "prompt": "Asset type: seamless tileable greyscale texture, not an illustration. Greyscale only: white mist on pure black, no stars, no colour, using the full range from dark grey to bright white, evenly distributed all the way to every edge with no focal point. No text, signature or watermark.\nSubject: Large, soft, diffuse nebula clouds with broad, gentle shapes covering about half the area, no stars and no focal point.",
+    "model": "Procedurel fBm med wrap-around (tilladt i asset-listen)",
+    "dato": "2026-10-16",
+    "referencer": [],
+    "generator": "tonbare-lag.py",
+    "seed": 41026
+  },
+  "baggrunde/klyngesloer": {
+    "prompt": "Asset type: a single soft light shape, not an illustration. Greyscale only: white light on pure black, no stars, no colour, fading completely to black well before every edge. No text, signature or watermark.\nSubject: A single soft, irregular cloud of nebula light, densest near the center and thinning out organically, fading completely well before the image border.",
+    "model": "Procedurel fBm med wrap-around (tilladt i asset-listen)",
+    "dato": "2026-10-16",
+    "referencer": [],
+    "generator": "tonbare-lag.py",
+    "seed": 41026
+  },
+  "glyffer/slot-vaaben": {
+    "prompt": "Optisk forstørrelse af den eksisterende sværd-slot: bredere klinge og parerstang, felt 16–112, hul figur med 8 px godstykkelse, r=4 på afrundede rektangler, hvid SVG.",
+    "model": "SVG-geometri",
+    "dato": "2026-10-16",
+    "referencer": [
+      "glyffer/slot-vaaben"
+    ],
+    "generator": "glyf-rettelse.py"
+  }
+}

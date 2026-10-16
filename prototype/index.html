@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talenttræet</title>
+  <link rel="stylesheet" href="css/stil.css">
+</head>
+<body>
+  <canvas id="himmel" aria-hidden="true"></canvas>
+  <svg id="verden" role="application" aria-label="Talenttræets kort"></svg>
+
+  <div id="hud-top">
+    <div id="ressourcer"></div>
+    <div id="spiller-hud">
+      <div class="hp-bar"><div id="spiller-hp-fyld"></div></div>
+      <span id="spiller-hp-tekst"></span>
+    </div>
+    <div id="hud-knapper">
+      <button id="knap-hjem" class="knap sekundaer lille"></button>
+      <button id="knap-udvikler" class="knap sekundaer lille"></button>
+    </div>
+  </div>
+
+  <aside id="info" hidden></aside>
+  <div id="bjaelke" hidden></div>
+  <div id="kantpil" hidden></div>
+  <div id="beskeder" aria-live="polite"></div>
+  <div id="udvikler" hidden></div>
+  <div id="indlaeser">Indlæser temaet …</div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

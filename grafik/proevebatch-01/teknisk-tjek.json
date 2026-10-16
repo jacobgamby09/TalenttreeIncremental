@@ -1,0 +1,87 @@
+[
+  {
+    "id": "noder/eg",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 61639,
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "noder/kobberbrystplade",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 41383,
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "ressourcer/kobberbarre",
+    "size": [
+      128,
+      128
+    ],
+    "bytes": 14090,
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "portraetter/spiller",
+    "size": [
+      512,
+      512
+    ],
+    "bytes": 231851,
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "portraetter/ulv",
+    "size": [
+      512,
+      512
+    ],
+    "bytes": 297218,
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "emblemer/traefaeldning",
+    "size": [
+      256,
+      256
+    ],
+    "bytes": 86737,
+    "alpha_extrema": [
+      0,
+      255
+    ]
+  },
+  {
+    "id": "baggrunde/stjernehimmel",
+    "size": [
+      2048,
+      2048
+    ],
+    "bytes": 167820,
+    "seed": 16102026,
+    "seam_x": 0.3277994791666667,
+    "seam_y": 0.2625325520833333,
+    "inner_x": 0.19171570947321284,
+    "inner_y": 0.18563155494320957
+  }
+]

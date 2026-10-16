@@ -1,0 +1,13 @@
+# Afhængigheder og caches
+node_modules/
+__pycache__/
+*.pyc
+
+# Værktøjers midlertidige filer
+.playwright-mcp/
+*.log
+
+# Styresystemets filer
+.DS_Store
+Thumbs.db
+desktop.ini

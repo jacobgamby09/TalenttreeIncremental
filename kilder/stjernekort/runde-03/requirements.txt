@@ -1,0 +1,7 @@
+Pillow==12.2.0
+numpy==2.5.3
+scipy==1.18.1
+shapely==2.2.0
+rembg[cpu]==2.0.85
+onnxruntime==1.31.0
+zopfli==0.4.3

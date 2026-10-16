@@ -1,0 +1,13 @@
+Tema: temaer\stjernekort
+76 af 106 assets er leveret og godkendt.
+Mangler P1 (17): noder/styrke, noder/udholdenhed, noder/forsvar, noder/hurtige-haender, noder/kritisk-slag, noder/sav, noder/malmvogn, noder/slibesten, noder/baalplads, noder/blaesebaelg, noder/tilbygning, emblemer/minedrift, emblemer/smedje, emblemer/kamp, emblemer/hjemmebase, emblemer/den-hule-eg, baggrunde/taage
+Mangler P2 (13): noder/rodnet, noder/tornehud, noder/urtemedicin, noder/plant-et-trae, noder/baeredygtig-faeldning, emblemer/druide, emblemer/skovbrug, baggrunde/nebula, baggrunde/klyngesloer, silhuetter/bjergtinde, silhuetter/ruin, silhuetter/taarn, silhuetter/den-hule-eg
+
+Advarsler:
+- portraetter/spiller: motivets længste side fylder 93% af lærredet; målet for portraetter er ca. 80%
+- portraetter/goblin: motivets længste side fylder 89% af lærredet; målet for portraetter er ca. 80%
+- portraetter/ulv: motivets længste side fylder 97% af lærredet; målet for portraetter er ca. 80%
+- portraetter/traeets-vogter: motivets længste side fylder 92% af lærredet; målet for portraetter er ca. 80%
+- baggrunde/stjernehimmel: sømtjek udføres kun for PNG; test jpg-flisen som 3×3
+
+Exitkode: 1

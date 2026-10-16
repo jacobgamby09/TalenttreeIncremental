@@ -450,6 +450,12 @@ export function ryst(id) {
   g.classList.remove('ryst'); void g.getBoundingClientRect(); g.classList.add('ryst')
 }
 
+// Holder en klynge skjult på kortet, indtil dens afsløring køres (bruges efter offline progress)
+export function holdSkjult(klynge) {
+  skjulKlynge.add(klynge)
+  snavset = true
+}
+
 // Afsløring af en skjult klynge: kameraet zoomer ud, en gren vokser frem, og noderne folder sig ud
 export function koerAfsloering(klynge, naarVist = () => {}) {
   skjulKlynge.add(klynge)

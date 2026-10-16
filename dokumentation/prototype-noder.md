@@ -7,7 +7,7 @@ Forslaget dækker 58 nodes i seks klynger plus to skjulte klynger. Målet er, at
 ## Grundregler
 
 - Spilleren kan kun udføre én aktivitet ad gangen: indsamle, smelte eller kæmpe. Crafting er et klik og afbryder ikke den aktive aktivitet (assistentens antagelse, ikke afgjort af brugeren).
-- Hver skill har sit eget level og sin egen XP-bar. XP til næste level er 20 × 1,2^(level − 1). Level 8 kræver ca. 260 XP i alt, level 12 ca. 640 og level 15 ca. 1.180.
+- Hver skill har sit eget level og sin egen XP-bar. XP til næste level er 35 × 1,22^(level − 1). Level 8 kræver ca. 480 XP i alt, level 12 ca. 1.260 og level 15 ca. 2.420. Kurven er justeret med balanceringssimulatoren, se [balancering.md](balancering.md).
 - Synlighed: nodes ét skridt fra en åben node er synlige. Nodes to skridt væk vises som silhuetter i tåge. Længere væk er de usynlige. Skjulte klynger vises aldrig, heller ikke som tåge.
 - Modifiers har ranks (0/3) og betales med den ressource, de forbedrer.
 - Gear craftes én gang i smedjen og tages på i et udrustningsslot i hjemmebasen.
@@ -104,14 +104,14 @@ Dungeonen hænger på træfældningsklyngen bag låsen på Ask. Fra start vises 
 | Barkbille | 30 | 14 | 4 | 1,8 sek. | 15 |
 | Mosklump | 45 | 16 | 7 | 2,4 sek. | 20 |
 | Rasende egern | 35 | 18 | 3 | 1,2 sek. | 18 |
-| Træets vogter (boss) | 120 | 24 | 8 | 2,8 sek. | 150 |
+| Træets vogter (boss) | 160 | 26 | 8 | 2,8 sek. | 150 |
 
-Overslag over bossen med cirka 11 kamppoint fordelt som 4 Styrke, 3 Hurtige hænder, 2 Udholdenhed og 2 Forsvar:
+Overslag over hele dungeonen med Slibesten og Bålplads i hjemmebasen, beregnet med motorens `estimer`:
 
-- Med fuldt kobbergear er den umulig.
-- Med jernsværd og resten i kobber taber spilleren.
-- Med jernsværd, jernbrystplade og jernbenskinner vinder spilleren knebent.
-- Med fuldt jerngear vinder spilleren med cirka en fjerdedel af sine HP tilbage.
+- Med fuldt kobbergear eller jernsværd og resten i kobber taber spilleren, selv med 18 kamppoint.
+- Med 13 kamppoint (4 Styrke, 3 Hurtige hænder, 3 Forsvar, 3 Udholdenhed) og fuldt jerngear vinder spilleren knebent med 10 af 74 HP tilbage.
+- Med 15 kamppoint vinder jernsværd, jernbrystplade og jernbenskinner knebent (13 af 74 HP), og fuldt jerngear vinder med 27 af 74 HP.
+- I balanceringssimulatoren falder bossen efter 32-33 minutters spil (median), og botten har da kamp omkring lvl 14.
 
 Jernbrystpladen og jernbenskinnerne er dermed nøglen, og de kræver både pil og jern. Sejren åbner Ask og udløser den skjulte Druide-klynge.
 

@@ -162,6 +162,13 @@ button { font: inherit; }
 
 #udvikler { position: fixed; left: 14px; bottom: 16px; width: 260px; display: grid; gap: 8px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--panel-kant); border-radius: 12px; font-size: 13px; }
 #udvikler h3 { margin: 0; font-family: var(--skrift-overskrift); font-weight: 600; }
+#offline { position: fixed; inset: 0; display: grid; place-items: center; background: rgba(5, 7, 20, 0.6); backdrop-filter: blur(3px); }
+.offline-panel { width: min(420px, calc(100vw - 32px)); background: var(--panel); border: 1px solid var(--panel-kant); border-top: 3px solid #F5CF6B; border-radius: 14px; padding: 18px 20px; font-size: 14px; line-height: 1.5; }
+.offline-panel h2 { margin: 0 0 6px; font-family: var(--skrift-overskrift); font-weight: 600; font-size: 22px; }
+.offline-panel h3 { margin: 12px 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tekst-daempet); font-weight: 600; }
+.offline-panel p { margin: 4px 0; }
+.offline-liste { display: flex; flex-wrap: wrap; gap: 6px; }
+.offline-panel .handlinger { margin-top: 16px; }
 #indlaeser { position: fixed; inset: 0; display: grid; place-items: center; color: var(--tekst-daempet); font-size: 15px; background: var(--baggrund); }
 
 @media (max-width: 700px) {

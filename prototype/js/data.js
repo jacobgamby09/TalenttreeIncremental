@@ -4,8 +4,11 @@
 export const SPILLER_BASIS = { hp: 50, atk: 5, def: 2, tid: 2.0 }
 export const GENOPLIV_SEK = 10
 export const RESPAWN_SEK = 0.8
+// Offline progress tæller højst så mange timer med, og kun hvis man har været væk i mindst et minut
+export const OFFLINE_MAKS_TIMER = 8
+export const OFFLINE_MIN_SEK = 60
 
-export const xpTilNaeste = lvl => Math.round(20 * 1.2 ** (lvl - 1))
+export const xpTilNaeste = lvl => Math.round(35 * 1.22 ** (lvl - 1))
 
 export const SKILLS = {
   traefaeldning: { navn: 'Træfældning', klynge: 'traefaeldning' },
@@ -127,7 +130,7 @@ export const NODER = [
     monster: { flertal: 'goblins', hp: 30, atk: 8, def: 2, tid: 2.2, xp: 12, drop: { ressource: 'laeder', chance: 0.4 }, farming: true } },
   { id: 'ulv', klynge: 'kamp', type: 'monster', navn: 'Ulv', ikon: 'portraetter/ulv', pos: [2360, 1980], kampPlads: [-100, 0],
     synligKrav: { drab: { goblin: 15 } },
-    monster: { hp: 45, atk: 12, def: 3, tid: 1.6, xp: 22, drop: { ressource: 'ulveskind', chance: 0.35 }, farming: true } },
+    monster: { flertal: 'ulve', hp: 45, atk: 12, def: 3, tid: 1.6, xp: 22, drop: { ressource: 'ulveskind', chance: 0.35 }, farming: true } },
 
   // Kamp: stat-nodes
   { id: 'styrke', klynge: 'kamp', type: 'stat', navn: 'Styrke', ikon: 'noder/styrke', pos: [1900, 2200], stat: { ranks: 5, effekt: { atk: 1 } } },
@@ -140,10 +143,10 @@ export const NODER = [
 
   // Dungeon: Den hule eg
   ...[
-    ['barkbille', 'Barkbille', [900, 1090], { hp: 30, atk: 14, def: 4, tid: 1.8, xp: 15 }],
-    ['mosklump', 'Mosklump', [720, 1090], { hp: 45, atk: 16, def: 7, tid: 2.4, xp: 20 }],
-    ['rasende-egern', 'Rasende egern', [540, 1090], { hp: 35, atk: 18, def: 3, tid: 1.2, xp: 18 }],
-    ['traeets-vogter', 'Træets vogter', [340, 1090], { hp: 120, atk: 24, def: 8, tid: 2.8, xp: 150, boss: true }],
+    ['barkbille', 'Barkbille', [900, 1090], { flertal: 'barkbiller', hp: 30, atk: 14, def: 4, tid: 1.8, xp: 15 }],
+    ['mosklump', 'Mosklump', [720, 1090], { flertal: 'mosklumper', hp: 45, atk: 16, def: 7, tid: 2.4, xp: 20 }],
+    ['rasende-egern', 'Rasende egern', [540, 1090], { flertal: 'rasende egern', hp: 35, atk: 18, def: 3, tid: 1.2, xp: 18 }],
+    ['traeets-vogter', 'Træets vogter', [340, 1090], { flertal: 'vogtere', hp: 160, atk: 26, def: 8, tid: 2.8, xp: 150, boss: true }],
   ].map(([id, navn, pos, monster], index) => ({
     id, klynge: 'den-hule-eg', type: 'monster', navn, ikon: `portraetter/${id}`, pos, kampPlads: [0, monster.boss ? 140 : 125],
     synligKrav: { skill: 'traefaeldning', lvl: 12 }, dungeon: { id: 'den-hule-eg', index }, monster,

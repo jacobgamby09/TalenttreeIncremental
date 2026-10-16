@@ -1,15 +1,19 @@
 // Spilmotoren: tilstand, aktiviteter, kamp, krav, synlighed og køb.
 import {
   NODER, KANTER, KLYNGER, SKILLS, RESSOURCER, SLOTS, SPILLER_BASIS, GENOPLIV_SEK, RESPAWN_SEK, STARTNODER, xpTilNaeste,
+  OFFLINE_MAKS_TIMER,
 } from './data.js'
 
-let GEM_NOEGLE = 'talenttrae-prototype-v1'
+const GEM_VERSION = 2
+
+const NORMAL_NOEGLE = 'talenttrae-prototype-v1'
+let GEM_NOEGLE = NORMAL_NOEGLE
 let demo = null
 
-// Et demo-load bruger sit eget gemte spil, så det normale spil ikke overskrives
+// Et demo-load bruger sit eget gemte spil, så det normale spil ikke overskrives. null skifter tilbage.
 export function brugDemo(navn) {
-  demo = navn
-  GEM_NOEGLE = `talenttrae-prototype-v1-${navn}`
+  demo = navn ?? null
+  GEM_NOEGLE = demo ? `${NORMAL_NOEGLE}-${demo}` : NORMAL_NOEGLE
 }
 
 export const noder = new Map(NODER.map(n => [n.id, n]))
@@ -19,7 +23,11 @@ export const dungeonRaekke = NODER.filter(n => n.dungeon).sort((a, b) => a.dunge
 
 function nyTilstand() {
   return {
-    version: 1,
+    version: GEM_VERSION,
+    spilletid: 0,
+    offlinetid: 0,
+    gemtTid: null,
+    milepaele: {},
     ressourcer: Object.fromEntries(Object.keys(RESSOURCER).map(r => [r, 0])),
     sete: [],
     xp: Object.fromEntries(Object.keys(SKILLS).map(s => [s, 0])),
@@ -47,7 +55,36 @@ export const spil = {
   status: new Map(),
   lyttere: new Map(),
   on(type, fn) { (this.lyttere.get(type) ?? this.lyttere.set(type, []).get(type)).push(fn) },
-  emit(type, data) { for (const fn of this.lyttere.get(type) ?? []) fn(data) },
+  // Under offline progress optages hændelserne i stedet for at blive sendt til UI'et
+  optag: null,
+  emit(type, data) {
+    if (this.optag) { this.optag.push({ type, data }); return }
+    for (const fn of this.lyttere.get(type) ?? []) fn(data)
+  },
+}
+
+// Milepæle med spilletid, til balanceringssimulatoren og playtests
+export const MILEPAELE = [
+  { id: 'foerste-gear', navn: 'Første gear craftet', ok: t => t.craftet.length > 0 },
+  { id: 'goblin', navn: 'Første goblin besejret', ok: t => (t.drab.goblin ?? 0) > 0 },
+  { id: 'pil', navn: 'Pil låst op (træfældning lvl 8)', ok: () => level('traefaeldning') >= 8 },
+  { id: 'jernmalm', navn: 'Jernmalm låst op (minedrift lvl 8)', ok: () => level('minedrift') >= 8 },
+  { id: 'jernbarre', navn: 'Første jernbarre', ok: t => t.sete.includes('jernbarre') },
+  { id: 'ulv', navn: 'Første ulv besejret', ok: t => (t.drab.ulv ?? 0) > 0 },
+  { id: 'jernbrystplade', navn: 'Jernbrystplade craftet', ok: t => t.craftet.includes('jernbrystplade') },
+  { id: 'dungeon', navn: 'Dungeonen synlig (træfældning lvl 12)', ok: () => level('traefaeldning') >= 12 },
+  { id: 'boss', navn: 'Træets vogter besejret', ok: t => !!t.besejret['traeets-vogter'] },
+  { id: 'skovbrug', navn: 'Skovbrug afsløret', ok: t => !!t.afsloeret.skovbrug },
+  { id: 'ask', navn: 'Ask låst op', ok: t => level('traefaeldning') >= 15 && !!t.besejret['traeets-vogter'] },
+]
+function tjekMilepaele() {
+  const t = spil.t
+  for (const m of MILEPAELE) {
+    if (t.milepaele[m.id] === undefined && m.ok(t)) {
+      t.milepaele[m.id] = Math.round(t.spilletid)
+      spil.emit('milepael', { id: m.id, tid: t.spilletid })
+    }
+  }
 }
 
 // Level og XP
@@ -399,6 +436,7 @@ function doed(n) {
 export function tick(dtReal) {
   const dt = dtReal * spil.fart
   const t = spil.t
+  t.spilletid += dt
   const s = spillerStats()
   if (t.hp === null || t.hp > s.hp) t.hp = Math.min(t.hp ?? s.hp, s.hp)
   const a = t.aktivitet
@@ -422,6 +460,49 @@ export function tick(dtReal) {
     while (rest > 0 && spil.t.aktivitet === a) { const skridt = Math.min(rest, 0.05); kampTick(skridt); rest -= skridt }
   }
   tjekAfsloeringer()
+  tjekMilepaele()
+}
+
+// Offline progress: spillet kører videre i den tid, spilleren har været væk (højst OFFLINE_MAKS_TIMER).
+// Hændelserne optages, så UI'et kan vise en opsummering og spille afsløringer bagefter.
+export function simulerOffline(sekunder) {
+  const maks = OFFLINE_MAKS_TIMER * 3600
+  const brugt = Math.min(Math.max(0, sekunder), maks)
+  const foer = {
+    ressourcer: { ...spil.t.ressourcer },
+    levels: Object.fromEntries(Object.keys(SKILLS).map(s => [s, level(s)])),
+    drab: { ...spil.t.drab },
+    aktivitet: spil.t.aktivitet?.node ?? null,
+  }
+  const fart = spil.fart
+  spil.fart = 1
+  spil.optag = []
+  let rest = brugt
+  try {
+    while (rest > 0) {
+      const skridt = Math.min(rest, 5)
+      tick(skridt)
+      rest -= skridt
+    }
+    // Synlighed afhænger kun af den samlede fremgang, så den beregnes én gang til sidst
+    beregnStatus()
+  } finally {
+    spil.fart = fart
+  }
+  const haendelser = spil.optag
+  spil.optag = null
+  spil.t.offlinetid += brugt
+  const forskel = (efter, foerVal) => Object.fromEntries(Object.entries(efter).map(([k, v]) => [k, v - (foerVal[k] ?? 0)]).filter(([, v]) => Math.abs(v) >= 1))
+  return {
+    sekunder, brugt, kappet: sekunder > maks,
+    aktivitet: foer.aktivitet,
+    stoppet: !!foer.aktivitet && !spil.t.aktivitet,
+    ressourcer: forskel(spil.t.ressourcer, foer.ressourcer),
+    levels: Object.keys(SKILLS).filter(s => level(s) > foer.levels[s]).map(s => ({ skill: s, fra: foer.levels[s], til: level(s) })),
+    drab: forskel(spil.t.drab, foer.drab),
+    doed: haendelser.some(h => h.type === 'doed'),
+    haendelser,
+  }
 }
 
 // Overslag over en kamp eller hele dungeonen uden tilfældighed (kritiske slag som gennemsnit)
@@ -450,6 +531,7 @@ export function estimer(ids) {
 
 // Gem og indlæs
 export function gem() {
+  spil.t.gemtTid = Date.now()
   try { localStorage.setItem(GEM_NOEGLE, JSON.stringify(spil.t)) } catch { /* privat vindue eller fuld lagring */ }
 }
 // Et spil, hvor hele kortet er synligt: høje levels, bossen besejret og alle klynger afsløret. Intet er købt endnu.
@@ -468,12 +550,25 @@ function altSynligtTilstand() {
 }
 const startTilstand = () => (demo === 'alt' ? altSynligtTilstand() : nyTilstand())
 
+// Opgraderer et gemt spil til den nuværende version. Returnerer null for ukendte, nyere versioner.
+export function migrer(gemt) {
+  if (!gemt || typeof gemt !== 'object') return null
+  let g = { ...gemt }
+  if (g.version === 1) g = { ...g, version: 2, spilletid: 0, offlinetid: 0, gemtTid: null, milepaele: {} }
+  return g.version === GEM_VERSION ? g : null
+}
+
 export function indlaes() {
   try {
     const raw = localStorage.getItem(GEM_NOEGLE)
     if (raw) {
-      const gemt = JSON.parse(raw)
-      if (gemt.version === 1) spil.t = { ...nyTilstand(), ...gemt }
+      const gemt = migrer(JSON.parse(raw))
+      if (gemt) spil.t = { ...nyTilstand(), ...gemt }
+      else {
+        // Et gemt spil fra en nyere version gemmes til side i stedet for at blive overskrevet
+        try { localStorage.setItem(`${GEM_NOEGLE}-backup`, raw) } catch { /* ignoreres */ }
+        spil.t = startTilstand()
+      }
     } else spil.t = startTilstand()
   } catch { spil.t = startTilstand() }
   if (!spil.t.opdagede.length) spil.t.opdagede = [...STARTNODER]

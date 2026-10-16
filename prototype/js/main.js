@@ -1,9 +1,9 @@
 // Opstart og spilløkke.
-import { KLYNGER, RESSOURCER } from './data.js'
-import { spil, noder, tick, beregnStatus, indlaes, gem, brugDemo } from './spil.js'
+import { KLYNGER, RESSOURCER, OFFLINE_MIN_SEK } from './data.js'
+import { spil, noder, tick, beregnStatus, indlaes, gem, brugDemo, simulerOffline } from './spil.js'
 import { indlaesTema } from './tema.js'
-import { opsaetKort, frame, markerSnavset, flyvTil, koerAfsloering, nodePop, spillerPop, ryst, tilSkaerm } from './kort.js'
-import { opsaetUi, uiFrame, vaelg, besked, opdaterInfo } from './ui.js'
+import { opsaetKort, frame, markerSnavset, flyvTil, koerAfsloering, holdSkjult, nodePop, spillerPop, ryst, tilSkaerm } from './kort.js'
+import { opsaetUi, uiFrame, vaelg, besked, opdaterInfo, visOffline } from './ui.js'
 import { T, tal } from './tekster.js'
 
 const parametre = new URLSearchParams(location.search)
@@ -14,11 +14,17 @@ async function start() {
   await indlaesTema(temaNavn)
   if (demo) brugDemo(demo)
   indlaes()
+  const offline = koerOffline()
   opsaetKort({ onVaelg: id => vaelg(id) })
   if (demo) flyvTil(1850, 1450, 0.42, 1)
   opsaetUi()
   forbindHaendelser()
   document.getElementById('indlaeser').remove()
+  if (offline) {
+    const afspil = () => offline.klynger.forEach(k => koerAfsloering(k, () => besked(T.besked.nyKlynge(KLYNGER[k].navn), 'stor')))
+    if (offline.aktivitet) visOffline(offline, afspil)
+    else afspil()
+  }
 
   let sidst = performance.now()
   let statusUr = 0, gemUr = 0
@@ -42,6 +48,18 @@ async function start() {
   requestAnimationFrame(loekke)
   window.addEventListener('beforeunload', gem)
   window.spil = spil
+}
+
+// Tiden siden sidste gem køres som offline progress, før kortet tegnes.
+// Klynger, der blev afsløret imens, holdes skjult, så afsløringen kan ses, når opsummeringen lukkes.
+function koerOffline() {
+  const vaek = spil.t.gemtTid ? (Date.now() - spil.t.gemtTid) / 1000 : 0
+  if (vaek < OFFLINE_MIN_SEK) return null
+  const r = simulerOffline(vaek)
+  const klynger = r.haendelser.filter(h => h.type === 'afsloering').map(h => h.data.klynge)
+  for (const k of klynger) holdSkjult(k)
+  gem()
+  return { ...r, klynger }
 }
 
 function forbindHaendelser() {

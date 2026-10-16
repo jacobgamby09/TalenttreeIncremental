@@ -10,6 +10,7 @@
   "scripts": {
     "start": "node tools/serve.mjs",
     "test": "node --test tests/*.test.mjs",
+    "simuler": "node tools/simuler.mjs 20 --skriv",
     "tjek:assets": "node tools/tjek-assets.mjs",
     "asset-liste": "node tools/lav-asset-liste.mjs",
     "tjek": "npm test && npm run tjek:assets"

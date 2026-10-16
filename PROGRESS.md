@@ -12,8 +12,9 @@ Senest opdateret: 2026-10-16
 | Nodeliste | 58 nodes i seks klynger plus to skjulte. Første udkast til tal | [prototype-noder.md](dokumentation/prototype-noder.md) |
 | Asset-kontrakt | 106 assets i manifestet, med tjek og genereret liste | [asset-manifest.json](temaer/asset-manifest.json), [asset-liste.md](dokumentation/asset-liste.md) |
 | Tema: stjernekort | Komplet: 106 af 106 godkendt af tjekket | [temaer/stjernekort](temaer/stjernekort), [kilder/stjernekort](kilder/stjernekort) |
-| Prototype | Spilbar med alle 58 nodes og alle lag. Ikke balanceret | [prototype/](prototype/) |
-| Tests | 13 tests af spilmotoren, alle består | [tests/](tests/) |
+| Prototype | Spilbar med alle 58 nodes og alle lag, offline progress og versioneret gem | [prototype/](prototype/) |
+| Balancering | Målt med bot-simulator: alle milepæle inden for målene, bossen falder efter ca. 33 min. Ikke afprøvet med rigtige spillere | [balancering.md](dokumentation/balancering.md) |
+| Tests | 18 tests af spilmotoren, alle består | [tests/](tests/) |
 | Grafisk retning | Ikke valgt. Stjernekortet er det fulde tema; tegneserie og pixel udforskes | [grafik/](grafik/) |
 
 ## I gang
@@ -22,12 +23,13 @@ Senest opdateret: 2026-10-16
 
 ## Næste skridt
 
-1. Vurdér pixel-moodboards, når de er leveret, og sammenlign med stjernekortet og tegneseriestilen.
-2. Brugeren spiller prototypen igennem og vælger grafisk retning.
-3. Balancering: i en automatisk test nåede træfældning lvl 10 på fem minutter, hurtigere end de planlagte 30-45 minutter frem til bossen.
-4. Tågens langsomme bevægelse med to kopier i forskellig skala, som tema.json lægger op til.
-5. Versionsstyring med git, så ændringer kan følges og rulles tilbage. Brugeren har valgt at vente med det.
-6. Bevidst udeladt indtil videre: offline progress, mad og cooking, flere gear-tiers, prestige og lyd.
+1. Playtests med rigtige spillere: mål milepælstider (gemt i `milepaele` i det gemte spil) og sammenlign med botten.
+2. Vurdér pixel-moodboards, når de er leveret, og sammenlign med stjernekortet og tegneseriestilen.
+3. Brugeren spiller prototypen igennem og vælger grafisk retning.
+4. Afprøv offline progress: 8 timer med fuld effekt giver mange levels i forhold til prototypens cirka 40 minutters indhold.
+5. Botten når aldrig Skovbrug (300 eg) i sin rute. Overvej, om grænsen skal sænkes, eller om det er fint, at Skovbrug kommer senere.
+6. Tågens langsomme bevægelse med to kopier i forskellig skala, som tema.json lægger op til.
+7. Bevidst udeladt indtil videre: mad og cooking, flere gear-tiers, prestige og lyd.
 
 ## Åbne spørgsmål til brugeren
 
@@ -35,17 +37,30 @@ Senest opdateret: 2026-10-16
 - Tegneseriens leverance taler om "den valgte tegneseriestil". Er tegneserie besluttet, eller er det stadig en prøve?
 - Er det ok, at gear craftes én gang og vælges i sit slot uden et egentligt inventory? Prototypen gør det sådan nu.
 - Skal spillets tekster være på dansk eller engelsk? Prototypen er på dansk nu.
+- Skal offline progress give fuld effekt i op til 8 timer, eller mindre? Det er assistentens valg indtil videre.
 
 ## Kendte problemer
 
 - Konsollen viser 404 for `favicon.ico`.
 - Stjernehimlen er en JPG, så sømmen tjekkes ikke automatisk. Den er godkendt visuelt i en 3×3-prøve.
-- Balanceringen er ikke afprøvet med rigtige spillere.
+- Balanceringen er kun målt med en bot, ikke med rigtige spillere.
 - Prototypen er kun afprøvet på desktop, ikke på mobil.
 
 ## Log
 
 Nyeste først.
+
+### 2026-10-16 · Claude · Balanceringssimulator og offline progress
+
+- `tools/simuler.mjs` (`npm run simuler`): en bot spiller prototypen 20 gange med faste frø og skriver milepælstider til `dokumentation/balancering.md`.
+- Balance justeret efter målingen: XP-kurven er nu 35 × 1,22^(level − 1), og Træets vogter har 160 HP og 26 ATK. Bossen falder efter 32:35 (median), og alle milepæle ligger inden for målene.
+- Gemt spil er versioneret (version 2) med migrering fra version 1. Et gemt spil fra en ukendt version gemmes som backup i stedet for at blive overskrevet. Spilletid og milepæle gemmes.
+- Offline progress: aktiviteten fortsætter i op til 8 timer, og et vindue "Mens du var væk" viser resultatet. Klynger afsløret imens afsløres, når vinduet lukkes. Afprøvet i browseren.
+- 5 nye tests (18 i alt).
+
+### 2026-10-16 · Claude · Git
+
+- Repository oprettet og skubbet til https://github.com/jacobgamby09/TalenttreeIncremental (gren `main`). `grafik/pixel-moodboards/` er ikke med, fordi Codex arbejder i mappen.
 
 ### 2026-10-16 · Claude · Projektstruktur og tests
 

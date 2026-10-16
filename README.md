@@ -22,6 +22,7 @@ Spillet gemmes i browseren. Knappen Udvikler giver højere spilfart, ressourcer 
 |---|---|
 | `npm start` | Starter prototypen på http://localhost:5173/prototype/ |
 | `npm test` | Kører testene af spilmotoren |
+| `npm run simuler` | Lader en bot spille prototypen og måler, hvornår milepælene nås |
 | `npm run tjek:assets` | Tjekker temaets billedfiler mod manifestet |
 | `npm run asset-liste` | Genererer asset-listen igen ud fra manifestet |
 | `npm run tjek` | Kører både tests og asset-tjek |
@@ -30,6 +31,7 @@ Spillet gemmes i browseren. Knappen Udvikler giver højere spilfart, ressourcer 
 
 - [Spilkoncept og beslutninger](dokumentation/spilkoncept.md): skelner mellem brugerens beslutninger, brugerens mulige udvidelser og agenternes forslag
 - [Nodeliste](dokumentation/prototype-noder.md): alle prototypens nodes med krav, priser og effekter
+- [Balancering](dokumentation/balancering.md): milepælstider fra balanceringssimulatoren (genereres)
 - [Idéhistorik](dokumentation/idehistorik.md): brugerens kreative beskeder, ordret
 - [Asset-liste](dokumentation/asset-liste.md): genereret fra [asset-manifest.json](temaer/asset-manifest.json) og [stjernekortets tema.json](temaer/stjernekort/tema.json)
 - [De otte første stilskitser](konceptbilleder/OVERSIGT.md) og [deres prompts](konceptbilleder/billedprompts.md)

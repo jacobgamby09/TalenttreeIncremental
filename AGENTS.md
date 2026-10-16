@@ -42,6 +42,7 @@ Kræver Node.js 22 eller nyere. Der skal ikke installeres noget.
 |---|---|
 | `npm start` | Starter serveren. Prototypen kører på http://localhost:5173/prototype/ |
 | `npm test` | Kører testene af spilmotoren |
+| `npm run simuler` | Lader en bot spille prototypen 20 gange og skriver milepælstider til `dokumentation/balancering.md` |
 | `npm run tjek:assets` | Tjekker temaets filer mod manifestet (standard: `temaer/stjernekort`) |
 | `npm run asset-liste` | Genererer `dokumentation/asset-liste.md` ud fra manifestet og tema.json |
 | `npm run tjek` | Kører både tests og asset-tjek |
@@ -52,7 +53,7 @@ I prototypen viser `?load=alt` et demo-spil, hvor hele kortet er synligt, og `?t
 
 | Emne | Sandheden | Hold i takt med |
 |---|---|---|
-| Spildata (nodes, tal, krav) | `prototype/js/data.js` | `dokumentation/prototype-noder.md` |
+| Spildata (nodes, tal, krav) | `prototype/js/data.js` | `dokumentation/prototype-noder.md`, `dokumentation/balancering.md` (genereres med `npm run simuler`) |
 | Spilregler | `prototype/js/spil.js` | `dokumentation/spilkoncept.md`, `tests/` |
 | Spillets tekster | `prototype/js/tekster.js` | |
 | Hvilke billedfiler findes | `temaer/asset-manifest.json` | `dokumentation/asset-liste.md` (genereres, ret den aldrig i hånden) |
@@ -97,6 +98,7 @@ I prototypen viser `?load=alt` et demo-spil, hvor hele kortet er synligt, og `?t
 ## Definition af færdig
 
 - `npm test` består.
+- Er balancetal i `data.js` ændret, er `npm run simuler` kørt, og alle milepæle ligger inden for målene.
 - `npm run tjek:assets` giver ingen fejl. Den kendte advarsel om manuelt sømtjek af stjernehimlens JPG er i orden.
 - Prototypen starter uden fejl i konsollen, bortset fra en manglende favicon.
 - Berørte dokumenter er opdateret, og PROGRESS.md har en ny post i loggen.

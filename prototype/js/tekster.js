@@ -4,6 +4,11 @@ import { RESSOURCER, SKILLS, SLOTS } from './data.js'
 export const tal = (v, dec = 0) => Number(v).toLocaleString('da-DK', { minimumFractionDigits: dec, maximumFractionDigits: dec })
 export const sek = v => `${tal(v, 1)} sek.`
 export const pct = v => `${tal(v * 100, 0)}%`
+export const varighed = s => {
+  const t = Math.floor(s / 3600), min = Math.floor((s % 3600) / 60)
+  if (t > 0) return `${t} t ${min} min`
+  return min > 0 ? `${min} min` : `${Math.round(s)} sek.`
+}
 
 export const T = {
   titel: 'Talenttræet',
@@ -89,6 +94,20 @@ export const T = {
     gaaTil: 'Klik for at gå dertil',
     venter: 'Næste monster …',
     doed: s => `Genopliver om ${tal(Math.ceil(s))} sek.`,
+  },
+
+  offline: {
+    titel: 'Mens du var væk',
+    vaek: tid => `Du var væk i ${tid}.`,
+    kappet: timer => `Der tælles højst ${timer} timer med.`,
+    aktivitet: navn => `Aktivitet: ${navn}`,
+    stoppet: 'Aktiviteten stoppede undervejs, fx fordi ressourcerne slap op.',
+    doed: 'Du blev besejret undervejs og hvilede resten af tiden.',
+    ressourcer: 'Ressourcer',
+    levels: 'Nye levels',
+    drab: 'Besejrede monstre',
+    afsloeringer: n => (n === 1 ? 'Noget nyt er dukket op på kortet.' : `${n} nye ting er dukket op på kortet.`),
+    fortsaet: 'Fortsæt',
   },
 
   udvikler: {

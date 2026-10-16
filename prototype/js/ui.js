@@ -1,11 +1,11 @@
 // HUD: ressourcer, infopanel, aktivitetsbjælke, pil i skærmkanten, beskeder og udviklerpanel.
-import { RESSOURCER, KLYNGER, VERDEN } from './data.js'
+import { RESSOURCER, KLYNGER, VERDEN, OFFLINE_MAKS_TIMER } from './data.js'
 import {
   spil, noder, rank, level, kamppoint, kanBetale, kravListe, kravOpfyldt, aktivitetsTid, aktivitetsXp, dobbeltChance,
   spillerStats, estimer, startAktivitet, stopAktivitet, koebRank, craft, udrust, byg, saetISocket, socketAntal, dungeonRaekke, udvikler, nulstil,
 } from './spil.js'
 import { tema } from './tema.js'
-import { T, tal, sek, pct } from './tekster.js'
+import { T, tal, sek, pct, varighed } from './tekster.js'
 import { flyvTil, tilSkaerm, langtUde, markerSnavset, saetValgt } from './kort.js'
 
 const $ = id => document.getElementById(id)
@@ -315,6 +315,42 @@ export function besked(tekst, klasse = '') {
   while (liste.children.length > 4) liste.firstElementChild.remove()
   setTimeout(() => b.classList.add('vaek'), 3200)
   setTimeout(() => b.remove(), 3800)
+}
+
+// Opsummering efter offline progress. naarLukket kaldes, når spilleren trykker Fortsæt.
+export function visOffline(r, naarLukket = () => {}) {
+  const O = T.offline
+  const chip = indhold => `<span class="pris">${indhold}</span>`
+  const ressourcer = Object.entries(r.ressourcer).sort((a, b) => b[1] - a[1])
+    .map(([id, n]) => chip(`${ressourceIkon(id, 16)}${n > 0 ? '+' : '−'}${tal(Math.abs(n))} ${esc(T.ressource(id).toLowerCase())}`))
+  const levels = r.levels.map(l => chip(`${esc(T.skill(l.skill))} ${l.fra} → ${l.til}`))
+  const drab = Object.entries(r.drab).map(([id, n]) => {
+    const node = noder.get(id)
+    return chip(`${tal(n)} ${esc((n === 1 ? node.navn : node.monster.flertal ?? node.navn).toLowerCase())}`)
+  })
+  const afsnit = (titel, dele) => (dele.length ? `<h3>${titel}</h3><div class="offline-liste">${dele.join('')}</div>` : '')
+  const p = $('offline')
+  p.innerHTML = `<div class="offline-panel">
+    <h2 id="offline-titel">${O.titel}</h2>
+    <p>${O.vaek(varighed(r.sekunder))}${r.kappet ? ` ${O.kappet(OFFLINE_MAKS_TIMER)}` : ''}</p>
+    <p>${O.aktivitet(esc(noder.get(r.aktivitet).navn))}</p>
+    ${r.doed ? `<p>${O.doed}</p>` : r.stoppet ? `<p>${O.stoppet}</p>` : ''}
+    ${afsnit(O.ressourcer, ressourcer)}${afsnit(O.levels, levels)}${afsnit(O.drab, drab)}
+    ${r.klynger.length ? `<p>${O.afsloeringer(r.klynger.length)}</p>` : ''}
+    <div class="handlinger"><button class="knap" data-offline-luk>${O.fortsaet}</button></div>
+  </div>`
+  p.hidden = false
+  const knap = p.querySelector('[data-offline-luk]')
+  const luk = () => {
+    p.hidden = true
+    p.innerHTML = ''
+    window.removeEventListener('keydown', tast)
+    naarLukket()
+  }
+  const tast = e => { if (e.key === 'Escape' || e.key === 'Enter') { e.preventDefault(); luk() } }
+  knap.addEventListener('click', luk)
+  window.addEventListener('keydown', tast)
+  knap.focus()
 }
 
 // Udviklerpanel

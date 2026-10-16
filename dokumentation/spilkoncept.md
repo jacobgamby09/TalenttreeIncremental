@@ -167,6 +167,21 @@ Tilføjelser:
 
 Aktivitetsbjælken er ikke kun til combat. Fordi spilleren kun har én aktivitet ad gangen, viser den samme bjælke også fremdriften i woodcutting, mining og smeltning.
 
+### Offline progress
+
+Brugeren bad om offline progress 16. oktober 2026. Detaljerne nedenfor er assistentens valg og kan ændres:
+
+- Den aktivitet, der kørte, da spilleren lukkede spillet, fortsætter med fuld effekt i den tid, spilleren var væk.
+- Der tælles højst 8 timer med, og under et minut tæller ikke.
+- Taber spilleren en kamp undervejs, stopper aktiviteten, ligesom når man spiller.
+- Ved næste start vises et vindue, "Mens du var væk", med tid, ressourcer, levels og drab. Klynger, der blev afsløret imens, holdes skjult, indtil vinduet lukkes, så afsløringen stadig kan ses.
+
+Åbent punkt: prototypens indhold varer cirka 40 minutter, mens 8 timers træfældning giver omkring 28 levels. Effekten og grænsen bør afprøves, før de låses.
+
+### Balanceringssimulator
+
+`npm run simuler` lader en bot spille prototypen 20 gange med faste tilfældighedsfrø og måler, hvornår milepælene nås. Resultatet skrives til [balancering.md](balancering.md). Botten spiller nærmest optimalt, så rigtige spillere vil være langsommere. Målene ligger i `tools/simuler.mjs`.
+
 ### Nodeliste til første prototype
 
 Et konkret forslag til prototypens nodes med krav, priser og effekter ligger i [prototype-noder.md](prototype-noder.md). Det er ikke vedtaget, og tallene er første udkast.
@@ -195,4 +210,4 @@ Vigtig forskel mellem billeder og idé: flere billeder viser en rund eller buet 
 
 ## Næste beslutninger, når arbejdet fortsætter
 
-Den første prototype er bygget 16. oktober 2026 i `prototype/` som ren JavaScript med et SVG-kort, uden byggetrin. Den dækker alle 58 nodes fra nodelisten: én aktivitet ad gangen, crafting med klik, modifiers med ranks, udrustning og sockets i hjemmebasen, kamppoint, combat ved noden med aktivitetsbjælke og pil i skærmkanten, farmingområder, dungeonen med boss, synlighed med tåge og afsløring af Druide og Skovbrug. Den endelige grafiske retning, platform og motor er ikke valgt. Balanceringen er ikke afprøvet med rigtige spillere; i en automatisk test nåede træfældning lvl 10 på 5 minutter, hvilket er hurtigere end planlagt. Mulige næste emner er omfanget af en første spilbar kreds, den præcise håndtering af aktivitetsskift og crafting samt simple regler for kamp og nederlag. Denne liste er en opsamling af åbne emner, ikke en bestilling på at implementere dem.
+Den første prototype er bygget 16. oktober 2026 i `prototype/` som ren JavaScript med et SVG-kort, uden byggetrin. Den dækker alle 58 nodes fra nodelisten: én aktivitet ad gangen, crafting med klik, modifiers med ranks, udrustning og sockets i hjemmebasen, kamppoint, combat ved noden med aktivitetsbjælke og pil i skærmkanten, farmingområder, dungeonen med boss, synlighed med tåge og afsløring af Druide og Skovbrug. Den endelige grafiske retning, platform og motor er ikke valgt. Balanceringen er målt med balanceringssimulatoren, hvor botten besejrer bossen efter cirka 33 minutter, men den er ikke afprøvet med rigtige spillere. Mulige næste emner er omfanget af en første spilbar kreds, den præcise håndtering af aktivitetsskift og crafting samt simple regler for kamp og nederlag. Denne liste er en opsamling af åbne emner, ikke en bestilling på at implementere dem.

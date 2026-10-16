@@ -6,6 +6,7 @@ import assert from 'node:assert/strict'
 Math.random = () => 0.999
 
 const m = await import('../prototype/js/spil.js')
+const { xpTilNaeste } = await import('../prototype/js/data.js')
 const { spil } = m
 
 const koer = (sekunder, skridt = 0.05) => {
@@ -31,7 +32,7 @@ test('en aktivitet giver ressourcer, XP og level', () => {
   koer(3.05)
   assert.equal(spil.t.ressourcer.eg, 1)
   assert.equal(spil.t.xp.traefaeldning, 5)
-  koer(9.2)
+  koer(Math.ceil(xpTilNaeste(1) / 5) * 3)
   assert.equal(m.level('traefaeldning'), 2)
 })
 
@@ -98,12 +99,12 @@ test('kamp ved rotten giver drab og kamp-XP', () => {
   assert.ok(spil.t.xp.kamp > 0)
 })
 
-test('fuldt jerngear besejrer bossen, og Druide og Ask åbner sig', () => {
-  for (let i = 0; i < 14; i++) m.udvikler.levels()
+test('fuldt jerngear og kamppoint besejrer bossen, og Druide og Ask åbner sig', () => {
+  for (let i = 0; i < 18; i++) m.udvikler.levels()
   for (let i = 0; i < 3; i++) m.udvikler.ressourcer()
   m.beregnStatus()
   for (const g of ['kobberhjelm', 'jernsvaerd', 'jernhjelm', 'jernbrystplade', 'jernbenskinner', 'jernstoevler']) assert.ok(m.craft(g), g)
-  for (const [id, n] of [['styrke', 4], ['hurtige-haender', 3], ['udholdenhed', 2], ['forsvar', 2]]) for (let i = 0; i < n; i++) assert.ok(m.koebRank(id), id)
+  for (const [id, n] of [['styrke', 5], ['hurtige-haender', 3], ['forsvar', 5], ['udholdenhed', 5]]) for (let i = 0; i < n; i++) assert.ok(m.koebRank(id), id)
   m.byg('slibesten')
   m.byg('baalplads')
   spil.t.hp = m.spillerStats().hp
@@ -129,7 +130,61 @@ test('Skovbrug dukker op, når 300 eg er fældet', () => {
 
 test('demo-loadet viser hele kortet', () => {
   m.brugDemo('alt')
-  m.nulstil()
-  const ikkeAabne = [...spil.status].filter(([, s]) => s !== 'aaben').map(([id]) => id)
-  assert.deepEqual(ikkeAabne, ['druide-ukendt'])
+  try {
+    m.nulstil()
+    const ikkeAabne = [...spil.status].filter(([, s]) => s !== 'aaben').map(([id]) => id)
+    assert.deepEqual(ikkeAabne, ['druide-ukendt'])
+  } finally {
+    m.brugDemo(null)
+  }
+})
+
+test('gemte spil fra version 1 opgraderes, og ukendte versioner afvises', () => {
+  const v1 = { version: 1, ressourcer: { eg: 7 }, xp: { traefaeldning: 40 } }
+  const g = m.migrer(v1)
+  assert.equal(g.version, 2)
+  assert.equal(g.ressourcer.eg, 7)
+  assert.equal(g.spilletid, 0)
+  assert.deepEqual(g.milepaele, {})
+  assert.equal(m.migrer({ version: 99 }), null)
+  assert.equal(m.migrer(null), null)
+})
+
+test('offline progress fortsætter aktiviteten og optager hændelserne', () => {
+  let sendt = 0
+  spil.on('udbytte', () => sendt++)
+  m.startAktivitet('eg')
+  const r = m.simulerOffline(60)
+  assert.equal(sendt, 0)
+  assert.equal(r.ressourcer.eg, 20)
+  assert.equal(spil.t.ressourcer.eg, 20)
+  assert.equal(spil.t.offlinetid, 60)
+  assert.equal(r.aktivitet, 'eg')
+  assert.equal(r.stoppet, false)
+  assert.ok(r.haendelser.some(h => h.type === 'udbytte'))
+  assert.equal(spil.t.aktivitet.node, 'eg')
+})
+
+test('offline progress tæller højst 8 timer med', () => {
+  m.startAktivitet('eg')
+  const r = m.simulerOffline(20 * 3600)
+  assert.equal(r.kappet, true)
+  assert.equal(r.brugt, 8 * 3600)
+  assert.equal(spil.t.offlinetid, 8 * 3600)
+})
+
+test('en klynge kan blive afsløret offline', () => {
+  spil.t.taellere.egFaeldet = 299
+  m.startAktivitet('eg')
+  const r = m.simulerOffline(60)
+  assert.ok(spil.t.afsloeret.skovbrug)
+  assert.ok(r.haendelser.some(h => h.type === 'afsloering' && h.data.klynge === 'skovbrug'))
+  assert.equal(status('plant-et-trae'), 'aaben')
+})
+
+test('offline progress uden aktivitet giver ingen ressourcer', () => {
+  const r = m.simulerOffline(600)
+  assert.equal(r.aktivitet, null)
+  assert.deepEqual(r.ressourcer, {})
+  assert.deepEqual(r.levels, [])
 })

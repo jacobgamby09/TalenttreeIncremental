@@ -1,50 +1,52 @@
 # TalenttreeIncremental
 
-Et incremental RPG, hvor talenttræet er hele spilverdenen. Skills, crafting, kamp, dungeons og en hjemmebase ligger som forbundne klynger af nodes på et stort kort, der vokser frem, efterhånden som man spiller.
+An incremental RPG where the talent tree is the whole game world. Skills, crafting, combat, dungeons and a home base sit as connected clusters of nodes on a large map that grows as you play.
 
-Hvor langt projektet er nået, står i [PROGRESS.md](PROGRESS.md). AI-agenter (Codex, Claude og andre) følger [AGENTS.md](AGENTS.md), og Claude Code læser desuden [CLAUDE.md](CLAUDE.md).
+How far the project has come is in [PROGRESS.md](PROGRESS.md). AI agents (Codex, Claude and others) follow [AGENTS.md](AGENTS.md), and Claude Code also reads [CLAUDE.md](CLAUDE.md).
 
-## Kom i gang
+## Getting started
 
-Kræver Node.js 22 eller nyere. Der skal ikke installeres noget.
+Requires Node.js 22 or newer. Nothing needs to be installed.
 
 ```bash
 npm start
 ```
 
-Åbn derefter http://localhost:5173/prototype/. Vil du se hele kortet, så åbn http://localhost:5173/prototype/?load=alt. Det er et demo-spil, hvor alle klynger er åbne, og det gemmes for sig selv, så dit normale spil ikke røres.
+Then open http://localhost:5173/prototype/. To see the whole map, open http://localhost:5173/prototype/?load=all. That is a demo game where every cluster is open, and it is saved separately, so your normal game is not touched.
 
-Spillet gemmes i browseren. Knappen Udvikler giver højere spilfart, ressourcer og levels til afprøvning samt nulstilling.
+The game is saved in the browser. The Developer button gives higher game speed, resources and levels for testing, plus a reset.
 
-## Kommandoer
+## Commands
 
-| Kommando | Gør |
+| Command | Does |
 |---|---|
-| `npm start` | Starter prototypen på http://localhost:5173/prototype/ |
-| `npm test` | Kører testene af spilmotoren |
-| `npm run simuler` | Lader en bot spille prototypen og måler, hvornår milepælene nås |
-| `npm run tjek:assets` | Tjekker temaets billedfiler mod manifestet |
-| `npm run asset-liste` | Genererer asset-listen igen ud fra manifestet |
-| `npm run tjek` | Kører både tests og asset-tjek |
+| `npm start` | Starts the prototype at http://localhost:5173/prototype/ |
+| `npm test` | Runs the game engine tests |
+| `npm run simulate` | Lets a bot play the prototype and measures when the milestones are reached |
+| `npm run check:assets` | Checks the theme's image files against the manifest |
+| `npm run asset-list` | Regenerates the asset list from the manifest |
+| `npm run check` | Runs both the tests and the asset check |
 
-## Dokumenter
+## Documents
 
-- [Spilkoncept og beslutninger](dokumentation/spilkoncept.md): skelner mellem brugerens beslutninger, brugerens mulige udvidelser og agenternes forslag
-- [Nodeliste](dokumentation/prototype-noder.md): alle prototypens nodes med krav, priser og effekter
-- [Balancering](dokumentation/balancering.md): milepælstider fra balanceringssimulatoren (genereres)
-- [Idéhistorik](dokumentation/idehistorik.md): brugerens kreative beskeder, ordret
-- [Asset-liste](dokumentation/asset-liste.md): genereret fra [asset-manifest.json](temaer/asset-manifest.json) og [stjernekortets tema.json](temaer/stjernekort/tema.json)
-- [De otte første stilskitser](konceptbilleder/OVERSIGT.md) og [deres prompts](konceptbilleder/billedprompts.md)
+- [Game concept and decisions](docs/game-concept.md): separates the user's decisions, the user's possible extensions and the agents' proposals
+- [Node list](docs/prototype-nodes.md): every node in the prototype with requirements, prices and effects
+- [Balance](docs/balance.md): milestone times from the balance simulator (generated)
+- [Idea history](docs/idea-history.md): the user's creative messages, verbatim
+- [Asset list](docs/asset-list.md): generated from [asset-manifest.json](themes/asset-manifest.json) and [the starchart theme.json](themes/starchart/theme.json)
+- [The first eight style sketches](konceptbilleder/OVERSIGT.md) and [their prompts](konceptbilleder/billedprompts.md)
 
-## Mapper
+## Folders
 
-| Mappe | Indhold |
+| Folder | Contents |
 |---|---|
-| `prototype/` | Den spilbare prototype i ren JavaScript uden byggetrin |
-| `temaer/` | Asset-manifestet og én mappe pr. tema. Stjernekortet er komplet |
-| `tools/` | Server, asset-tjek og generator af asset-listen |
-| `tests/` | Automatiske tests af spilmotoren |
-| `dokumentation/` | Koncept, nodeliste, idéhistorik og asset-liste |
-| `kilder/` | Codex' leverancer pr. runde: originaler, prompts, scripts og kontaktark |
-| `grafik/` | Grafiske udforskninger: prøvebatch 01, stilprøver og pixel-moodboards |
-| `konceptbilleder/` | De otte første stilskitser |
+| `prototype/` | The playable prototype in plain JavaScript with no build step |
+| `themes/` | The asset manifest and one folder per theme. The starchart theme is complete |
+| `tools/` | Server, asset check, asset list generator and balance simulator |
+| `tests/` | Automated tests of the game engine |
+| `docs/` | Concept, node list, idea history, balance and asset list |
+| `kilder/` | Codex's deliveries per round: originals, prompts, scripts and contact sheets |
+| `grafik/` | Graphic explorations: test batch 01, style samples and pixel moodboards |
+| `konceptbilleder/` | The first eight style sketches |
+
+`kilder/`, `grafik/` and `konceptbilleder/` are Codex's archives. They keep their Danish names for now and will be renamed together with Codex later.

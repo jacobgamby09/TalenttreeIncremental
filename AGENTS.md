@@ -1,125 +1,130 @@
 # AGENTS.md
 
-Instruktioner til AI-agenter (Codex, Claude og andre), der arbejder i projektet. Mennesker starter i [README.md](README.md).
+Instructions for AI agents (Codex, Claude and others) working on the project. Humans start in [README.md](README.md).
 
-## Projektet
+## The project
 
-TalenttreeIncremental er et incremental RPG, hvor talenttræet er hele spilverdenen: skills, crafting, kamp, dungeons og en hjemmebase ligger som klynger af nodes på et stort kort, der vokser frem. Der findes en spilbar prototype og et komplet tema (stjernekortet). Den aktuelle status står i [PROGRESS.md](PROGRESS.md).
+TalenttreeIncremental is an incremental RPG where the talent tree is the whole game world: skills, crafting, combat, dungeons and a home base sit as clusters of nodes on a large map that grows as you play. There is a playable prototype and one complete theme (starchart). The current status is in [PROGRESS.md](PROGRESS.md).
 
-## Sådan arbejder du
+## How to work
 
-1. Læs [PROGRESS.md](PROGRESS.md): status, hvad der er i gang, og hvad der er det næste.
-2. Læs de dokumenter, opgaven berører (se kilderne til sandhed nedenfor).
-3. Lav opgaven. Ændr kun det, opgaven kræver.
-4. Kør de relevante tjek (se Definition af færdig).
-5. Opdater [PROGRESS.md](PROGRESS.md) og de dokumenter, ændringen påvirker.
+1. Read [PROGRESS.md](PROGRESS.md): status, what is in progress, and what comes next.
+2. Read the documents the task touches (see the sources of truth below).
+3. Do the task. Change only what the task requires.
+4. Run the relevant checks (see Definition of done).
+5. Update [PROGRESS.md](PROGRESS.md) and the documents the change affects.
 
-## Mappestruktur
+## Folder structure
 
 ```
-AGENTS.md, CLAUDE.md      Instruktioner til agenter
-PROGRESS.md               Fremdrift og log, opdateres efter hver leverance
-README.md                 Overblik for mennesker
-package.json              Kommandoer (ingen afhængigheder)
-dokumentation/            Spilkoncept, nodeliste, idéhistorik og den genererede asset-liste
-prototype/                Den spilbare prototype (index.html, css/, js/)
-temaer/                   Asset-manifest og én mappe pr. tema (stjernekort/)
-tools/                    Server, asset-tjek og generator af asset-listen
-tests/                    Automatiske tests af spilmotoren
-kilder/<tema>/            Codex' leverancer pr. runde: originaler, prompts, scripts, kontaktark
-grafik/                   Grafiske udforskninger: prøvebatch 01, stilprøver og moodboards
-konceptbilleder/          De otte første stilskitser og deres prompts
-.claude/launch.json       Startkonfiguration til Claude Codes preview
+AGENTS.md, CLAUDE.md        Instructions for agents
+PROGRESS.md                 Progress and log, updated after every delivery
+README.md                   Overview for humans
+package.json                Commands (no dependencies)
+docs/                       Game concept, node list, idea history, and the generated asset list and balance report
+prototype/                  The playable prototype (index.html, css/style.css, js/)
+prototype/js/               data.js, game.js, map.js, ui.js, theme.js, text.js, main.js
+prototype/js/legacy-ids.js  Danish → English id maps, used only to migrate old saves
+themes/                     Asset manifest and one folder per theme
+themes/starchart/           The starchart theme: theme.json and its image files
+tools/                      Server, asset check, asset list generator and balance simulator
+tests/                      Automated tests of the game engine
+kilder/<theme>/             Codex's archive: deliveries per round with originals, prompts, scripts, contact sheets
+grafik/                     Codex's archive: graphic explorations, test batch 01, style samples and moodboards
+konceptbilleder/            Codex's archive: the first eight style sketches and their prompts
+.claude/launch.json         Launch configuration for Claude Code's preview
 ```
 
-Prøvebatchen (runde 01) ligger i `grafik/proevebatch-01/` og ikke i `kilder/stjernekort/`, fordi scripts i senere runder henviser dertil. Flyt den ikke.
+`kilder/`, `grafik/` and `konceptbilleder/` are Codex's archives. They keep their Danish names for now and will be renamed together with Codex after the pixel moodboards in `grafik/pixel-moodboards/` have been reviewed. Until then, new Codex rounds still go to `kilder/<theme>/runde-NN/` with a `LEVERANCE.md` (the starchart theme's rounds are in `kilder/stjernekort/`).
 
-## Kommandoer
+The test batch (round 01) lives in `grafik/proevebatch-01/` and not in `kilder/stjernekort/`, because scripts in later rounds refer to it. Do not move it.
 
-Kræver Node.js 22 eller nyere. Der skal ikke installeres noget.
+## Commands
 
-| Kommando | Gør |
+Requires Node.js 22 or newer. Nothing needs to be installed.
+
+| Command | Does |
 |---|---|
-| `npm start` | Starter serveren. Prototypen kører på http://localhost:5173/prototype/ |
-| `npm test` | Kører testene af spilmotoren |
-| `npm run simuler` | Lader en bot spille prototypen 20 gange og skriver milepælstider til `dokumentation/balancering.md` |
-| `npm run tjek:assets` | Tjekker temaets filer mod manifestet (standard: `temaer/stjernekort`) |
-| `npm run asset-liste` | Genererer `dokumentation/asset-liste.md` ud fra manifestet og tema.json |
-| `npm run tjek` | Kører både tests og asset-tjek |
+| `npm start` | Starts the server. The prototype runs at http://localhost:5173/prototype/ |
+| `npm test` | Runs the game engine tests |
+| `npm run simulate` | Lets a bot play the prototype 20 times and writes milestone times to `docs/balance.md` |
+| `npm run check:assets` | Checks the theme's files against the manifest (default: `themes/starchart`) |
+| `npm run asset-list` | Generates `docs/asset-list.md` from the manifest and theme.json |
+| `npm run check` | Runs both the tests and the asset check |
 
-I prototypen viser `?load=alt` et demo-spil, hvor hele kortet er synligt, og `?tema=<navn>` vælger et andet tema. Knappen Udvikler giver spilfart, ressourcer, levels og nulstilling.
+In the prototype, `?load=all` shows a demo game where the whole map is visible, and `?theme=<name>` picks another theme. The Developer button gives game speed, resources, levels and a reset.
 
-## Kilder til sandhed
+## Sources of truth
 
-| Emne | Sandheden | Hold i takt med |
+| Topic | The truth | Keep in sync with |
 |---|---|---|
-| Spildata (nodes, tal, krav) | `prototype/js/data.js` | `dokumentation/prototype-noder.md`, `dokumentation/balancering.md` (genereres med `npm run simuler`) |
-| Spilregler | `prototype/js/spil.js` | `dokumentation/spilkoncept.md`, `tests/` |
-| Spillets tekster | `prototype/js/tekster.js` | |
-| Hvilke billedfiler findes | `temaer/asset-manifest.json` | `dokumentation/asset-liste.md` (genereres, ret den aldrig i hånden) |
-| Et temas farver, lag og prompts | `temaer/<tema>/tema.json` | |
-| Beslutninger og forslag | `dokumentation/spilkoncept.md` | |
-| Brugerens egne ord | `dokumentation/idehistorik.md` | |
+| Game data (nodes, numbers, requirements) | `prototype/js/data.js` | `docs/prototype-nodes.md`, `docs/balance.md` (generated by `npm run simulate`) |
+| Game rules | `prototype/js/game.js` | `docs/game-concept.md`, `tests/` |
+| The game's text | `prototype/js/text.js` | |
+| Which image files exist | `themes/asset-manifest.json` | `docs/asset-list.md` (generated, never edit it by hand) |
+| A theme's colors, layers and prompts | `themes/<theme>/theme.json` | |
+| Decisions and proposals | `docs/game-concept.md` | |
+| The user's own words | `docs/idea-history.md` | |
 
-`spilkoncept.md` skelner mellem brugerens beslutninger, brugerens mulige udvidelser og agenternes forslag. Skriv aldrig et forslag som en beslutning. `idehistorik.md` gemmer brugerens kreative beskeder ordret.
+`game-concept.md` separates the user's decisions, the user's possible extensions and the agents' proposals. Never write a proposal as a decision. `idea-history.md` keeps the user's creative messages verbatim.
 
-## Faste beslutninger
+## Fixed decisions
 
-Ændr dem ikke uden brugerens accept:
+Do not change them without the user's consent:
 
-- Talenttræet er hele verdenen. Spilleren har én aktivitet ad gangen. Crafting er et klik og afbryder ikke aktiviteten.
-- Kampen foregår ved monsternoden. Noderne er firkantede, angrebsindikatoren følger den firkantede kant, og HP-baren sidder under noden. Er noden uden for skærmen, vises en aktivitetsbjælke og en pil i skærmkanten.
-- Synlighed: nodes ét skridt fra en åben node er synlige, to skridt væk er de tåge, og skjulte klynger afsløres med en animation.
-- Ingen humor eller sarkasme i spillets indhold for nu.
-- Dokumenter og spiltekster er på dansk.
-- Grafik hentes kun via asset-id'er fra manifestet, så et tema kan skiftes ved at udskifte mappen.
-- Prototypen er ren JavaScript med ES-moduler: ingen byggetrin og ingen npm-afhængigheder uden aftale.
+- The talent tree is the whole world. The player has one activity at a time. Crafting is a click and does not interrupt the activity.
+- Combat takes place at the monster node. The nodes are square, the attack indicator follows the square edge, and the HP bar sits below the node. If the node is off screen, an activity bar and an arrow at the screen edge are shown.
+- Visibility: nodes one step from an open node are visible, nodes two steps away are fog, and hidden clusters are revealed with an animation.
+- No humor or sarcasm in the game's content for now.
+- The game and all project files (code, identifiers, comments, game text, documents, file and folder names, asset ids) are in English. The conversation with the user is in Danish.
+- Graphics are only loaded through asset ids from the manifest, so a theme can be swapped by replacing its folder.
+- The prototype is plain JavaScript with ES modules: no build step and no npm dependencies without agreement.
 
-## Roller
+## Roles
 
-- **Codex** laver billedfiler og grafiske udforskninger. Temaets filer leveres i runder til `temaer/<tema>/`, og hver runde dokumenteres i `kilder/<tema>/runde-NN/LEVERANCE.md`. Udforskninger ligger i `grafik/`. Stop efter hver runde, så brugeren kan godkende.
-- **Claude** laver prototypens kode, værktøjer, tests og dokumentation og vurderer Codex' leverancer.
-- **Begge** opdaterer PROGRESS.md. Ændrer du noget i den andens leverance, så skriv det i loggen.
+- **Codex** makes image files and graphic explorations. The theme's files are delivered in rounds to `themes/<theme>/`, and each round is documented in `kilder/<theme>/runde-NN/LEVERANCE.md`. Explorations live in `grafik/`. Stop after each round so the user can approve.
+- **Claude** writes the prototype's code, tools, tests and documentation and reviews Codex's deliveries.
+- **Both** update PROGRESS.md. If you change something in the other's delivery, note it in the log.
 
 ## Assets
 
-- Et id er stien uden filendelse, fx `noder/eg`. Filen ligger i `temaer/<tema>/<id>.<format>`. Id'er bruger små bogstaver, tal og bindestreg, og æ, ø og å skrives ae, oe og aa.
-- Krav til størrelse, format, transparens og fyldgrad står i manifestet. Kør `npm run tjek:assets`, før du afleverer. Der må ikke være fejl.
-- Originaler, prompts, efterbehandlingsscripts og kontaktark hører til i `kilder/<tema>/runde-NN/` eller i udforskningens mappe under `grafik/`, aldrig i temamappen.
-- Ændrer du manifestet, så kør `npm run asset-liste` bagefter. Et nyt asset skal også bruges i `data.js` eller `tema.json`.
+- An id is the path without the file extension, e.g. `nodes/oak`. The file lives in `themes/<theme>/<id>.<format>`. Ids are English words in lowercase letters, digits and hyphens.
+- Requirements for size, format, transparency and fill are in the manifest. Run `npm run check:assets` before you deliver. There must be no errors.
+- Originals, prompts, post-processing scripts and contact sheets belong in `kilder/<theme>/runde-NN/` or in the exploration's folder under `grafik/`, never in the theme folder.
+- If you change the manifest, run `npm run asset-list` afterwards. A new asset must also be used in `data.js` or `theme.json`.
 
-## Kodekonventioner
+## Code conventions
 
-- ES-moduler, 2 mellemrum, ingen semikolon og enkelte anførselstegn. Navne er på dansk som i resten af koden.
-- Få kommentarer, på dansk, og kun hvor koden ikke forklarer sig selv.
-- Ansvarsfordeling: data i `data.js`, regler i `spil.js`, kortet i `kort.js`, HUD i `ui.js`, tema og assets i `tema.js`, tekster i `tekster.js`, opstart i `main.js`.
-- Ny eller ændret spilmekanik skal have en test i `tests/`.
+- ES modules, 2 spaces, no semicolons and single quotes. Names are in English.
+- Few comments, in English, and only where the code does not explain itself.
+- Responsibilities: data in `data.js`, rules in `game.js`, the map in `map.js`, HUD in `ui.js`, theme and assets in `theme.js`, text in `text.js`, startup in `main.js`. The old Danish ids live only in `legacy-ids.js`, which is used to migrate old saves.
+- New or changed game mechanics must have a test in `tests/`.
 
-## Definition af færdig
+## Definition of done
 
-- `npm test` består.
-- Er balancetal i `data.js` ændret, er `npm run simuler` kørt, og alle milepæle ligger inden for målene.
-- `npm run tjek:assets` giver ingen fejl. Den kendte advarsel om manuelt sømtjek af stjernehimlens JPG er i orden.
-- Prototypen starter uden fejl i konsollen, bortset fra en manglende favicon.
-- Berørte dokumenter er opdateret, og PROGRESS.md har en ny post i loggen.
+- `npm test` passes.
+- If balance numbers in `data.js` have changed, `npm run simulate` has been run, and all milestones are within their targets.
+- `npm run check:assets` gives no errors. The known warning about a manual seam check of the starfield JPG is fine.
+- The prototype starts without errors in the console, apart from a missing favicon.
+- Affected documents are updated, and PROGRESS.md has a new log entry.
 
 ## PROGRESS.md
 
-- Skriv en ny post øverst i Log: `### ÅÅÅÅ-MM-DD · Agent · Titel` med 1-3 punkter om, hvad der er lavet, hvor det ligger, og hvad der ikke er afprøvet.
-- Opdater statustabellen, flyt punkter mellem "I gang" og "Næste skridt", og ret "Kendte problemer" og "Åbne spørgsmål".
-- Skriv kun det, der er sket. Marker antagelser og det, der ikke er afprøvet.
-- Hold filen kort. Poster fra samme dag må gerne samles.
+- Write a new entry at the top of Log: `### YYYY-MM-DD · Agent · Title` with 1-3 bullets on what was done, where it is, and what has not been tested.
+- Update the status table, move items between "In progress" and "Next steps", and correct "Known issues" and "Open questions".
+- Write only what has happened. Mark assumptions and what has not been tested.
+- Keep the file short. Entries from the same day may be merged.
 
 ## Git
 
-- Repoet er https://github.com/jacobgamby09/TalenttreeIncremental, og hovedgrenen hedder `main`.
-- Commit og push kun, når brugeren beder om det, eller når opgaven udtrykkeligt omfatter det.
-- Små commits med en kort besked på dansk i bydeform, der siger hvad og gerne hvorfor, fx "Tilføj demo-load med hele kortet".
-- Commit ikke midt i en anden agents igangværende leverance (se "I gang" i PROGRESS.md).
-- Force-push aldrig til `main`, og omskriv ikke historikken.
-- Alle filer er i dag under 20 MB. Brug Git LFS, hvis en fil nærmer sig 50 MB.
+- The repo is https://github.com/jacobgamby09/TalenttreeIncremental, and the main branch is `main`.
+- Commit and push only when the user asks, or when the task explicitly includes it.
+- Small commits with a short message in English in the imperative, saying what and preferably why, e.g. "Add demo load with the whole map".
+- Do not commit in the middle of another agent's ongoing delivery (see "In progress" in PROGRESS.md).
+- Never force-push to `main`, and do not rewrite history.
+- All files are under 20 MB today. Use Git LFS if a file approaches 50 MB.
 
-## Forsigtighed
+## Caution
 
-- Slet og overskriv ikke andres leverancer, originaler eller brugerens gemte spil.
-- Spørg brugeren før store ændringer: flytning af mapper, nye afhængigheder, ny motor eller ændring af en fast beslutning.
+- Do not delete or overwrite other agents' deliveries, originals or the user's saved games.
+- Ask the user before large changes: moving folders, new dependencies, a new engine or changing a fixed decision.

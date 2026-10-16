@@ -2,7 +2,7 @@
   "name": "talenttreeincremental",
   "version": "0.1.0",
   "private": true,
-  "description": "Incremental RPG, hvor talenttræet er hele spilverdenen. Prototype i ren JavaScript uden byggetrin.",
+  "description": "Incremental RPG where the talent tree is the whole game world. Prototype in plain JavaScript with no build step.",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -10,9 +10,9 @@
   "scripts": {
     "start": "node tools/serve.mjs",
     "test": "node --test tests/*.test.mjs",
-    "simuler": "node tools/simuler.mjs 20 --skriv",
-    "tjek:assets": "node tools/tjek-assets.mjs",
-    "asset-liste": "node tools/lav-asset-liste.mjs",
-    "tjek": "npm test && npm run tjek:assets"
+    "simulate": "node tools/simulate.mjs 20 --write",
+    "check:assets": "node tools/check-assets.mjs",
+    "asset-list": "node tools/make-asset-list.mjs",
+    "check": "npm test && npm run check:assets"
   }
 }

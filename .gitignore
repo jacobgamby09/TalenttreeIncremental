@@ -1,13 +1,13 @@
-# Afhængigheder og caches
+# Dependencies and caches
 node_modules/
 __pycache__/
 *.pyc
 
-# Værktøjers midlertidige filer
+# Temporary files from tools
 .playwright-mcp/
 *.log
 
-# Styresystemets filer
+# Operating system files
 .DS_Store
 Thumbs.db
 desktop.ini

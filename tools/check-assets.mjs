@@ -1,14 +1,14 @@
-// Tjekker et temas filer mod temaer/asset-manifest.json og temaets tema.json.
-// Brug: node tools/tjek-assets.mjs [temamappe] [manifest]
-// Standard: temaer/stjernekort og temaer/asset-manifest.json
+// Checks a theme's files against themes/asset-manifest.json and the theme's theme.json.
+// Usage: node tools/check-assets.mjs [theme folder] [manifest]
+// Defaults: themes/starchart and themes/asset-manifest.json
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs'
 import { join, relative, resolve, dirname, extname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { inflateSync } from 'node:zlib'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
-const themeDir = resolve(root, process.argv[2] ?? 'temaer/stjernekort')
-const manifestPath = resolve(root, process.argv[3] ?? 'temaer/asset-manifest.json')
+const themeDir = resolve(root, process.argv[2] ?? 'themes/starchart')
+const manifestPath = resolve(root, process.argv[3] ?? 'themes/asset-manifest.json')
 
 const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
 const errors = []
@@ -18,54 +18,54 @@ const wrongFormat = new Set()
 const FORMATS = ['png', 'jpg', 'webp', 'svg']
 let ok = 0
 
-// Manifestets felter
+// The manifest's fields
 const seen = new Set()
 for (const a of manifest.assets) {
   const folder = a.id?.split('/')[0]
-  const spec = manifest.mapper?.[folder]
-  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(a.id ?? '')) errors.push(`manifest: ugyldigt id "${a.id}"`)
-  if (seen.has(a.id)) errors.push(`manifest: id'et ${a.id} står flere gange`)
+  const spec = manifest.folders?.[folder]
+  if (!/^[a-z0-9-]+\/[a-z0-9-]+$/.test(a.id ?? '')) errors.push(`manifest: invalid id "${a.id}"`)
+  if (seen.has(a.id)) errors.push(`manifest: the id ${a.id} appears more than once`)
   seen.add(a.id)
-  if (!spec) errors.push(`manifest: ${a.id} ligger i en mappe, der ikke står under "mapper"`)
-  if (!['P1', 'P2', 'P3'].includes(a.prioritet)) errors.push(`manifest: ${a.id} har ugyldig prioritet "${a.prioritet}"`)
-  if (!['spil', 'tema'].includes(a.rolle)) errors.push(`manifest: ${a.id} har ugyldig rolle "${a.rolle}"`)
-  if (!FORMATS.includes(a.format)) errors.push(`manifest: ${a.id} har ukendt format "${a.format}"`)
-  if (!['transparent', 'opak'].includes(a.baggrund)) errors.push(`manifest: ${a.id} har ugyldig baggrund "${a.baggrund}"`)
-  if (!Number.isInteger(a.bredde) || !Number.isInteger(a.hoejde) || a.bredde <= 0 || a.hoejde <= 0) errors.push(`manifest: ${a.id} mangler gyldig bredde og højde`)
-  if (a.toenbar && !['png', 'svg'].includes(a.format)) errors.push(`manifest: ${a.id} er tonbar, men tonbare filer skal være png eller svg`)
-  for (const key of ['bredde', 'hoejde', 'format', 'baggrund']) {
-    if (spec?.[key] !== undefined && spec[key] !== a[key]) errors.push(`manifest: ${a.id} har ${key} ${a[key]}, men mappen kræver ${spec[key]}`)
+  if (!spec) errors.push(`manifest: ${a.id} is in a folder that is not listed under "folders"`)
+  if (!['P1', 'P2', 'P3'].includes(a.priority)) errors.push(`manifest: ${a.id} has an invalid priority "${a.priority}"`)
+  if (!['game', 'theme'].includes(a.role)) errors.push(`manifest: ${a.id} has an invalid role "${a.role}"`)
+  if (!FORMATS.includes(a.format)) errors.push(`manifest: ${a.id} has an unknown format "${a.format}"`)
+  if (!['transparent', 'opaque'].includes(a.background)) errors.push(`manifest: ${a.id} has an invalid background "${a.background}"`)
+  if (!Number.isInteger(a.width) || !Number.isInteger(a.height) || a.width <= 0 || a.height <= 0) errors.push(`manifest: ${a.id} lacks a valid width and height`)
+  if (a.tintable && !['png', 'svg'].includes(a.format)) errors.push(`manifest: ${a.id} is tintable, but tintable files must be png or svg`)
+  for (const key of ['width', 'height', 'format', 'background']) {
+    if (spec?.[key] !== undefined && spec[key] !== a[key]) errors.push(`manifest: ${a.id} has ${key} ${a[key]}, but the folder requires ${spec[key]}`)
   }
 }
 
-// Temaets tema.json: hvilke tema-assets der bruges, og om farverne findes
-const temaPath = join(themeDir, 'tema.json')
+// The theme's theme.json: which theme assets are used, and whether the colors exist
+const themePath = join(themeDir, 'theme.json')
 const byId = new Map(manifest.assets.map(a => [a.id, a]))
 const usedThemeAssets = new Set()
-if (!existsSync(temaPath)) {
-  errors.push('tema.json mangler i temamappen')
+if (!existsSync(themePath)) {
+  errors.push('theme.json is missing from the theme folder')
 } else {
-  const tema = JSON.parse(readFileSync(temaPath, 'utf8'))
+  const theme = JSON.parse(readFileSync(themePath, 'utf8'))
   const refs = [
-    ...(tema.baggrundslag ?? []).map(l => l.asset),
-    tema.taage?.asset, tema.klyngesloer?.asset, tema.portraetbaggrund,
+    ...(theme.backgroundLayers ?? []).map(l => l.asset),
+    theme.fog?.asset, theme.clusterVeil?.asset, theme.portraitBackground,
   ].filter(Boolean)
   for (const id of refs) {
     usedThemeAssets.add(id)
     const a = byId.get(id)
-    if (a && a.rolle !== 'tema') errors.push(`tema.json: ${id} har rolle "${a.rolle}" i manifestet, ikke "tema"`)
-    if (!a && !FORMATS.some(f => existsSync(join(themeDir, `${id}.${f}`)))) errors.push(`tema.json: ${id} findes hverken i manifestet eller som fil`)
+    if (a && a.role !== 'theme') errors.push(`theme.json: ${id} has role "${a.role}" in the manifest, not "theme"`)
+    if (!a && !FORMATS.some(f => existsSync(join(themeDir, `${id}.${f}`)))) errors.push(`theme.json: ${id} exists neither in the manifest nor as a file`)
   }
-  const colorRefs = [...(tema.baggrundslag ?? []).map(l => l.farve), tema.taage?.farve, tema.silhuetter?.farve].filter(Boolean)
-  for (const c of colorRefs) if (!/^#/.test(c) && !(c in (tema.farver ?? {}))) errors.push(`tema.json: farven "${c}" findes ikke under farver`)
-  const templates = tema.prompts?.tillaeg ?? {}
+  const colorRefs = [...(theme.backgroundLayers ?? []).map(l => l.color), theme.fog?.color, theme.silhouettes?.color].filter(Boolean)
+  for (const c of colorRefs) if (!/^#/.test(c) && !(c in (theme.colors ?? {}))) errors.push(`theme.json: the color "${c}" is not defined under colors`)
+  const templates = theme.prompts?.addons ?? {}
   for (const a of manifest.assets) {
-    if (a.tillaeg !== null && a.tillaeg !== undefined && !(a.tillaeg in templates)) errors.push(`tema.json: promptskabelonen "${a.tillaeg}" til ${a.id} findes ikke`)
+    if (a.addon !== null && a.addon !== undefined && !(a.addon in templates)) errors.push(`theme.json: the prompt template "${a.addon}" for ${a.id} does not exist`)
   }
 }
 
 function readPng(buf) {
-  if (buf.length < 8 || buf.readUInt32BE(0) !== 0x89504e47) throw new Error('ikke en gyldig PNG')
+  if (buf.length < 8 || buf.readUInt32BE(0) !== 0x89504e47) throw new Error('not a valid PNG')
   let pos = 8
   const info = { idat: [], palette: null, trns: null }
   while (pos < buf.length) {
@@ -88,7 +88,7 @@ function readPng(buf) {
   return info
 }
 
-// Afkoder PNG'er uden interlace (alle farvetyper og bitdybder) til 8-bit RGBA. Returnerer null ved interlace.
+// Decodes non-interlaced PNGs (all color types and bit depths) to 8-bit RGBA. Returns null for interlaced files.
 function decodePng(info) {
   const channels = { 0: 1, 2: 3, 3: 1, 4: 2, 6: 4 }[info.colorType]
   if (!channels || info.interlace !== 0) return null
@@ -144,7 +144,7 @@ function decodePng(info) {
 }
 
 function readJpeg(buf) {
-  if (buf[0] !== 0xff || buf[1] !== 0xd8) throw new Error('ikke en gyldig JPEG')
+  if (buf[0] !== 0xff || buf[1] !== 0xd8) throw new Error('not a valid JPEG')
   let pos = 2
   while (pos < buf.length) {
     if (buf[pos] !== 0xff) { pos++; continue }
@@ -154,11 +154,11 @@ function readJpeg(buf) {
     }
     pos += 2 + buf.readUInt16BE(pos + 2)
   }
-  throw new Error('fandt ingen billeddimensioner i JPEG')
+  throw new Error('found no image dimensions in the JPEG')
 }
 
 function readWebp(buf) {
-  if (buf.toString('ascii', 0, 4) !== 'RIFF' || buf.toString('ascii', 8, 12) !== 'WEBP') throw new Error('ikke en gyldig WebP')
+  if (buf.toString('ascii', 0, 4) !== 'RIFF' || buf.toString('ascii', 8, 12) !== 'WEBP') throw new Error('not a valid WebP')
   const chunk = buf.toString('ascii', 12, 16)
   if (chunk === 'VP8X') return { width: 1 + buf.readUIntLE(24, 3), height: 1 + buf.readUIntLE(27, 3), hasAlpha: (buf[20] & 0x10) !== 0 }
   if (chunk === 'VP8L') {
@@ -166,41 +166,41 @@ function readWebp(buf) {
     return { width: 1 + (bits & 0x3fff), height: 1 + ((bits >> 14) & 0x3fff), hasAlpha: ((bits >> 28) & 1) === 1 }
   }
   if (chunk === 'VP8 ') return { width: buf.readUInt16LE(26) & 0x3fff, height: buf.readUInt16LE(28) & 0x3fff, hasAlpha: false }
-  throw new Error(`ukendt WebP-variant (${chunk})`)
+  throw new Error(`unknown WebP variant (${chunk})`)
 }
 
 const WHITE = ['#fff', '#ffffff', 'white', 'rgb(255,255,255)']
 function checkSvg(asset, text) {
   const rootTag = text.match(/<svg\b[^>]*>/i)
-  if (!rootTag) return errors.push(`${asset.id}: ikke en gyldig SVG`)
-  if (!/xmlns\s*=\s*["']http:\/\/www\.w3\.org\/2000\/svg["']/.test(rootTag[0])) errors.push(`${asset.id}: mangler xmlns="http://www.w3.org/2000/svg" (ellers vises den ikke som billede eller maske)`)
+  if (!rootTag) return errors.push(`${asset.id}: not a valid SVG`)
+  if (!/xmlns\s*=\s*["']http:\/\/www\.w3\.org\/2000\/svg["']/.test(rootTag[0])) errors.push(`${asset.id}: lacks xmlns="http://www.w3.org/2000/svg" (without it, it does not show as an image or mask)`)
   const viewBox = rootTag[0].match(/viewBox\s*=\s*["']([^"']+)["']/i)
-  const want = `0 0 ${asset.bredde} ${asset.hoejde}`
-  if (!viewBox || viewBox[1].trim().split(/[\s,]+/).join(' ') !== want) errors.push(`${asset.id}: viewBox skal være "${want}"`)
+  const want = `0 0 ${asset.width} ${asset.height}`
+  if (!viewBox || viewBox[1].trim().split(/[\s,]+/).join(' ') !== want) errors.push(`${asset.id}: viewBox must be "${want}"`)
   for (const tag of ['text', 'image', 'foreignObject', 'linearGradient', 'radialGradient', 'filter', 'pattern', 'mask', 'clipPath', 'script', 'style', 'use']) {
-    if (new RegExp(`<${tag}\\b`, 'i').test(text)) errors.push(`${asset.id}: <${tag}> er ikke tilladt i en glyf`)
+    if (new RegExp(`<${tag}\\b`, 'i').test(text)) errors.push(`${asset.id}: <${tag}> is not allowed in a glyph`)
   }
   const fills = [...text.matchAll(/(?<![\w-])fill\s*[:=]\s*["']?\s*([^"';>]+?)\s*["';>]/gi)].map(m => m[1].toLowerCase().replace(/\s+/g, ''))
   const strokes = [...text.matchAll(/(?<![\w-])stroke\s*[:=]\s*["']?\s*([^"';>]+?)\s*["';>]/gi)].map(m => m[1].toLowerCase().replace(/\s+/g, ''))
   const badFill = [...new Set(fills.filter(c => !WHITE.includes(c) && c !== 'none'))]
-  if (badFill.length) errors.push(`${asset.id}: glyffen må kun bruge hvid fyld (#FFFFFF), men bruger ${badFill.join(', ')}`)
-  if (!fills.some(c => WHITE.includes(c))) errors.push(`${asset.id}: ingen hvid fill; uden den bliver figurerne sorte`)
-  if (strokes.some(c => c !== 'none')) errors.push(`${asset.id}: stroke er ikke tilladt; konvertér konturer til udfyldte paths`)
-  if (/(?<![\w-])(fill-|stroke-)?opacity\s*[:=]/i.test(text)) errors.push(`${asset.id}: opacity er ikke tilladt i en glyf`)
-  if (!/<(path|rect|circle|ellipse|polygon|polyline|line)\b/i.test(text)) errors.push(`${asset.id}: glyffen indeholder ingen figurer`)
+  if (badFill.length) errors.push(`${asset.id}: the glyph may only use white fill (#FFFFFF), but uses ${badFill.join(', ')}`)
+  if (!fills.some(c => WHITE.includes(c))) errors.push(`${asset.id}: no white fill; without it the shapes turn black`)
+  if (strokes.some(c => c !== 'none')) errors.push(`${asset.id}: stroke is not allowed; convert outlines to filled paths`)
+  if (/(?<![\w-])(fill-|stroke-)?opacity\s*[:=]/i.test(text)) errors.push(`${asset.id}: opacity is not allowed in a glyph`)
+  if (!/<(path|rect|circle|ellipse|polygon|polyline|line)\b/i.test(text)) errors.push(`${asset.id}: the glyph contains no shapes`)
 }
 
 function checkPixels(asset, rgba, w, h) {
   const alphaAt = (x, y) => rgba[(y * w + x) * 4 + 3]
   const folder = asset.id.split('/')[0]
-  if (asset.baggrund === 'transparent' && !asset.soemloes) {
-    const allowBottom = (asset.kant_tilladt ?? []).includes('bund')
+  if (asset.background === 'transparent' && !asset.seamless) {
+    const allowBottom = (asset.edge_allowed ?? []).includes('bottom')
     let opaqueEdge = 0
     const rows = allowBottom ? [0, 1] : [0, 1, h - 2, h - 1]
     for (let x = 0; x < w; x++) for (const y of rows) if (alphaAt(x, y) > 8) opaqueEdge++
     for (let y = 0; y < (allowBottom ? h - 2 : h); y++) for (const x of [0, 1, w - 2, w - 1]) if (alphaAt(x, y) > 8) opaqueEdge++
-    if (opaqueEdge > 0) errors.push(`${asset.id}: kanten er ikke helt transparent (${opaqueEdge} synlige pixels i de yderste 2 px); motivet må ikke røre ${allowBottom ? 'top og sider' : 'kanten'}`)
-    const target = manifest.mapper?.[folder]?.fyld
+    if (opaqueEdge > 0) errors.push(`${asset.id}: the edge is not fully transparent (${opaqueEdge} visible pixels in the outer 2 px); the subject must not touch ${allowBottom ? 'the top or sides' : 'the edge'}`)
+    const target = manifest.folders?.[folder]?.fill
     if (target) {
       let minX = w, minY = h, maxX = -1, maxY = -1
       for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (alphaAt(x, y) > 8) {
@@ -208,53 +208,53 @@ function checkPixels(asset, rgba, w, h) {
       }
       if (maxX >= 0) {
         const fill = Math.round(100 * Math.max(maxX - minX + 1, maxY - minY + 1) / Math.max(w, h))
-        // Buster, der skæres ved bunden, fylder naturligt bredden ud, så kun den nedre grænse gælder
-        if (fill < target - 8 || (fill > target + 6 && !allowBottom)) warnings.push(`${asset.id}: motivets længste side fylder ${fill}% af lærredet; målet for ${folder} er ca. ${target}%`)
+        // Busts cut off at the bottom naturally fill the width, so only the lower limit applies
+        if (fill < target - 8 || (fill > target + 6 && !allowBottom)) warnings.push(`${asset.id}: the subject's longest side fills ${fill}% of the canvas; the target for ${folder} is about ${target}%`)
         const top = Math.round(100 * minY / h)
-        if (allowBottom && top > 16) warnings.push(`${asset.id}: motivet starter ${top}% fra toppen og sidder for lavt; skalér busten op, så toppen er ca. 8-14% fra toppen og øjnene ca. 40%`)
+        if (allowBottom && top > 16) warnings.push(`${asset.id}: the subject starts ${top}% from the top and sits too low; scale the bust up so the top is about 8-14% from the top and the eyes about 40%`)
       }
     }
   }
-  if (asset.toenbar) {
+  if (asset.tintable) {
     let colored = 0, visible = 0
     for (let i = 0; i < rgba.length; i += 4) {
       if (rgba[i + 3] < 32) continue
       visible++
       if (Math.min(rgba[i], rgba[i + 1], rgba[i + 2]) < 225) colored++
     }
-    if (visible === 0) errors.push(`${asset.id}: filen er helt tom`)
-    else if (colored / visible > 0.02) errors.push(`${asset.id}: skal være hvid med formen i alfa, men ${Math.round(100 * colored / visible)}% af de synlige pixels er farvede`)
+    if (visible === 0) errors.push(`${asset.id}: the file is completely empty`)
+    else if (colored / visible > 0.02) errors.push(`${asset.id}: must be white with the shape in the alpha, but ${Math.round(100 * colored / visible)}% of the visible pixels are colored`)
   }
-  if (asset.soemloes) {
-    // Forskellen hen over sømmen sammenlignet med nabopixels ved 1/4 og 3/4 af billedet
+  if (asset.seamless) {
+    // The difference across the seam compared with neighboring pixels at 1/4 and 3/4 of the image
     const px = (x, y) => (y * w + x) * 4
     const diff = (a, b) => Math.abs(rgba[a] - rgba[b]) + Math.abs(rgba[a + 1] - rgba[b + 1]) + Math.abs(rgba[a + 2] - rgba[b + 2]) + Math.abs(rgba[a + 3] - rgba[b + 3])
     const q = [Math.floor(w / 4), Math.floor(3 * w / 4)], r = [Math.floor(h / 4), Math.floor(3 * h / 4)]
     let seamX = 0, innerX = 0, seamY = 0, innerY = 0
     for (let y = 0; y < h; y++) { seamX += diff(px(w - 1, y), px(0, y)); innerX += (diff(px(q[0] - 1, y), px(q[0], y)) + diff(px(q[1] - 1, y), px(q[1], y))) / 2 }
     for (let x = 0; x < w; x++) { seamY += diff(px(x, h - 1), px(x, 0)); innerY += (diff(px(x, r[0] - 1), px(x, r[0])) + diff(px(x, r[1] - 1), px(x, r[1]))) / 2 }
-    if (seamX > 2.5 * innerX + 2 * h) warnings.push(`${asset.id}: venstre og højre kant passer ikke sammen; flisen kan få en synlig søm`)
-    if (seamY > 2.5 * innerY + 2 * w) warnings.push(`${asset.id}: top og bund passer ikke sammen; flisen kan få en synlig søm`)
+    if (seamX > 2.5 * innerX + 2 * h) warnings.push(`${asset.id}: the left and right edges do not match; the tile may show a visible seam`)
+    if (seamY > 2.5 * innerY + 2 * w) warnings.push(`${asset.id}: the top and bottom do not match; the tile may show a visible seam`)
   }
 }
 
 for (const asset of manifest.assets) {
-  if (asset.rolle === 'tema' && existsSync(temaPath) && !usedThemeAssets.has(asset.id)) continue
+  if (asset.role === 'theme' && existsSync(themePath) && !usedThemeAssets.has(asset.id)) continue
   const folder = asset.id.split('/')[0]
   const file = join(themeDir, `${asset.id}.${asset.format}`)
   if (!existsSync(file)) {
     const others = FORMATS.filter(f => f !== asset.format && existsSync(join(themeDir, `${asset.id}.${f}`)))
     if (others.length) {
-      errors.push(`${asset.id}: fundet som .${others[0]}, men manifestet kræver .${asset.format}`)
+      errors.push(`${asset.id}: found as .${others[0]}, but the manifest requires .${asset.format}`)
       wrongFormat.add(`${asset.id}.${others[0]}`)
-    } else (missing[asset.prioritet] ?? missing.P3).push(asset.id)
+    } else (missing[asset.priority] ?? missing.P3).push(asset.id)
     continue
   }
   try {
     const buf = readFileSync(file)
     const before = errors.length
-    const maxKb = manifest.mapper?.[folder]?.maks_kb
-    if (maxKb && buf.length > maxKb * 1024) warnings.push(`${asset.id}: fylder ${Math.round(buf.length / 1024)} KB, grænsen for ${folder} er ${maxKb} KB`)
+    const maxKb = manifest.folders?.[folder]?.max_kb
+    if (maxKb && buf.length > maxKb * 1024) warnings.push(`${asset.id}: is ${Math.round(buf.length / 1024)} KB; the limit for ${folder} is ${maxKb} KB`)
     if (asset.format === 'svg') {
       checkSvg(asset, buf.toString('utf8'))
     } else {
@@ -262,20 +262,20 @@ for (const asset of manifest.assets) {
       if (asset.format === 'png') info = readPng(buf)
       else if (asset.format === 'jpg') info = readJpeg(buf)
       else if (asset.format === 'webp') info = readWebp(buf)
-      if (info.width !== asset.bredde || info.height !== asset.hoejde) {
-        errors.push(`${asset.id}: er ${info.width}×${info.height}, skal være ${asset.bredde}×${asset.hoejde}`)
+      if (info.width !== asset.width || info.height !== asset.height) {
+        errors.push(`${asset.id}: is ${info.width}×${info.height}, must be ${asset.width}×${asset.height}`)
       }
-      if (asset.baggrund === 'transparent' && !info.hasAlpha) errors.push(`${asset.id}: mangler alfakanal (transparent baggrund)`)
-      if (asset.baggrund === 'opak' && info.hasAlpha) warnings.push(`${asset.id}: er opak i manifestet, men filen har alfakanal`)
+      if (asset.background === 'transparent' && !info.hasAlpha) errors.push(`${asset.id}: lacks an alpha channel (transparent background)`)
+      if (asset.background === 'opaque' && info.hasAlpha) warnings.push(`${asset.id}: is opaque in the manifest, but the file has an alpha channel`)
       if (asset.format === 'png') {
-        if (info.bitDepth !== 8 || info.interlace !== 0 || info.colorType === 3) warnings.push(`${asset.id}: gem som 8-bit RGBA uden interlace og uden palet`)
-        if (asset.baggrund === 'transparent' || asset.toenbar || asset.soemloes) {
+        if (info.bitDepth !== 8 || info.interlace !== 0 || info.colorType === 3) warnings.push(`${asset.id}: save as 8-bit RGBA without interlace and without a palette`)
+        if (asset.background === 'transparent' || asset.tintable || asset.seamless) {
           const rgba = decodePng(info)
           if (rgba) checkPixels(asset, rgba, info.width, info.height)
-          else errors.push(`${asset.id}: kan ikke pixeltjekkes (interlace); gem uden interlace`)
+          else errors.push(`${asset.id}: cannot be pixel-checked (interlaced); save without interlace`)
         }
-      } else if (asset.soemloes) {
-        warnings.push(`${asset.id}: sømtjek udføres kun for PNG; test ${asset.format}-flisen som 3×3`)
+      } else if (asset.seamless) {
+        warnings.push(`${asset.id}: the seam check only runs on PNG; test the ${asset.format} tile as 3×3`)
       }
     }
     if (errors.length === before) ok++
@@ -294,15 +294,15 @@ function walk(dir) {
   })
 }
 const extra = walk(themeDir).filter(f => FORMATS.includes(extname(f).slice(1)) && !known.has(f) && !wrongFormat.has(f) && !themeRefs.has(f))
-for (const f of extra) warnings.push(`${f}: findes ikke i manifestet (stavefejl i navnet?)`)
+for (const f of extra) warnings.push(`${f}: not in the manifest (a typo in the name?)`)
 
-const required = manifest.assets.filter(a => a.rolle === 'spil' || usedThemeAssets.has(a.id) || !existsSync(temaPath)).length
+const required = manifest.assets.filter(a => a.role === 'game' || usedThemeAssets.has(a.id) || !existsSync(themePath)).length
 const shown = relative(root, themeDir)
-console.log(`Tema: ${shown && !shown.startsWith('..') ? shown : themeDir}`)
-console.log(`${ok} af ${required} assets er leveret og godkendt.`)
+console.log(`Theme: ${shown && !shown.startsWith('..') ? shown : themeDir}`)
+console.log(`${ok} of ${required} assets are delivered and approved.`)
 for (const p of ['P1', 'P2', 'P3']) {
-  if (missing[p].length) console.log(`Mangler ${p} (${missing[p].length}): ${missing[p].join(', ')}`)
+  if (missing[p].length) console.log(`Missing ${p} (${missing[p].length}): ${missing[p].join(', ')}`)
 }
-if (warnings.length) console.log(`\nAdvarsler:\n- ${warnings.join('\n- ')}`)
-if (errors.length) console.log(`\nFejl:\n- ${errors.join('\n- ')}`)
+if (warnings.length) console.log(`\nWarnings:\n- ${warnings.join('\n- ')}`)
+if (errors.length) console.log(`\nErrors:\n- ${errors.join('\n- ')}`)
 process.exit(errors.length || missing.P1.length ? 1 : 0)

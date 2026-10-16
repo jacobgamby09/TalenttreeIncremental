@@ -1,402 +1,401 @@
-// HUD: ressourcer, infopanel, aktivitetsbjælke, pil i skærmkanten, beskeder og udviklerpanel.
-import { RESSOURCER, KLYNGER, VERDEN, OFFLINE_MAKS_TIMER } from './data.js'
+// HUD: resources, info panel, activity bar, edge arrow, messages and developer panel.
+import { RESOURCES, CLUSTERS, WORLD, OFFLINE_MAX_HOURS } from './data.js'
 import {
-  spil, noder, rank, level, kamppoint, kanBetale, kravListe, kravOpfyldt, aktivitetsTid, aktivitetsXp, dobbeltChance,
-  spillerStats, estimer, startAktivitet, stopAktivitet, koebRank, craft, udrust, byg, saetISocket, socketAntal, dungeonRaekke, udvikler, nulstil,
-} from './spil.js'
-import { tema } from './tema.js'
-import { T, tal, sek, pct, varighed } from './tekster.js'
-import { flyvTil, tilSkaerm, langtUde, markerSnavset, saetValgt } from './kort.js'
+  game, nodes, rank, level, combatPoints, canAfford, requirementList, requirementsMet, activityTime, activityXp, doubleChance,
+  playerStats, estimate, startActivity, stopActivity, buyRank, craft, equip, build, placeInSocket, socketCount, dungeonOrder, dev, reset,
+} from './game.js'
+import { theme } from './theme.js'
+import { T, num, sec, duration } from './text.js'
+import { flyTo, toScreen, zoomedOut, markDirty, setSelected } from './map.js'
 
 const $ = id => document.getElementById(id)
-let valgtId = null
-let infoSnavset = false
-let pegerPaaPanel = false
+let selectedId = null
+let infoDirty = false
+let pointerOnPanel = false
 
-// Små byggesten
+// Small building blocks
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]))
-function glyfHtml(id, farve = 'var(--tekst)', str = 16) {
-  if (!tema.har(id)) return `<span class="glyf-pladsholder" style="width:${str}px;height:${str}px;background:${farve}"></span>`
-  return `<span class="glyf" style="width:${str}px;height:${str}px;background:${farve};-webkit-mask-image:url('${tema.url(id)}');mask-image:url('${tema.url(id)}')"></span>`
+function glyphHtml(id, color = 'var(--text)', size = 16) {
+  if (!theme.has(id)) return `<span class="glyph-placeholder" style="width:${size}px;height:${size}px;background:${color}"></span>`
+  return `<span class="glyph" style="width:${size}px;height:${size}px;background:${color};-webkit-mask-image:url('${theme.url(id)}');mask-image:url('${theme.url(id)}')"></span>`
 }
-function ressourceIkon(r, str = 20) {
-  const id = RESSOURCER[r].ikon
-  if (tema.har(id)) return `<img class="res-ikon" src="${tema.url(id)}" width="${str}" height="${str}" alt="">`
-  return `<span class="res-pladsholder" style="width:${str}px;height:${str}px;background:${RESSOURCER[r].farve}"></span>`
+function resourceIcon(r, size = 20) {
+  const id = RESOURCES[r].icon
+  if (theme.has(id)) return `<img class="res-icon" src="${theme.url(id)}" width="${size}" height="${size}" alt="">`
+  return `<span class="res-placeholder" style="width:${size}px;height:${size}px;background:${RESOURCES[r].color}"></span>`
 }
-function nodeIkonHtml(n, str = 56) {
-  if (tema.har(n.ikon)) {
-    if (n.ikon.startsWith('glyffer/')) return `<span class="info-ikon glyf-boks" style="width:${str}px;height:${str}px">${glyfHtml(n.ikon, tema.klyngeFarve(n.klynge), str * 0.62)}</span>`
-    const bag = n.ikon.startsWith('portraetter/') && tema.har(tema.data.portraetbaggrund) ? `background-image:url('${tema.url(tema.data.portraetbaggrund)}')` : ''
-    return `<span class="info-ikon" style="width:${str}px;height:${str}px;${bag}"><img src="${tema.url(n.ikon)}" alt=""></span>`
+function nodeIconHtml(n, size = 56) {
+  if (theme.has(n.icon)) {
+    if (n.icon.startsWith('glyphs/')) return `<span class="info-icon glyph-box" style="width:${size}px;height:${size}px">${glyphHtml(n.icon, theme.clusterColor(n.cluster), size * 0.62)}</span>`
+    const bg = n.icon.startsWith('portraits/') && theme.has(theme.data.portraitBackground) ? `background-image:url('${theme.url(theme.data.portraitBackground)}')` : ''
+    return `<span class="info-icon" style="width:${size}px;height:${size}px;${bg}"><img src="${theme.url(n.icon)}" alt=""></span>`
   }
-  const initialer = n.navn.split(/\s+/).map(o => o[0]).join('').slice(0, 2).toUpperCase()
-  return `<span class="info-ikon pladsholder" style="width:${str}px;height:${str}px;color:${tema.klyngeFarve(n.klynge)}">${initialer}</span>`
+  const initials = n.name.split(/\s+/).map(o => o[0]).join('').slice(0, 2).toUpperCase()
+  return `<span class="info-icon placeholder" style="width:${size}px;height:${size}px;color:${theme.clusterColor(n.cluster)}">${initials}</span>`
 }
-function prisHtml(pris) {
-  const dele = Object.entries(pris ?? {})
-  if (!dele.length) return `<span class="pris-gratis">${T.info.gratis}</span>`
-  return dele.map(([r, n]) => `<span class="pris ${(spil.t.ressourcer[r] ?? 0) >= n ? '' : 'pris-mangler'}">${ressourceIkon(r, 16)}${tal(n)} ${esc(T.ressource(r).toLowerCase())}</span>`).join('')
+function priceHtml(price) {
+  const parts = Object.entries(price ?? {})
+  if (!parts.length) return `<span class="price-free">${T.info.free}</span>`
+  return parts.map(([r, n]) => `<span class="price ${(game.state.resources[r] ?? 0) >= n ? '' : 'price-missing'}">${resourceIcon(r, 16)}${num(n)} ${esc(T.resource(r).toLowerCase())}</span>`).join('')
 }
-function kravHtml(liste) {
-  if (!liste.length) return ''
-  return `<ul class="krav">${liste.map(k => {
-    let ok, tekst
-    if (k.skill) { ok = level(k.skill) >= k.lvl; tekst = T.krav.skill(k.skill, k.lvl) }
-    else if (k.boss) { ok = !!spil.t.besejret[k.boss]; tekst = T.krav.boss(noder.get(k.boss).navn) }
-    else if (k.stat) { ok = rank(k.stat) >= k.point; tekst = T.krav.stat(noder.get(k.stat).navn, k.point) }
-    return `<li class="${ok ? 'ok' : 'mangler'}">${esc(tekst)}</li>`
+function requirementsHtml(list) {
+  if (!list.length) return ''
+  return `<ul class="requirements">${list.map(k => {
+    let ok, text
+    if (k.skill) { ok = level(k.skill) >= k.lvl; text = T.requires.skill(k.skill, k.lvl) }
+    else if (k.boss) { ok = !!game.state.defeated[k.boss]; text = T.requires.boss(nodes.get(k.boss).name) }
+    else if (k.stat) { ok = rank(k.stat) >= k.points; text = T.requires.stat(nodes.get(k.stat).name, k.points) }
+    return `<li class="${ok ? 'ok' : 'missing'}">${esc(text)}</li>`
   }).join('')}</ul>`
 }
-const knap = (handling, tekst, aktiv = true, klasse = '') => `<button class="knap ${klasse}" data-handling="${handling}" ${aktiv ? '' : 'disabled'}>${esc(tekst)}</button>`
-const raekke = (label, vaerdi) => `<div class="raekke"><span>${esc(label)}</span><span>${vaerdi}</span></div>`
-const maalNavne = ids => ids.map(id => noder.get(id).navn.toLowerCase()).join(' og ')
+const btn = (action, text, enabled = true, cls = '') => `<button class="btn ${cls}" data-action="${action}" ${enabled ? '' : 'disabled'}>${esc(text)}</button>`
+const row = (label, value) => `<div class="row"><span>${esc(label)}</span><span>${value}</span></div>`
+const targetNames = ids => ids.map(id => nodes.get(id).name.toLowerCase()).join(' and ')
 
-function effektTekst(n) {
-  const e = n.modifier?.effekt ?? n.bygning?.effekt ?? n.passiv?.effekt
-  if (n.stat) return T.effekt.stat(n.stat.effekt)
-  if (n.gear) return T.effekt.gear(n.gear.stats)
-  if (n.tilbygning) return T.effekt.tilbygning
+function effectText(n) {
+  const e = n.modifier?.effect ?? n.building?.effect ?? n.passive?.effect
+  if (n.stat) return T.effect.stat(n.stat.effect)
+  if (n.gear) return T.effect.gear(n.gear.stats)
+  if (n.extension) return T.effect.extension
   if (!e) return ''
   switch (e.type) {
-    case 'tid': return T.effekt.tid(e.pr, maalNavne(e.maal))
-    case 'dobbelt': return T.effekt.dobbelt(e.pr, maalNavne(e.maal))
-    case 'braendsel': return T.effekt.braendsel(e.pr)
-    case 'fart': return T.effekt.fart(e.pr, e.skill)
-    case 'atk': return T.effekt.atk(e.pr)
-    case 'hpPrDrab': return T.effekt.hpPrDrab(e.pr)
-    case 'xpBonus': return T.effekt.xpBonus(e.pr, e.skill)
-    case 'torne': return T.effekt.torne(e.pr)
-    case 'urtemedicin': return T.effekt.urtemedicin(e.pr, e.interval)
-    case 'baeredygtig': return T.effekt.baeredygtig(e.xp, e.tid)
+    case 'time': return T.effect.time(e.value, targetNames(e.targets))
+    case 'double': return T.effect.double(e.value, targetNames(e.targets))
+    case 'fuel': return T.effect.fuel(e.value)
+    case 'speed': return T.effect.speed(e.value, e.skill)
+    case 'atk': return T.effect.atk(e.value)
+    case 'hpPerKill': return T.effect.hpPerKill(e.value)
+    case 'xpBonus': return T.effect.xpBonus(e.value, e.skill)
+    case 'thorns': return T.effect.thorns(e.value)
+    case 'herbalMedicine': return T.effect.herbalMedicine(e.value, e.interval)
+    case 'sustainable': return T.effect.sustainable(e.xp, e.time)
   }
   return ''
 }
 
-function statsGrid(st, farve) {
+function statsGrid(st, color) {
   return `<div class="stats">
-    <span>${glyfHtml('glyffer/atk', farve)} ATK ${tal(st.atk)}</span>
-    <span>${glyfHtml('glyffer/hp', farve)} HP ${tal(st.hp)}</span>
-    <span>${glyfHtml('glyffer/def', farve)} DEF ${tal(st.def)}</span>
-    <span>${glyfHtml('glyffer/angrebstid', farve)} ${sek(st.tid)}</span>
+    <span>${glyphHtml('glyphs/atk', color)} ATK ${num(st.atk)}</span>
+    <span>${glyphHtml('glyphs/hp', color)} HP ${num(st.hp)}</span>
+    <span>${glyphHtml('glyphs/def', color)} DEF ${num(st.def)}</span>
+    <span>${glyphHtml('glyphs/attack-time', color)} ${sec(st.time)}</span>
   </div>`
 }
 
-// Infopanelet
-function infoIndhold(n) {
-  const status = spil.status.get(n.id)
-  const farve = tema.klyngeFarve(n.klynge)
-  const laast = status === 'laast'
-  const kopf = `<header class="info-top" style="--farve:${farve}">${status === 'taage' ? `<span class="info-ikon taage">${glyfHtml('glyffer/taage', farve, 30)}</span>` : nodeIkonHtml(n)}
-    <div><div class="info-type">${esc(KLYNGER[n.klynge].navn)} · ${esc(T.typer[n.type])}</div><h2>${status === 'taage' ? '…' : esc(n.navn)}</h2></div>
-    <button class="luk" data-handling="luk" aria-label="${T.knap.luk}">×</button></header>`
+// The info panel
+function infoContent(n) {
+  const status = game.status.get(n.id)
+  const color = theme.clusterColor(n.cluster)
+  const locked = status === 'locked'
+  const head = `<header class="info-top" style="--accent:${color}">${status === 'fog' ? `<span class="info-icon fog">${glyphHtml('glyphs/fog', color, 30)}</span>` : nodeIconHtml(n)}
+    <div><div class="info-type">${esc(CLUSTERS[n.cluster].name)} · ${esc(T.types[n.type])}</div><h2>${status === 'fog' ? '…' : esc(n.name)}</h2></div>
+    <button class="close" data-action="close" aria-label="${T.btn.close}">×</button></header>`
 
-  if (status === 'taage' || n.type === 'ukendt') {
-    let hint = T.info.ukendt
-    const k = n.synligKrav
-    if (k?.drab) { const [id, antal] = Object.entries(k.drab)[0]; hint = T.krav.drab(noder.get(id).monster.flertal, antal, spil.t.drab[id] ?? 0) }
-    else if (k?.skill) hint = T.krav.synligSkill(k.skill, k.lvl)
-    return kopf + `<p class="info-tekst">${esc(hint)}</p>`
+  if (status === 'fog' || n.type === 'unknown') {
+    let hint = T.info.unknown
+    const k = n.visibleWhen
+    if (k?.kills) { const [id, count] = Object.entries(k.kills)[0]; hint = T.requires.kills(nodes.get(id).monster.plural, count, game.state.kills[id] ?? 0) }
+    else if (k?.skill) hint = T.requires.visibleSkill(k.skill, k.lvl)
+    return head + `<p class="info-text">${esc(hint)}</p>`
   }
 
-  let krop = ''
-  if (n.aktivitet) {
-    const a = n.aktivitet
-    const aktiv = spil.t.aktivitet?.node === n.id
-    const giver = Object.keys(a.giver).map(r => `${ressourceIkon(r, 16)}${esc(T.ressource(r))}`).join(' ')
-    const dob = dobbeltChance(n.id)
-    krop += raekke(T.info.tid, sek(aktivitetsTid(n.id)))
-    krop += raekke(T.info.giver, `${giver}${dob ? ` <small>(${pct(dob)} dobbelt)</small>` : ''}`)
-    if (a.bruger) krop += raekke(T.info.bruger, prisHtml(a.bruger))
-    krop += raekke(T.info.xp, `${tal(aktivitetsXp(n.id), 1)} ${esc(T.skill(a.skill).toLowerCase())}`)
-    krop += kravHtml(kravListe(n))
-    krop += `<div class="handlinger">${aktiv ? knap('stop', T.knap.stop, true, 'sekundaer') : knap('start', T.knap.start, !laast && kravOpfyldt(n) && (!a.bruger || kanBetale(a.bruger)))}</div>`
-  } else if (n.modifier || n.stat || n.passiv) {
-    const def = n.modifier ?? n.stat ?? n.passiv
+  let body = ''
+  if (n.activity) {
+    const a = n.activity
+    const active = game.state.activity?.node === n.id
+    const gives = Object.keys(a.gives).map(r => `${resourceIcon(r, 16)}${esc(T.resource(r))}`).join(' ')
+    const dbl = doubleChance(n.id)
+    body += row(T.info.time, sec(activityTime(n.id)))
+    body += row(T.info.gives, `${gives}${dbl ? ` <small>(${T.info.double(dbl)})</small>` : ''}`)
+    if (a.uses) body += row(T.info.uses, priceHtml(a.uses))
+    body += row(T.info.xp, `${num(activityXp(n.id), 1)} ${esc(T.skill(a.skill).toLowerCase())}`)
+    body += requirementsHtml(requirementList(n))
+    body += `<div class="actions">${active ? btn('stop', T.btn.stop, true, 'secondary') : btn('start', T.btn.start, !locked && requirementsMet(n) && (!a.uses || canAfford(a.uses)))}</div>`
+  } else if (n.modifier || n.stat || n.passive) {
+    const spec = n.modifier ?? n.stat ?? n.passive
     const r = rank(n.id)
-    krop += `<p class="info-tekst">${esc(effektTekst(n))}</p>`
-    krop += raekke(T.info.rankLabel, `${r}/${def.ranks}`)
-    if (r >= def.ranks) krop += `<p class="info-ok">${T.info.maks}</p>`
+    body += `<p class="info-text">${esc(effectText(n))}</p>`
+    body += row(T.info.rankLabel, `${r}/${spec.ranks}`)
+    if (r >= spec.ranks) body += `<p class="info-ok">${T.info.max}</p>`
     else if (n.stat) {
-      krop += kravHtml(n.krav ?? [])
-      krop += `<p class="info-tekst">${T.info.point(kamppoint())}</p>`
-      krop += `<div class="handlinger">${knap('koeb', T.knap.brugPoint, kravOpfyldt(n) && kamppoint() > 0)}</div>`
+      body += requirementsHtml(n.requires ?? [])
+      body += `<p class="info-text">${T.info.points(combatPoints())}</p>`
+      body += `<div class="actions">${btn('buy', T.btn.spendPoint, requirementsMet(n) && combatPoints() > 0)}</div>`
     } else {
-      const pris = def.pris[r]
-      krop += raekke(T.info.pris, prisHtml(pris))
-      krop += kravHtml(kravListe(n))
-      const ok = n.modifier ? kravOpfyldt(n) : status === 'aaben'
-      krop += `<div class="handlinger">${knap('koeb', `${T.knap.koeb} ${T.info.rank(r + 1, def.ranks).toLowerCase()}`, ok && kanBetale(pris))}</div>`
+      const price = spec.price[r]
+      body += row(T.info.price, priceHtml(price))
+      body += requirementsHtml(requirementList(n))
+      const ok = n.modifier ? requirementsMet(n) : status === 'open'
+      body += `<div class="actions">${btn('buy', `${T.btn.buy} ${T.info.rank(r + 1, spec.ranks).toLowerCase()}`, ok && canAfford(price))}</div>`
     }
   } else if (n.gear) {
-    const harDen = spil.t.craftet.includes(n.id)
-    const paa = spil.t.udrustet[n.gear.slot] === n.id
-    krop += `<p class="info-tekst">${esc(effektTekst(n))} · ${esc(T.slot(n.gear.slot))}</p>`
-    if (!harDen) {
-      krop += raekke(T.info.pris, prisHtml(n.gear.pris))
-      krop += raekke(T.info.xp, `${tal(n.gear.xp)} smedje`)
-      krop += kravHtml(kravListe(n))
-      krop += `<div class="handlinger">${knap('craft', T.knap.craft, kravOpfyldt(n) && kanBetale(n.gear.pris))}</div>`
+    const owned = game.state.crafted.includes(n.id)
+    const worn = game.state.equipped[n.gear.slot] === n.id
+    body += `<p class="info-text">${esc(effectText(n))} · ${esc(T.slot(n.gear.slot))}</p>`
+    if (!owned) {
+      body += row(T.info.price, priceHtml(n.gear.price))
+      body += row(T.info.xp, `${num(n.gear.xp)} ${esc(T.skill('smithing').toLowerCase())}`)
+      body += requirementsHtml(requirementList(n))
+      body += `<div class="actions">${btn('craft', T.btn.craft, requirementsMet(n) && canAfford(n.gear.price))}</div>`
     } else {
-      krop += `<p class="info-ok">${paa ? T.info.taget : T.info.ejet}</p>`
-      krop += `<div class="handlinger">${paa ? '' : knap('udrust', T.knap.tagPaa)}</div>`
+      body += `<p class="info-ok">${worn ? T.info.equipped : T.info.crafted}</p>`
+      body += `<div class="actions">${worn ? '' : btn('equip', T.btn.equip)}</div>`
     }
   } else if (n.type === 'slot') {
-    const nu = spil.t.udrustet[n.slot]
-    const muligheder = spil.t.craftet.filter(id => noder.get(id).gear.slot === n.slot)
-    krop += raekke(T.info.taget, nu ? esc(noder.get(nu).navn) : T.info.tom)
-    krop += muligheder.length
-      ? `<ul class="valg">${muligheder.map(id => `<li>${nodeIkonHtml(noder.get(id), 32)}<span>${esc(noder.get(id).navn)} <small>${esc(T.effekt.gear(noder.get(id).gear.stats))}</small></span>${id === nu ? knap(`tagaf:${id}`, T.knap.tagAf, true, 'sekundaer') : knap(`tagpaa:${id}`, T.knap.tagPaa)}</li>`).join('')}</ul>`
-      : `<p class="info-tekst">${T.info.ingenGear}</p>`
-  } else if (n.type === 'socket' || (n.type === 'tilbygning' && spil.t.tilbygning)) {
-    const nu = spil.t.sockets[n.socket]
-    krop += raekke(T.typer.socket, nu ? esc(noder.get(nu).navn) : T.info.ledig)
-    krop += spil.t.bygget.length
-      ? `<ul class="valg">${spil.t.bygget.map(id => `<li>${nodeIkonHtml(noder.get(id), 32)}<span>${esc(noder.get(id).navn)} <small>${esc(effektTekst(noder.get(id)))}</small></span>${id === nu ? knap(`tagud:${id}`, T.knap.tagUd, true, 'sekundaer') : knap(`saeti:${id}`, T.knap.saetI)}</li>`).join('')}</ul>`
-      : `<p class="info-tekst">${T.info.ingenBygninger}</p>`
-  } else if (n.type === 'tilbygning') {
-    krop += `<p class="info-tekst">${T.effekt.tilbygning}</p>`
-    krop += raekke(T.info.pris, prisHtml(n.tilbygning.pris))
-    krop += `<div class="handlinger">${knap('byg', T.knap.byg, kanBetale(n.tilbygning.pris))}</div>`
-  } else if (n.bygning) {
-    const bygget = spil.t.bygget.includes(n.id)
-    krop += `<p class="info-tekst">${esc(effektTekst(n))}</p>`
-    if (!bygget) {
-      krop += raekke(T.info.pris, prisHtml(n.bygning.pris))
-      krop += `<div class="handlinger">${knap('byg', T.knap.byg, kanBetale(n.bygning.pris))}</div>`
+    const current = game.state.equipped[n.slot]
+    const options = game.state.crafted.filter(id => nodes.get(id).gear.slot === n.slot)
+    body += row(T.info.equipped, current ? esc(nodes.get(current).name) : T.info.empty)
+    body += options.length
+      ? `<ul class="choices">${options.map(id => `<li>${nodeIconHtml(nodes.get(id), 32)}<span>${esc(nodes.get(id).name)} <small>${esc(T.effect.gear(nodes.get(id).gear.stats))}</small></span>${id === current ? btn(`unequip:${id}`, T.btn.unequip, true, 'secondary') : btn(`wear:${id}`, T.btn.equip)}</li>`).join('')}</ul>`
+      : `<p class="info-text">${T.info.noGear}</p>`
+  } else if (n.type === 'socket' || (n.type === 'extension' && game.state.extension)) {
+    const current = game.state.sockets[n.socket]
+    body += row(T.types.socket, current ? esc(nodes.get(current).name) : T.info.vacant)
+    body += game.state.built.length
+      ? `<ul class="choices">${game.state.built.map(id => `<li>${nodeIconHtml(nodes.get(id), 32)}<span>${esc(nodes.get(id).name)} <small>${esc(effectText(nodes.get(id)))}</small></span>${id === current ? btn(`remove:${id}`, T.btn.remove, true, 'secondary') : btn(`place:${id}`, T.btn.place)}</li>`).join('')}</ul>`
+      : `<p class="info-text">${T.info.noBuildings}</p>`
+  } else if (n.type === 'extension') {
+    body += `<p class="info-text">${T.effect.extension}</p>`
+    body += row(T.info.price, priceHtml(n.extension.price))
+    body += `<div class="actions">${btn('build', T.btn.build, canAfford(n.extension.price))}</div>`
+  } else if (n.building) {
+    const built = game.state.built.includes(n.id)
+    body += `<p class="info-text">${esc(effectText(n))}</p>`
+    if (!built) {
+      body += row(T.info.price, priceHtml(n.building.price))
+      body += `<div class="actions">${btn('build', T.btn.build, canAfford(n.building.price))}</div>`
     } else {
-      const i = spil.t.sockets.indexOf(n.id)
-      krop += `<p class="info-ok">${i >= 0 ? T.info.iSocket : T.info.bygget}</p>`
-      const ledig = spil.t.sockets.slice(0, socketAntal()).indexOf(null)
-      krop += `<div class="handlinger">${i >= 0 ? knap(`tagud:${n.id}`, T.knap.tagUd, true, 'sekundaer') : knap(`saeti:${n.id}`, T.knap.saetI, ledig >= 0)}</div>`
+      const i = game.state.sockets.indexOf(n.id)
+      body += `<p class="info-ok">${i >= 0 ? T.info.inSocket : T.info.built}</p>`
+      const vacant = game.state.sockets.slice(0, socketCount()).indexOf(null)
+      body += `<div class="actions">${i >= 0 ? btn(`remove:${n.id}`, T.btn.remove, true, 'secondary') : btn(`place:${n.id}`, T.btn.place, vacant >= 0)}</div>`
     }
   } else if (n.monster) {
     const m = n.monster
-    const s = spillerStats()
-    krop += statsGrid({ atk: m.atk, hp: m.hp, def: m.def, tid: m.tid }, tema.farve('fjendeHp'))
-    krop += raekke(T.info.xp, `${tal(m.xp)} kamp`)
-    if (m.drop) krop += raekke('Drop', `${ressourceIkon(m.drop.ressource, 16)}${esc(T.info.drop(T.ressource(m.drop.ressource), m.drop.chance))}`)
-    krop += `<p class="info-tekst">${n.dungeon ? T.info.dungeonForloeb : T.info.farming}</p>`
-    const est = estimer(n.dungeon ? dungeonRaekke : [n.id])
-    krop += `<p class="estimat ${est.vinder ? 'vinder' : 'taber'}">${n.dungeon
-      ? (est.vinder ? T.info.estimatDungeonVinder(est.hp) : T.info.estimatDungeonTaber(noder.get(est.taberVed).navn))
-      : (est.vinder ? T.info.estimatVinder(est.tid) : T.info.estimatTaber(est.tid))}</p>`
-    krop += `<div class="dine"><div class="info-type">${T.info.dineStats}</div>${statsGrid(s, tema.farve('spillerHp'))}</div>`
-    const iKamp = spil.t.aktivitet?.kamp && (spil.t.aktivitet.node === n.id || (n.dungeon && spil.t.aktivitet.dungeon))
-    const doed = spil.t.genopliv > 0
-    krop += `<div class="handlinger">${iKamp ? knap('stop', T.knap.stop, true, 'sekundaer') : knap('start', doed ? T.bjaelke.doed(spil.t.genopliv) : n.dungeon ? T.knap.dungeon : T.knap.kaemp, status === 'aaben' && !doed)}</div>`
+    const s = playerStats()
+    body += statsGrid({ atk: m.atk, hp: m.hp, def: m.def, time: m.time }, theme.color('enemyHp'))
+    body += row(T.info.xp, `${num(m.xp)} ${esc(T.skill('combat').toLowerCase())}`)
+    if (m.drop) body += row(T.info.dropLabel, `${resourceIcon(m.drop.resource, 16)}${esc(T.info.drop(T.resource(m.drop.resource), m.drop.chance))}`)
+    body += `<p class="info-text">${n.dungeon ? T.info.dungeonRun : T.info.farming}</p>`
+    const est = estimate(n.dungeon ? dungeonOrder : [n.id])
+    body += `<p class="estimate ${est.wins ? 'wins' : 'loses'}">${n.dungeon
+      ? (est.wins ? T.info.estimateDungeonWin(est.hp) : T.info.estimateDungeonLose(nodes.get(est.losesAt).name))
+      : (est.wins ? T.info.estimateWin(est.time) : T.info.estimateLose(est.time))}</p>`
+    body += `<div class="your-stats"><div class="info-type">${T.info.yourStats}</div>${statsGrid(s, theme.color('playerHp'))}</div>`
+    const inCombat = game.state.activity?.combat && (game.state.activity.node === n.id || (n.dungeon && game.state.activity.dungeon))
+    const dead = game.state.revive > 0
+    body += `<div class="actions">${inCombat ? btn('stop', T.btn.stop, true, 'secondary') : btn('start', dead ? T.bar.dead(game.state.revive) : n.dungeon ? T.btn.dungeon : T.btn.fight, status === 'open' && !dead)}</div>`
   }
-  return kopf + `<div class="info-krop">${krop}</div>`
+  return head + `<div class="info-body">${body}</div>`
 }
 
-let sidsteInfo = ''
-function visInfo() {
+let lastInfo = ''
+function showInfo() {
   const panel = $('info')
-  if (!valgtId) { panel.hidden = true; sidsteInfo = ''; return }
-  const n = noder.get(valgtId)
-  const html = infoIndhold(n)
-  if (html !== sidsteInfo) { panel.innerHTML = html; sidsteInfo = html }
-  panel.style.setProperty('--farve', tema.klyngeFarve(n.klynge))
+  if (!selectedId) { panel.hidden = true; lastInfo = ''; return }
+  const n = nodes.get(selectedId)
+  const html = infoContent(n)
+  if (html !== lastInfo) { panel.innerHTML = html; lastInfo = html }
+  panel.style.setProperty('--accent', theme.clusterColor(n.cluster))
   panel.hidden = false
 }
-export const opdaterInfo = () => { infoSnavset = true }
+export const updateInfo = () => { infoDirty = true }
 
-function handling(h) {
-  const n = noder.get(valgtId)
+function runAction(h) {
+  const n = nodes.get(selectedId)
   const [type, arg] = h.split(':')
   let ok = true
-  if (type === 'luk') return vaelg(null)
-  if (type === 'start') ok = startAktivitet(n.id)
-  if (type === 'stop') stopAktivitet()
-  if (type === 'koeb') ok = koebRank(n.id)
+  if (type === 'close') return select(null)
+  if (type === 'start') ok = startActivity(n.id)
+  if (type === 'stop') stopActivity()
+  if (type === 'buy') ok = buyRank(n.id)
   if (type === 'craft') ok = craft(n.id)
-  if (type === 'udrust') ok = udrust(n.gear.slot, n.id)
-  if (type === 'tagpaa') ok = udrust(n.slot, arg)
-  if (type === 'tagaf') ok = udrust(n.slot, null)
-  if (type === 'byg') ok = byg(n.id)
-  if (type === 'saeti') {
-    const index = n.socket ?? spil.t.sockets.slice(0, socketAntal()).indexOf(null)
-    ok = saetISocket(index, arg)
+  if (type === 'equip') ok = equip(n.gear.slot, n.id)
+  if (type === 'wear') ok = equip(n.slot, arg)
+  if (type === 'unequip') ok = equip(n.slot, null)
+  if (type === 'build') ok = build(n.id)
+  if (type === 'place') {
+    const index = n.socket ?? game.state.sockets.slice(0, socketCount()).indexOf(null)
+    ok = placeInSocket(index, arg)
   }
-  if (type === 'tagud') { const i = spil.t.sockets.indexOf(arg); if (i >= 0) ok = saetISocket(i, null) }
-  if (!ok) besked(T.besked.manglerRessourcer(n.navn), 'advarsel')
-  markerSnavset()
-  visInfo()
+  if (type === 'remove') { const i = game.state.sockets.indexOf(arg); if (i >= 0) ok = placeInSocket(i, null) }
+  if (!ok) showMessage(T.message.missingResources(n.name), 'warning')
+  markDirty()
+  showInfo()
 }
 
-export function vaelg(id) {
-  valgtId = id
-  saetValgt(id)
+export function select(id) {
+  selectedId = id
+  setSelected(id)
   if (id) {
-    const i = spil.t.uset.indexOf(id)
-    if (i >= 0) spil.t.uset.splice(i, 1)
+    const i = game.state.unseen.indexOf(id)
+    if (i >= 0) game.state.unseen.splice(i, 1)
   }
-  visInfo()
+  showInfo()
 }
 
-// Ressourcelinje og spillerens HP
-let sidsteRes = ''
-function tegnTop() {
-  const s = spillerStats()
-  const res = spil.t.sete.map(r => `<span class="res" title="${esc(T.ressource(r))}">${ressourceIkon(r)}<b>${tal(Math.floor(spil.t.ressourcer[r]))}</b></span>`).join('')
-  if (res !== sidsteRes) { $('ressourcer').innerHTML = res; sidsteRes = res }
-  const hp = Math.max(0, spil.t.hp ?? s.hp)
-  $('spiller-hp-fyld').style.width = `${(hp / s.hp) * 100}%`
-  $('spiller-hp-tekst').textContent = spil.t.genopliv > 0 ? T.bjaelke.doed(spil.t.genopliv) : `HP ${tal(Math.ceil(hp))} / ${tal(s.hp)}`
+// Resource bar and the player's HP
+let lastRes = ''
+function drawTop() {
+  const s = playerStats()
+  const res = game.state.seen.map(r => `<span class="res" title="${esc(T.resource(r))}">${resourceIcon(r)}<b>${num(Math.floor(game.state.resources[r]))}</b></span>`).join('')
+  if (res !== lastRes) { $('resources').innerHTML = res; lastRes = res }
+  const hp = Math.max(0, game.state.hp ?? s.hp)
+  $('player-hp-fill').style.width = `${(hp / s.hp) * 100}%`
+  $('player-hp-text').textContent = game.state.revive > 0 ? T.bar.dead(game.state.revive) : `HP ${num(Math.ceil(hp))} / ${num(s.hp)}`
 }
 
-// Aktivitetsbjælken og pilen i skærmkanten
-let bjaelkeNoegle = ''
-function tegnBjaelke() {
-  const a = spil.t.aktivitet
-  const bj = $('bjaelke'), pil = $('kantpil')
-  const doed = spil.t.genopliv > 0
-  if (!a && !doed) { bj.hidden = true; pil.hidden = true; bjaelkeNoegle = ''; return }
-  const n = a ? noder.get(a.node) : null
-  let synlig = false, skaerm = null
+// The activity bar and the arrow at the screen edge
+let barKey = ''
+function drawBar() {
+  const a = game.state.activity
+  const bar = $('activity-bar'), arrow = $('edge-arrow')
+  const dead = game.state.revive > 0
+  if (!a && !dead) { bar.hidden = true; arrow.hidden = true; barKey = ''; return }
+  const n = a ? nodes.get(a.node) : null
+  let visible = false, screen = null
   if (n) {
-    const pos = a.kamp ? [n.pos[0] + n.kampPlads[0] / 2, n.pos[1] + n.kampPlads[1] / 2] : n.pos
-    skaerm = tilSkaerm(pos[0], pos[1])
+    const pos = a.combat ? [n.pos[0] + n.combatOffset[0] / 2, n.pos[1] + n.combatOffset[1] / 2] : n.pos
+    screen = toScreen(pos[0], pos[1])
     const m = 40
-    synlig = skaerm.x > m && skaerm.y > m && skaerm.x < innerWidth - m && skaerm.y < innerHeight - m && !langtUde()
+    visible = screen.x > m && screen.y > m && screen.x < innerWidth - m && screen.y < innerHeight - m && !zoomedOut()
   }
-  bj.hidden = synlig && !doed
-  if (!bj.hidden) {
-    const noegle = `${a?.node ?? 'doed'}-${a?.kamp ? 'k' : 'a'}`
-    if (noegle !== bjaelkeNoegle) {
-      bjaelkeNoegle = noegle
-      if (!a) bj.innerHTML = `<div class="bj-tekst"><b>${T.besked.doed}</b><small data-bj-doed></small></div>`
-      else if (a.kamp) bj.innerHTML = `<div class="bj-mini">${nodeIkonHtml({ ...noder.get('rotte'), ikon: 'portraetter/spiller', navn: 'Dig' }, 34)}<i class="bj-timer spiller"><i data-bj-pt></i></i><i class="bj-hp spiller"><i data-bj-php></i></i></div>
-          <div class="bj-mini" data-bj-monster>${nodeIkonHtml(n, 34)}<i class="bj-timer fjende"><i data-bj-mt></i></i><i class="bj-hp fjende"><i data-bj-mhp></i></i></div>
-          <div class="bj-tekst"><b data-bj-titel></b><small data-bj-under></small></div>${knap('bj-stop', T.knap.stop, true, 'sekundaer lille')}`
-      else bj.innerHTML = `${nodeIkonHtml(n, 34)}<div class="bj-tekst"><b>${esc(n.navn)}</b><i class="bj-fremdrift"><i data-bj-f></i></i></div>${knap('bj-stop', T.knap.stop, true, 'sekundaer lille')}`
-      bj.style.setProperty('--farve', n ? tema.klyngeFarve(n.klynge) : 'var(--fjende-hp)')
+  bar.hidden = visible && !dead
+  if (!bar.hidden) {
+    const key = `${a?.node ?? 'dead'}-${a?.combat ? 'c' : 'a'}`
+    if (key !== barKey) {
+      barKey = key
+      if (!a) bar.innerHTML = `<div class="bar-text"><b>${T.message.died}</b><small data-bar-dead></small></div>`
+      else if (a.combat) bar.innerHTML = `<div class="bar-mini">${nodeIconHtml({ ...nodes.get('rat'), icon: 'portraits/player', name: T.you }, 34)}<i class="bar-timer player"><i data-bar-player-timer></i></i><i class="bar-hp player"><i data-bar-player-hp></i></i></div>
+          <div class="bar-mini" data-bar-monster>${nodeIconHtml(n, 34)}<i class="bar-timer enemy"><i data-bar-enemy-timer></i></i><i class="bar-hp enemy"><i data-bar-enemy-hp></i></i></div>
+          <div class="bar-text"><b data-bar-title></b><small data-bar-sub></small></div>${btn('bar-stop', T.btn.stop, true, 'secondary small')}`
+      else bar.innerHTML = `${nodeIconHtml(n, 34)}<div class="bar-text"><b>${esc(n.name)}</b><i class="bar-progress"><i data-bar-progress></i></i></div>${btn('bar-stop', T.btn.stop, true, 'secondary small')}`
+      bar.style.setProperty('--accent', n ? theme.clusterColor(n.cluster) : 'var(--enemy-hp)')
     }
-    if (!a) bj.querySelector('[data-bj-doed]').textContent = T.bjaelke.doed(spil.t.genopliv)
-    else if (a.kamp) {
-      const s = spillerStats()
-      const mn = noder.get(a.node)
-      if (bj.querySelector('[data-bj-monster] img')?.getAttribute('src') !== tema.url(mn.ikon) && tema.har(mn.ikon)) bj.querySelector('[data-bj-monster]').firstElementChild.outerHTML = nodeIkonHtml(mn, 34)
-      bj.querySelector('[data-bj-pt]').style.width = `${Math.min(1, a.spillerT / s.tid) * 100}%`
-      bj.querySelector('[data-bj-php]').style.width = `${Math.max(0, spil.t.hp / s.hp) * 100}%`
-      bj.querySelector('[data-bj-mt]').style.width = `${a.respawn > 0 ? 0 : Math.min(1, a.fjendeT / mn.monster.tid) * 100}%`
-      bj.querySelector('[data-bj-mhp]').style.width = `${a.respawn > 0 ? 0 : Math.max(0, a.fjendeHp / mn.monster.hp) * 100}%`
-      const i = dungeonRaekke.indexOf(mn.id)
-      bj.querySelector('[data-bj-titel]').textContent = a.dungeon ? T.bjaelke.dungeon(mn.navn, i + 1, dungeonRaekke.length) : T.bjaelke.kamp(mn.navn)
-      bj.querySelector('[data-bj-under]').textContent = a.respawn > 0 ? T.bjaelke.venter : `${T.bjaelke.drab(a.drab)} · ${T.bjaelke.gaaTil}`
+    if (!a) bar.querySelector('[data-bar-dead]').textContent = T.bar.dead(game.state.revive)
+    else if (a.combat) {
+      const s = playerStats()
+      const mn = nodes.get(a.node)
+      if (bar.querySelector('[data-bar-monster] img')?.getAttribute('src') !== theme.url(mn.icon) && theme.has(mn.icon)) bar.querySelector('[data-bar-monster]').firstElementChild.outerHTML = nodeIconHtml(mn, 34)
+      bar.querySelector('[data-bar-player-timer]').style.width = `${Math.min(1, a.playerT / s.time) * 100}%`
+      bar.querySelector('[data-bar-player-hp]').style.width = `${Math.max(0, game.state.hp / s.hp) * 100}%`
+      bar.querySelector('[data-bar-enemy-timer]').style.width = `${a.respawn > 0 ? 0 : Math.min(1, a.enemyT / mn.monster.time) * 100}%`
+      bar.querySelector('[data-bar-enemy-hp]').style.width = `${a.respawn > 0 ? 0 : Math.max(0, a.enemyHp / mn.monster.hp) * 100}%`
+      const i = dungeonOrder.indexOf(mn.id)
+      bar.querySelector('[data-bar-title]').textContent = a.dungeon ? T.bar.dungeon(mn.name, i + 1, dungeonOrder.length) : T.bar.combat(mn.name)
+      bar.querySelector('[data-bar-sub]').textContent = a.respawn > 0 ? T.bar.waiting : `${T.bar.kills(a.kills)} · ${T.bar.goTo}`
     } else {
-      bj.querySelector('[data-bj-f]').style.width = `${Math.min(1, a.t / aktivitetsTid(a.node)) * 100}%`
+      bar.querySelector('[data-bar-progress]').style.width = `${Math.min(1, a.t / activityTime(a.node)) * 100}%`
     }
   }
-  if (n && !synlig && skaerm && !langtUde() && (skaerm.x < 0 || skaerm.y < 0 || skaerm.x > innerWidth || skaerm.y > innerHeight)) {
+  if (n && !visible && screen && !zoomedOut() && (screen.x < 0 || screen.y < 0 || screen.x > innerWidth || screen.y > innerHeight)) {
     const cx = innerWidth / 2, cy = innerHeight / 2
-    const dx = skaerm.x - cx, dy = skaerm.y - cy
+    const dx = screen.x - cx, dy = screen.y - cy
     const k = Math.min((innerWidth / 2 - 30) / Math.abs(dx || 1e-6), (innerHeight / 2 - (dy > 0 ? 90 : 60)) / Math.abs(dy || 1e-6))
-    pil.hidden = false
-    pil.style.transform = `translate(${cx + dx * k}px, ${cy + dy * k}px) rotate(${Math.atan2(dy, dx)}rad)`
-    pil.style.setProperty('--farve', tema.klyngeFarve(n.klynge))
-  } else pil.hidden = true
+    arrow.hidden = false
+    arrow.style.transform = `translate(${cx + dx * k}px, ${cy + dy * k}px) rotate(${Math.atan2(dy, dx)}rad)`
+    arrow.style.setProperty('--accent', theme.clusterColor(n.cluster))
+  } else arrow.hidden = true
 }
-function gaaTilAktivitet() {
-  const a = spil.t.aktivitet
+function goToActivity() {
+  const a = game.state.activity
   if (!a) return
-  const n = noder.get(a.node)
-  const p = a.kamp ? [n.pos[0] + n.kampPlads[0] / 2, n.pos[1] + n.kampPlads[1] / 2] : n.pos
-  flyvTil(p[0], p[1], 0.9)
+  const n = nodes.get(a.node)
+  const p = a.combat ? [n.pos[0] + n.combatOffset[0] / 2, n.pos[1] + n.combatOffset[1] / 2] : n.pos
+  flyTo(p[0], p[1], 0.9)
 }
 
-// Beskeder
-export function besked(tekst, klasse = '') {
+// Messages
+export function showMessage(text, cls = '') {
   const b = document.createElement('div')
-  b.className = `besked ${klasse}`
-  b.textContent = tekst
-  const liste = $('beskeder')
-  liste.appendChild(b)
-  while (liste.children.length > 4) liste.firstElementChild.remove()
-  setTimeout(() => b.classList.add('vaek'), 3200)
+  b.className = `message ${cls}`
+  b.textContent = text
+  const list = $('messages')
+  list.appendChild(b)
+  while (list.children.length > 4) list.firstElementChild.remove()
+  setTimeout(() => b.classList.add('leaving'), 3200)
   setTimeout(() => b.remove(), 3800)
 }
 
-// Opsummering efter offline progress. naarLukket kaldes, når spilleren trykker Fortsæt.
-export function visOffline(r, naarLukket = () => {}) {
+// Summary after offline progress. onClosed is called when the player presses Continue.
+export function showOffline(r, onClosed = () => {}) {
   const O = T.offline
-  const chip = indhold => `<span class="pris">${indhold}</span>`
-  const ressourcer = Object.entries(r.ressourcer).sort((a, b) => b[1] - a[1])
-    .map(([id, n]) => chip(`${ressourceIkon(id, 16)}${n > 0 ? '+' : '−'}${tal(Math.abs(n))} ${esc(T.ressource(id).toLowerCase())}`))
-  const levels = r.levels.map(l => chip(`${esc(T.skill(l.skill))} ${l.fra} → ${l.til}`))
-  const drab = Object.entries(r.drab).map(([id, n]) => {
-    const node = noder.get(id)
-    return chip(`${tal(n)} ${esc((n === 1 ? node.navn : node.monster.flertal ?? node.navn).toLowerCase())}`)
+  const chip = content => `<span class="price">${content}</span>`
+  const resources = Object.entries(r.resources).sort((a, b) => b[1] - a[1])
+    .map(([id, n]) => chip(`${resourceIcon(id, 16)}${n > 0 ? '+' : '−'}${num(Math.abs(n))} ${esc(T.resource(id).toLowerCase())}`))
+  const levels = r.levels.map(l => chip(`${esc(T.skill(l.skill))} ${l.from} → ${l.to}`))
+  const kills = Object.entries(r.kills).map(([id, n]) => {
+    const node = nodes.get(id)
+    return chip(`${num(n)} ${esc((n === 1 ? node.name : node.monster.plural ?? node.name).toLowerCase())}`)
   })
-  const afsnit = (titel, dele) => (dele.length ? `<h3>${titel}</h3><div class="offline-liste">${dele.join('')}</div>` : '')
+  const section = (title, parts) => (parts.length ? `<h3>${title}</h3><div class="offline-list">${parts.join('')}</div>` : '')
   const p = $('offline')
   p.innerHTML = `<div class="offline-panel">
-    <h2 id="offline-titel">${O.titel}</h2>
-    <p>${O.vaek(varighed(r.sekunder))}${r.kappet ? ` ${O.kappet(OFFLINE_MAKS_TIMER)}` : ''}</p>
-    <p>${O.aktivitet(esc(noder.get(r.aktivitet).navn))}</p>
-    ${r.doed ? `<p>${O.doed}</p>` : r.stoppet ? `<p>${O.stoppet}</p>` : ''}
-    ${afsnit(O.ressourcer, ressourcer)}${afsnit(O.levels, levels)}${afsnit(O.drab, drab)}
-    ${r.klynger.length ? `<p>${O.afsloeringer(r.klynger.length)}</p>` : ''}
-    <div class="handlinger"><button class="knap" data-offline-luk>${O.fortsaet}</button></div>
+    <h2 id="offline-title">${O.title}</h2>
+    <p>${O.away(duration(r.seconds))}${r.capped ? ` ${O.capped(OFFLINE_MAX_HOURS)}` : ''}</p>
+    <p>${O.activity(esc(nodes.get(r.activity).name))}</p>
+    ${r.died ? `<p>${O.died}</p>` : r.stopped ? `<p>${O.stopped}</p>` : ''}
+    ${section(O.resources, resources)}${section(O.levels, levels)}${section(O.kills, kills)}
+    ${r.clusters.length ? `<p>${O.reveals(r.clusters.length)}</p>` : ''}
+    <div class="actions"><button class="btn" data-offline-close>${O.continue}</button></div>
   </div>`
   p.hidden = false
-  const knap = p.querySelector('[data-offline-luk]')
-  const luk = () => {
+  const button = p.querySelector('[data-offline-close]')
+  const close = () => {
     p.hidden = true
     p.innerHTML = ''
-    window.removeEventListener('keydown', tast)
-    naarLukket()
+    window.removeEventListener('keydown', onKey)
+    onClosed()
   }
-  const tast = e => { if (e.key === 'Escape' || e.key === 'Enter') { e.preventDefault(); luk() } }
-  knap.addEventListener('click', luk)
-  window.addEventListener('keydown', tast)
-  knap.focus()
+  const onKey = e => { if (e.key === 'Escape' || e.key === 'Enter') { e.preventDefault(); close() } }
+  button.addEventListener('click', close)
+  window.addEventListener('keydown', onKey)
+  button.focus()
 }
 
-// Udviklerpanel
-function tegnUdvikler() {
-  const p = $('udvikler')
-  p.innerHTML = `<h3>${T.udvikler.titel}</h3>
-    <div class="raekke"><span>${T.udvikler.fart}</span><span>${[1, 5, 20, 60].map(f => `<button class="knap lille ${spil.fart === f ? '' : 'sekundaer'}" data-fart="${f}">${f}×</button>`).join('')}</span></div>
-    <button class="knap sekundaer" data-dev="ressourcer">${T.udvikler.ressourcer}</button>
-    <button class="knap sekundaer" data-dev="levels">${T.udvikler.xp}</button>
-    <button class="knap sekundaer" data-dev="afsloer">${T.udvikler.afsloer}</button>
-    <button class="knap sekundaer" data-dev="altSynligt">${T.udvikler.altSynligt}</button>
-    <button class="knap fare" data-dev="nulstil">${T.knap.nulstil}</button>
-    <p class="info-tekst"><small>${T.udvikler.note}</small></p>`
+// Developer panel
+function drawDev() {
+  const p = $('dev-panel')
+  p.innerHTML = `<h3>${T.dev.title}</h3>
+    <div class="row"><span>${T.dev.speed}</span><span>${[1, 5, 20, 60].map(f => `<button class="btn small ${game.speed === f ? '' : 'secondary'}" data-speed="${f}">${f}×</button>`).join('')}</span></div>
+    <button class="btn secondary" data-dev="resources">${T.dev.resources}</button>
+    <button class="btn secondary" data-dev="levels">${T.dev.levels}</button>
+    <button class="btn secondary" data-dev="reveal">${T.dev.reveal}</button>
+    <button class="btn secondary" data-dev="revealAll">${T.dev.revealAll}</button>
+    <button class="btn danger" data-dev="reset">${T.btn.reset}</button>
+    <p class="info-text"><small>${T.dev.note}</small></p>`
 }
 
-export function opsaetUi() {
-  document.title = T.titel
-  $('knap-hjem').textContent = T.knap.centrer
-  $('knap-udvikler').textContent = T.knap.udvikler
-  $('knap-hjem').addEventListener('click', () => flyvTil(VERDEN.start[0], VERDEN.start[1], 0.8))
-  $('knap-udvikler').addEventListener('click', () => { const p = $('udvikler'); p.hidden = !p.hidden; if (!p.hidden) tegnUdvikler() })
-  $('udvikler').addEventListener('click', e => {
-    const f = e.target.closest('[data-fart]')
-    if (f) { spil.fart = Number(f.dataset.fart); tegnUdvikler(); return }
+export function setupUi() {
+  document.title = T.title
+  $('btn-home').textContent = T.btn.home
+  $('btn-dev').textContent = T.btn.dev
+  $('btn-home').addEventListener('click', () => flyTo(WORLD.start[0], WORLD.start[1], 0.8))
+  $('btn-dev').addEventListener('click', () => { const p = $('dev-panel'); p.hidden = !p.hidden; if (!p.hidden) drawDev() })
+  $('dev-panel').addEventListener('click', e => {
+    const f = e.target.closest('[data-speed]')
+    if (f) { game.speed = Number(f.dataset.speed); drawDev(); return }
     const d = e.target.closest('[data-dev]')?.dataset.dev
-    if (d === 'nulstil') { if (confirm(T.knap.nulstil + '?')) { nulstil(); vaelg(null); markerSnavset() } return }
-    if (d === 'altSynligt') { if (confirm(T.udvikler.altSynligtSpoerg)) { udvikler.altSynligt(); vaelg(null); markerSnavset(); flyvTil(1850, 1450, 0.42) } return }
-    if (d && udvikler[d]) { udvikler[d](); markerSnavset(); opdaterInfo() }
+    if (d === 'reset') { if (confirm(T.btn.reset + '?')) { reset(); select(null); markDirty() } return }
+    if (d === 'revealAll') { if (confirm(T.dev.revealAllConfirm)) { dev.revealAll(); select(null); markDirty(); flyTo(1850, 1450, 0.42) } return }
+    if (d && dev[d]) { dev[d](); markDirty(); updateInfo() }
   })
   const info = $('info')
-  info.addEventListener('pointerdown', () => { pegerPaaPanel = true })
-  window.addEventListener('pointerup', () => { pegerPaaPanel = false })
-  info.addEventListener('click', e => { const h = e.target.closest('[data-handling]')?.dataset.handling; if (h) handling(h) })
-  $('bjaelke').addEventListener('click', e => {
-    if (e.target.closest('[data-handling="bj-stop"]')) { stopAktivitet(); return }
-    gaaTilAktivitet()
+  info.addEventListener('pointerdown', () => { pointerOnPanel = true })
+  window.addEventListener('pointerup', () => { pointerOnPanel = false })
+  info.addEventListener('click', e => { const h = e.target.closest('[data-action]')?.dataset.action; if (h) runAction(h) })
+  $('activity-bar').addEventListener('click', e => {
+    if (e.target.closest('[data-action="bar-stop"]')) { stopActivity(); return }
+    goToActivity()
   })
-  $('kantpil').addEventListener('click', gaaTilAktivitet)
+  $('edge-arrow').addEventListener('click', goToActivity)
   window.addEventListener('keydown', e => {
-    if (e.key === 'Escape') vaelg(null)
+    if (e.key === 'Escape') select(null)
   })
 }
 
 export function uiFrame() {
-  tegnTop()
-  tegnBjaelke()
-  if (infoSnavset && !pegerPaaPanel && valgtId) { infoSnavset = false; visInfo() }
+  drawTop()
+  drawBar()
+  if (infoDirty && !pointerOnPanel && selectedId) { infoDirty = false; showInfo() }
 }
-

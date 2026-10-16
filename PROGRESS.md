@@ -1,99 +1,106 @@
 # PROGRESS.md
 
-Fremdriften i projektet. Opdateres af alle agenter efter hver leverance; reglerne står i [AGENTS.md](AGENTS.md#progressmd).
+Progress of the project. Updated by every agent after each delivery; the rules are in [AGENTS.md](AGENTS.md#progressmd).
 
-Senest opdateret: 2026-10-16
+Last updated: 2026-10-16
 
 ## Status
 
-| Område | Status | Hvor |
+| Area | Status | Where |
 |---|---|---|
-| Spilkoncept | Klar, version 1. Humor er lagt til side for nu | [spilkoncept.md](dokumentation/spilkoncept.md) |
-| Nodeliste | 58 nodes i seks klynger plus to skjulte. Første udkast til tal | [prototype-noder.md](dokumentation/prototype-noder.md) |
-| Asset-kontrakt | 106 assets i manifestet, med tjek og genereret liste | [asset-manifest.json](temaer/asset-manifest.json), [asset-liste.md](dokumentation/asset-liste.md) |
-| Tema: stjernekort | Komplet: 106 af 106 godkendt af tjekket | [temaer/stjernekort](temaer/stjernekort), [kilder/stjernekort](kilder/stjernekort) |
-| Prototype | Spilbar med alle 58 nodes og alle lag, offline progress og versioneret gem | [prototype/](prototype/) |
-| Balancering | Målt med bot-simulator: alle milepæle inden for målene, bossen falder efter ca. 33 min. Ikke afprøvet med rigtige spillere | [balancering.md](dokumentation/balancering.md) |
-| Tests | 18 tests af spilmotoren, alle består | [tests/](tests/) |
-| Grafisk retning | Ikke valgt. Stjernekortet er det fulde tema; tegneserie og pixel udforskes | [grafik/](grafik/) |
+| Game concept | Ready, version 1. Humor is set aside for now | [game-concept.md](docs/game-concept.md) |
+| Node list | 58 nodes in six clusters plus two hidden. First draft of the numbers | [prototype-nodes.md](docs/prototype-nodes.md) |
+| Asset contract | 106 assets in the manifest, with a check and a generated list | [asset-manifest.json](themes/asset-manifest.json), [asset-list.md](docs/asset-list.md) |
+| Theme: starchart | Complete: 106 of 106 approved by the check | [themes/starchart](themes/starchart), [kilder/stjernekort](kilder/stjernekort) |
+| Prototype | Playable with all 58 nodes and all layers, offline progress and versioned saves | [prototype/](prototype/) |
+| Balance | Measured with a bot simulator: all milestones within their targets, the boss falls after about 33 min. Not tested with real players | [balance.md](docs/balance.md) |
+| Tests | 26 tests of the game engine, all passing | [tests/](tests/) |
+| Language | The game and all project files are in English; the conversation with the user is in Danish | [AGENTS.md](AGENTS.md) |
+| Art direction | Not chosen. The starchart is the full theme; cartoon and pixel are being explored | [grafik/](grafik/) |
 
-## I gang
+## In progress
 
-- **Pixel-moodboards (Codex):** otte pixelstilarter efter [BESTILLING.md](grafik/pixel-moodboards/BESTILLING.md). Mapperne findes, men `LEVERANCE.md` mangler endnu, så leverancen er ikke færdig. Rør ikke `grafik/pixel-moodboards/`, før den er afleveret.
+- **Pixel moodboards (Codex):** eight pixel styles following [BESTILLING.md](grafik/pixel-moodboards/BESTILLING.md). `LEVERANCE.md` has arrived, but the delivery has not been reviewed yet; the user has chosen to wait. Do not change `grafik/pixel-moodboards/` until it has been reviewed.
 
-## Næste skridt
+## Next steps
 
-1. Playtests med rigtige spillere: mål milepælstider (gemt i `milepaele` i det gemte spil) og sammenlign med botten.
-2. Vurdér pixel-moodboards, når de er leveret, og sammenlign med stjernekortet og tegneseriestilen.
-3. Brugeren spiller prototypen igennem og vælger grafisk retning.
-4. Afprøv offline progress: 8 timer med fuld effekt giver mange levels i forhold til prototypens cirka 40 minutters indhold.
-5. Botten når aldrig Skovbrug (300 eg) i sin rute. Overvej, om grænsen skal sænkes, eller om det er fint, at Skovbrug kommer senere.
-6. Tågens langsomme bevægelse med to kopier i forskellig skala, som tema.json lægger op til.
-7. Bevidst udeladt indtil videre: mad og cooking, flere gear-tiers, prestige og lyd.
+1. Playtests with real players: measure milestone times (stored in `milestones` in the saved game) and compare them with the bot.
+2. Review the pixel moodboards (delivered, waiting for the user), and compare them with the starchart and the cartoon style.
+3. After the review: rename Codex's archives `kilder/`, `grafik/` and `konceptbilleder/` to English together with Codex, and agree on the English delivery paths (e.g. `sources/<theme>/round-NN/DELIVERY.md`).
+4. The user plays the prototype through and chooses an art direction.
+5. Test offline progress: 8 hours at full effect gives many levels compared with the prototype's roughly 40 minutes of content.
+6. The bot never reaches Forestry (300 oak) on its route. Consider whether the threshold should be lowered, or whether it is fine that Forestry comes later.
+7. Slow movement of the fog with two copies at different scales, as theme.json suggests.
+8. Deliberately left out for now: food and cooking, more gear tiers, prestige and sound.
 
-## Åbne spørgsmål til brugeren
+## Open questions for the user
 
-- Hvilken grafisk retning skal spillet have? Stjernekort, tegneserie eller en pixelstil?
-- Tegneseriens leverance taler om "den valgte tegneseriestil". Er tegneserie besluttet, eller er det stadig en prøve?
-- Er det ok, at gear craftes én gang og vælges i sit slot uden et egentligt inventory? Prototypen gør det sådan nu.
-- Skal spillets tekster være på dansk eller engelsk? Prototypen er på dansk nu.
-- Skal offline progress give fuld effekt i op til 8 timer, eller mindre? Det er assistentens valg indtil videre.
+- Which art direction should the game have? Starchart, cartoon or a pixel style?
+- The cartoon delivery talks about "the chosen cartoon style". Is cartoon decided, or is it still a sample?
+- Is it ok that gear is crafted once and chosen in its slot without an actual inventory? The prototype does it that way now.
+- Should offline progress give full effect for up to 8 hours, or less? It is the assistant's choice for now.
 
-## Kendte problemer
+## Known issues
 
-- Konsollen viser 404 for `favicon.ico`.
-- Stjernehimlen er en JPG, så sømmen tjekkes ikke automatisk. Den er godkendt visuelt i en 3×3-prøve.
-- Balanceringen er kun målt med en bot, ikke med rigtige spillere.
-- Prototypen er kun afprøvet på desktop, ikke på mobil.
+- The console shows a 404 for `favicon.ico`.
+- The starfield is a JPG, so its seam is not checked automatically. It was approved visually in a 3×3 sample.
+- Balance has only been measured with a bot, not with real players.
+- The prototype has only been tested on desktop, not on mobile.
 
 ## Log
 
-Nyeste først.
+Newest first.
 
-### 2026-10-16 · Claude · Balanceringssimulator og offline progress
+### 2026-10-16 · Claude · Everything in English
 
-- `tools/simuler.mjs` (`npm run simuler`): en bot spiller prototypen 20 gange med faste frø og skriver milepælstider til `dokumentation/balancering.md`.
-- Balance justeret efter målingen: XP-kurven er nu 35 × 1,22^(level − 1), og Træets vogter har 160 HP og 26 ATK. Bossen falder efter 32:35 (median), og alle milepæle ligger inden for målene.
-- Gemt spil er versioneret (version 2) med migrering fra version 1. Et gemt spil fra en ukendt version gemmes som backup i stedet for at blive overskrevet. Spilletid og milepæle gemmes.
-- Offline progress: aktiviteten fortsætter i op til 8 timer, og et vindue "Mens du var væk" viser resultatet. Klynger afsløret imens afsløres, når vinduet lukkes. Afprøvet i browseren.
-- 5 nye tests (18 i alt).
+- The user decided that the game and all project files are in English, while the conversation stays in Danish. Code, identifiers, comments, game text, documents, file and folder names and all 106 asset ids are translated (`docs/`, `themes/starchart/`, `prototype/js/game.js` and so on; files moved with `git mv`). Codex's archives `kilder/`, `grafik/` and `konceptbilleder/` are not renamed yet.
+- Save version 3 with English ids under the key `talenttree-prototype`. An old Danish save is migrated automatically with `prototype/js/legacy-ids.js`, and the old key is left untouched. Tested in the browser with a real Danish save.
+- Behavior is unchanged: an equivalence check against the Danish engine matched on 10 seeds, and `npm run simulate` gives the same milestone times as before. 26 tests pass, and the asset check approves 106 of 106.
+
+### 2026-10-16 · Claude · Balance simulator and offline progress
+
+- `tools/simulate.mjs` (`npm run simulate`): a bot plays the prototype 20 times with fixed seeds and writes milestone times to `docs/balance.md`.
+- Balance adjusted after the measurement: the XP curve is now 35 × 1.22^(level − 1), and the Tree Guardian has 160 HP and 26 ATK. The boss falls after 32:35 (median), and all milestones are within their targets.
+- Saves are versioned (version 2) with migration from version 1. A save from an unknown version is kept as a backup instead of being overwritten. Play time and milestones are saved.
+- Offline progress: the activity continues for up to 8 hours, and a "While you were away" window shows the result. Clusters revealed in the meantime are revealed when the window closes. Tested in the browser.
+- 5 new tests (18 in total).
 
 ### 2026-10-16 · Claude · Git
 
-- Repository oprettet og skubbet til https://github.com/jacobgamby09/TalenttreeIncremental (gren `main`). `grafik/pixel-moodboards/` er ikke med, fordi Codex arbejder i mappen.
+- Repository created and pushed to https://github.com/jacobgamby09/TalenttreeIncremental (branch `main`). `grafik/pixel-moodboards/` is not included, because Codex is working in the folder.
 
-### 2026-10-16 · Claude · Projektstruktur og tests
+### 2026-10-16 · Claude · Project structure and tests
 
-- AGENTS.md, CLAUDE.md og PROGRESS.md oprettet. CLAUDE.md importerer AGENTS.md, så der kun findes ét sæt fælles regler.
-- `package.json` med kommandoer (`npm start`, `npm test`, `npm run tjek:assets`, `npm run asset-liste`), plus `.gitignore` og `.editorconfig`.
-- 13 automatiske tests af spilmotoren i `tests/motor.test.mjs`. Alle består.
+- AGENTS.md, CLAUDE.md and PROGRESS.md created. CLAUDE.md imports AGENTS.md, so there is only one set of shared rules.
+- `package.json` with commands (`npm start`, `npm test`, `npm run check:assets`, `npm run asset-list`), plus `.gitignore` and `.editorconfig`.
+- 13 automated tests of the game engine in `tests/engine.test.mjs`. All pass.
 
-### 2026-10-16 · Claude · Demo-load med hele kortet
+### 2026-10-16 · Claude · Demo load with the whole map
 
-- `?load=alt` starter et demo-spil, hvor alle skills er lvl 20, bossen er besejret og alle klynger er afsløret. Det gemmes for sig selv. Der er også en knap i udviklerpanelet.
+- `?load=all` starts a demo game where all skills are lvl 20, the boss is defeated and all clusters are revealed. It is saved separately. There is also a button in the developer panel.
 
-### 2026-10-16 · Claude · Bestilling af pixel-moodboards
+### 2026-10-16 · Claude · Pixel moodboard brief
 
-- Bestilling og to referencebilleder af prototypen i `grafik/pixel-moodboards/`.
+- Brief and two reference images of the prototype in `grafik/pixel-moodboards/`.
 
-### 2026-10-16 · Codex · Stilprøver i tegneseriestil
+### 2026-10-16 · Codex · Style samples in cartoon style
 
-- `grafik/stilproever/tegneserie-01` (moodboard og tre test-assets) og `tegneserie-02-terraen` (kort med terræn pr. klynge). Bestilt af brugeren direkte hos Codex.
+- `grafik/stilproever/tegneserie-01` (moodboard and three test assets) and `tegneserie-02-terraen` (map with terrain per cluster). Ordered by the user directly from Codex.
 
-### 2026-10-16 · Codex og Claude · Stjernekort-temaet færdigt
+### 2026-10-16 · Codex and Claude · Starchart theme finished
 
-- Codex leverede prøvebatch 01 og runde 02-04, i alt 106 af 106 filer. Claude vurderede hver runde, rettede tjekscriptet og bad om rettelser.
-- Prototypen bruger nu nebula, tågetekstur, klyngeslør og landmærker. Tåge og silhuetter er dæmpet efter en visuel gennemgang.
+- Codex delivered test batch 01 and rounds 02-04, 106 of 106 files in total. Claude reviewed each round, fixed the check script and asked for corrections.
+- The prototype now uses the nebula, the fog texture, the cluster veil and landmarks. Fog and silhouettes were toned down after a visual review.
 
-### 2026-10-16 · Claude · Første prototype
+### 2026-10-16 · Claude · First prototype
 
-- Spilbar prototype i `prototype/`: alle 58 nodes, én aktivitet ad gangen, crafting, sockets, kamppoint, kamp ved noden med aktivitetsbjælke og pil, farmingområder, dungeon med boss, tåge og afsløring af Druide og Skovbrug.
-- XP-bars i overskrifterne og ikoner i valglister er rettet efter brugerens test.
+- Playable prototype in `prototype/`: all 58 nodes, one activity at a time, crafting, sockets, combat points, combat at the node with an activity bar and arrow, farming areas, a dungeon with a boss, fog and the reveal of Druid and Forestry.
+- XP bars in the headers and icons in selection lists were fixed after the user's test.
 
-### 2026-10-16 · Claude · Asset-liste og værktøjer
+### 2026-10-16 · Claude · Asset list and tools
 
-- Asset-manifest med 106 assets, `tema.json` for stjernekortet, `tools/tjek-assets.mjs` og `tools/lav-asset-liste.mjs`. Listen blev gennemgået af flere agenter, før den gik til Codex.
+- Asset manifest with 106 assets, `theme.json` for the starchart theme, `tools/check-assets.mjs` and `tools/make-asset-list.mjs`. The list was reviewed by several agents before it went to Codex.
 
-### 2026-10-16 · Claude og Codex · Koncept og stilskitser
+### 2026-10-16 · Claude and Codex · Concept and style sketches
 
-- Spilkoncept, idéhistorik og nodeliste i `dokumentation/`. Otte stilskitser fra Codex i `konceptbilleder/`. Brugeren valgte stjernekortet til prototypen.
+- Game concept, idea history and node list in `docs/`. Eight style sketches from Codex in `konceptbilleder/`. The user chose the starchart for the prototype.

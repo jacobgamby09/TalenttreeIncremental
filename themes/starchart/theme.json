@@ -1,0 +1,127 @@
+{
+  "name": "Star Chart",
+  "contractVersion": 1,
+  "status": "Draft. Colors and fonts can be adjusted once the prototype is running.",
+  "colors": {
+    "background": "#0A0D24",
+    "nodeFill": "#121735",
+    "nodeBorder": "#2B3366",
+    "line": "#8C93C9",
+    "text": "#F2EAD8",
+    "textMuted": "#9AA2C8",
+    "playerHp": "#4FD1A5",
+    "enemyHp": "#E5484D",
+    "fog": "#B9C0E6",
+    "silhouette": "#C9C6EE",
+    "nebula": "#5B3FA8",
+    "clusters": {
+      "woodcutting": "#6DD58C",
+      "mining": "#62B8F0",
+      "smithing": "#F0A03C",
+      "combat": "#E5484D",
+      "home-base": "#F5CF6B",
+      "hollow-oak": "#9E2B3A",
+      "druid": "#A78BFA",
+      "forestry": "#45CDBE"
+    }
+  },
+  "fonts": {
+    "heading": {
+      "family": "Cinzel",
+      "source": "Google Fonts",
+      "weights": [
+        500,
+        600
+      ]
+    },
+    "body": {
+      "family": "Inter",
+      "source": "Google Fonts",
+      "weights": [
+        400,
+        500
+      ]
+    }
+  },
+  "backgroundLayers": [
+    {
+      "asset": "backgrounds/starfield",
+      "parallax": 0.2,
+      "opacity": 1,
+      "tileCssPx": 1024
+    },
+    {
+      "asset": "backgrounds/nebula",
+      "parallax": 0.35,
+      "opacity": 0.45,
+      "color": "nebula",
+      "tileCssPx": 2048
+    },
+    {
+      "procedural": "stars",
+      "parallax": 0.5,
+      "densityPerMegapixel": 60,
+      "colors": [
+        "#FFFFFF",
+        "#CFE0FF",
+        "#FFF1D6"
+      ]
+    }
+  ],
+  "fog": {
+    "asset": "backgrounds/fog",
+    "color": "fog",
+    "opacity": 0.85
+  },
+  "clusterVeil": {
+    "asset": "backgrounds/cluster-veil",
+    "opacity": 0.18
+  },
+  "portraitBackground": "backgrounds/portrait",
+  "silhouettes": {
+    "color": "silhouette",
+    "opacity": 0.16
+  },
+  "prompts": {
+    "structure": "Full prompt = base (when the template uses base) + the template's text + \"Subject: \" + the entry's prompt. The template is named in the entry's addon field. Glyphs are not generated; they are drawn as SVG.",
+    "base": "Game art asset for a serious, elegant celestial fantasy RPG. The image contains only the isolated subject described below. Shared look: digitally hand-painted fantasy RPG icon art with crisp edges and painterly texture; natural material colours with rich but believable saturation, set against deep indigo-blue shadows; a soft warm key light from the upper left balanced by a cool blue-violet fill light from the right; clear value contrast and a strong, instantly readable silhouette; grounded medieval fantasy materials such as wood, bark, stone, copper, iron, leather and fur with convincing texture. Mood: magical and restrained; serious and neutral, never cute, comic or caricatured, no exaggerated expressions, no gore. No text, letters, numbers, runes, inscriptions, logos, signatures or watermarks anywhere, including on blades, shields and rims. No frame, border, backing plate, panel, button or bar around the subject, and no glowing outline, outer glow, halo, lens flare or vignette. No smoke, haze, heat shimmer, drifting sparks or floating particles.",
+    "addons": {
+      "nodes": {
+        "base": true,
+        "text": "Asset type: node icon for a talent-tree map. Rendering: a richly detailed digital painting in the manner of a premium RPG item icon, with crisp edges and painterly texture. View: a slight three-quarter view from above unless the subject states another view. Gear items float with no base or ground. Composition: one subject, centered, with generous empty space on all sides and nothing touching or crossing the edges. Background: fully transparent, with no scenery, sky, stars, sparkles or smoke, and no cast shadow except on a small base when the subject names one. Use a bold, simple overall shape with a distinctive outline and large, clearly separated forms."
+      },
+      "resources": {
+        "base": true,
+        "text": "Asset type: small resource icon. Rendering: the same digital painting style, simplified into a few large, bold forms with minimal fine detail, a clean outer contour and strong light-dark contrast, in a slight three-quarter view from above, lit from the upper left. Composition: a single object, centered and filling most of the canvas, nothing touching the edges. Background: fully transparent, with no ground, no shadow and no props beyond those named."
+      },
+      "portraits": {
+        "base": true,
+        "text": "Asset type: square combat portrait. Rendering: the same digital painting style with more detail than the node icons; a single figure or creature, framed as the subject states (head-and-shoulders, waist-up or full body) and always filling about 80% of the square, with the eyes at about 40% from the top. Head-and-shoulders and waist-up figures are cut off by the bottom edge of the square; nothing touches the top or the sides, and full-body figures stay fully inside with space below. Lit from the upper left so the figure separates from a dark background by value contrast rather than a glowing rim. Background: a flat, plain neutral mid-grey (#6B6B73) with nothing else behind the subject; it will be removed."
+      },
+      "emblems": {
+        "base": true,
+        "text": "Asset type: round cluster emblem. The medallion itself is the subject, not an interface frame. Rendering: a perfectly circular medallion seen straight on, in dark neutral silver-grey enamel with a thin, plain silver rim and one simple central motif inlaid in bright pale silver, with bold shapes. The rim is completely plain: no inscriptions, lettering, notches, beads, laurels, ribbons, banners, stars or extra rings. Centered, filling about 90% of the canvas, fully transparent outside the disc. Greyscale only; colour is added afterwards."
+      },
+      "background-tile": {
+        "base": false,
+        "text": "Asset type: seamless tileable background texture for a game map, not an illustration: no subject, no focal point, no horizon, no planets, moons, galaxies or constellation lines, evenly distributed all the way to every edge, with low overall brightness. No text, signature or watermark."
+      },
+      "background-tintable-tile": {
+        "base": false,
+        "text": "Asset type: seamless tileable greyscale texture, not an illustration. Greyscale only: white mist on pure black, no stars, no colour, using the full range from dark grey to bright white, evenly distributed all the way to every edge with no focal point. No text, signature or watermark."
+      },
+      "background-tintable-single": {
+        "base": false,
+        "text": "Asset type: a single soft light shape, not an illustration. Greyscale only: white light on pure black, no stars, no colour, fading completely to black well before every edge. No text, signature or watermark."
+      },
+      "background-single": {
+        "base": false,
+        "text": "Asset type: background plate behind a square character portrait, not an illustration: no subject, no planets, moons, galaxies or constellation lines, with the outer edge kept dark and empty. No text, signature or watermark."
+      },
+      "silhouettes": {
+        "base": false,
+        "text": "Asset type: distant landmark silhouette for unexplored fog. Draw a clear, solid light-grey silhouette mass on pure black, clearly brighter than the background, with aerial perspective and only subtle internal shading, anchored at the bottom center with clear empty space above and to the sides. No linework, outlines, lit windows or light sources, and nothing else in the image: no stars, moon, sky glow, ground plane, text or signature."
+      }
+    }
+  }
+}

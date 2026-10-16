@@ -1,13 +1,13 @@
 # CLAUDE.md
 
-Fælles instruktioner for alle agenter står i AGENTS.md og gælder også for Claude:
+Shared instructions for all agents are in AGENTS.md and also apply to Claude:
 
 @AGENTS.md
 
-## Kun for Claude Code
+## Claude Code only
 
-- Svar brugeren på dansk.
-- Start prototypen med preview-værktøjet (konfigurationen ligger i `.claude/launch.json`) eller med `npm start`.
-- Browserpanelet maler ikke nye billeder, mens det er skjult. Brug sidens tekst, JavaScript eller en headless browser til visuelle tjek i stedet for at stole på et skærmbillede.
-- Når Codex afleverer en runde: kør `npm run tjek:assets`, se kontaktarkene, og se filerne i prototypen, før du anbefaler godkendelse. Giv brugeren en færdig besked til Codex med rettelser og næste runde.
-- Ændr ikke i mapper, Codex er i gang med (se "I gang" i PROGRESS.md).
+- Always reply to the user in Danish. The game and the files are in English.
+- Start the prototype with the preview tool (the configuration is in `.claude/launch.json`) or with `npm start`.
+- The browser pane does not paint new frames while it is hidden. Use the page's text, JavaScript or a headless browser for visual checks instead of relying on a screenshot.
+- When Codex delivers a round: run `npm run check:assets`, look at the contact sheets, and look at the files in the prototype before you recommend approval. Give the user a ready-made message for Codex with corrections and the next round.
+- Do not change folders Codex is working in (see "In progress" in PROGRESS.md).

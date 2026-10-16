@@ -1,5 +1,5 @@
-// Lille statisk server til prototypen. Serverer hele projektmappen, så prototypen kan hente temaer/.
-// Brug: node tools/serve.mjs  (åbn derefter http://localhost:5173/prototype/)
+// Small static server for the prototype. Serves the whole project folder, so the prototype can load themes/.
+// Usage: node tools/serve.mjs  (then open http://localhost:5173/prototype/)
 import { createServer } from 'node:http'
 import { readFile, stat } from 'node:fs/promises'
 import { join, resolve, dirname, extname, normalize, sep } from 'node:path'
@@ -27,6 +27,6 @@ createServer(async (req, res) => {
     res.end(body)
   } catch {
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' })
-    res.end('Ikke fundet')
+    res.end('Not found')
   }
-}).listen(port, () => console.log(`Prototypen kører på http://localhost:${port}/prototype/`))
+}).listen(port, () => console.log(`The prototype is running at http://localhost:${port}/prototype/`))

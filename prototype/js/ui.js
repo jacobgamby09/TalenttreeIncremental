@@ -362,6 +362,7 @@ function drawDev() {
     <button class="btn secondary" data-dev="levels">${T.dev.levels}</button>
     <button class="btn secondary" data-dev="reveal">${T.dev.reveal}</button>
     <button class="btn secondary" data-dev="revealAll">${T.dev.revealAll}</button>
+    <button class="btn secondary" data-dev="editor">${T.dev.editor}</button>
     <button class="btn danger" data-dev="reset">${T.btn.reset}</button>
     <p class="info-text"><small>${T.dev.note}</small></p>`
 }
@@ -377,6 +378,7 @@ export function setupUi() {
     if (f) { game.speed = Number(f.dataset.speed); drawDev(); return }
     const d = e.target.closest('[data-dev]')?.dataset.dev
     if (d === 'reset') { if (confirm(T.btn.reset + '?')) { reset(); select(null); markDirty() } return }
+    if (d === 'editor') { const q = new URLSearchParams(location.search); q.set('edit', ''); location.search = q.toString(); return }
     if (d === 'revealAll') { if (confirm(T.dev.revealAllConfirm)) { dev.revealAll(); select(null); markDirty(); flyTo(1850, 1450, 0.42) } return }
     if (d && dev[d]) { dev[d](); markDirty(); updateInfo() }
   })

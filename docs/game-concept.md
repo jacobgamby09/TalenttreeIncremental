@@ -16,6 +16,8 @@ Tone: The original pitch was a humorous take. On 16 October 2026 the user decide
 
 At the start, the player can only perform one activity at a time. Woodcutting and Mining are started and then continue automatically. The option of several simultaneous activities can be explored later, but it is not part of the settled starting model.
 
+The Home Base is the exception (decided on 16 October 2026): residents that the player rescues in dungeons move into the base and work there alongside the player's own activity. How fast they work, how many there can be and what they can do is not decided yet.
+
 Crafting is click-to-craft with a resource cost. The user has not decided whether a crafting click should interrupt an active skill; the assistant's suggestion is that it does not.
 
 ### Woodcutting and other gathering skills
@@ -57,6 +59,19 @@ The user has chosen the Star Chart (8) for the prototype. The prototype will als
 The map should use a mix of gradual growth and visible hints. In some places the player should be able to see that nodes are hiding behind a lock or an unexplored area. Other milestones should trigger real surprises: a whole new cluster springs up somewhere the player did not expect anything.
 
 The intended experience is both being able to work toward known goals and discovering that the game is bigger than you thought. The whole tree should therefore not be revealed in advance.
+
+### The tree and the world are one
+
+Decided on 16 October 2026. The map is at least as original as the base: the talent tree and the world are the same thing. The map must feel like a world map the player explores while still being a talent tree.
+
+- Skills still sit in clusters (the user leans towards this), but the clusters do not need straight, right-angled lines. They may be organic and dynamic, so the map has some play and life.
+- Hidden and interesting nodes are spread across the map. They must be discovered, or the player must do something special to unlock them. The reward can be anything: a new resident, a dungeon, a rare skill or something else.
+- Dungeons are not clusters of their own. They are spread across the whole tree.
+- A skill cluster can still contain bosses and dungeons that the player must overcome to move on.
+
+### Residents rescued in dungeons
+
+The user likes the idea that the player rescues residents in dungeons, and that they then work in the town. This is the base's answer to "one activity at a time", see above.
 
 ### Language
 
@@ -185,6 +200,16 @@ Open point: the prototype's content lasts about 40 minutes, while 8 hours of Woo
 ### Balance simulator
 
 `npm run simulate` has a bot play the prototype 20 times with fixed random seeds and measures when the milestones are reached. The result is written to [balance.md](balance.md). The bot plays close to optimally, so real players will be slower. The targets are in `tools/simulate.mjs`.
+
+### Skills, dungeons and the base (brainstorm, 16 October 2026)
+
+The user wants to go "all in" on the base and sees it as what makes the concept original. The assistant's suggestions, none of them adopted yet except the residents:
+
+- **The base as the trunk of the tree:** every cluster feeds the base along visible supply lines, and the base strengthens the branches. Loop: skills → base → dungeons (keys, residents, blueprints) → new branches on the map.
+- **Skills without dead ends:** every resource is used by at least two other skills. Candidates: Fishing, Foraging, Hunting, Excavation (gathering); Cooking, Carpentry, Tanning, Alchemy, Masonry (processing); Tailoring, Jewelcrafting (crafting); Farming (plots that grow in real time in the base), Scouting (explores the fog), Construction (building in the base as an activity).
+- **Bridge nodes:** nodes placed physically between two clusters that require levels in both, e.g. a Charcoal Burner between Woodcutting and Smithing. The map's geography then shows which skills belong together.
+- **Dungeons as a small tree of rooms:** a branching map inside the dungeon node with combat, elite, boss, rest, treasure, trap and skill rooms (e.g. a collapsed tunnel that needs Mining 20). Supplies from other skills (food, potions, torches) limit how deep the player gets. Rewards that cannot be farmed: blueprints, residents, keys to hidden clusters and trophies. The route is chosen once and then runs by itself.
+- **The base:** residents who unlock buildings and work secondary activities at low speed; buildings whose recipes need resources from many clusters; adjacency bonuses between buildings; wings (Workshop, Kitchen, Library, Barracks, Garden, Trophy Hall) that grow as new nodes around the base; a Trophy Hall with a permanent bonus per boss.
 
 ### Node list for the first prototype
 

@@ -25,8 +25,8 @@ button { font: inherit; }
 #world.dragging { cursor: grabbing; }
 
 /* The map */
-.road { stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 10; opacity: 0.25; }
-.edge { stroke-width: 1.4; opacity: 0.55; }
+.road { fill: none; stroke: var(--line); stroke-width: 1; stroke-dasharray: 2 10; opacity: 0.25; }
+.edge { fill: none; stroke-width: 1.4; opacity: 0.55; }
 .edge-fog { stroke-dasharray: 3 7; opacity: 0.22; }
 .fog-cloud { pointer-events: none; }
 .node { cursor: pointer; }
@@ -175,3 +175,28 @@ button { font: inherit; }
   #info { left: 10px; right: 10px; width: auto; top: auto; bottom: 90px; max-height: 50vh; }
   .hp-bar { width: 70px; }
 }
+
+/* Map editor */
+#editor-panel { position: fixed; left: 14px; bottom: 16px; width: 300px; display: grid; gap: 8px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--panel-border); border-top: 3px solid var(--accent, #62B8F0); border-radius: 12px; font-size: 13px; }
+#editor-panel h3 { margin: 0; font-family: var(--font-heading); font-weight: 600; }
+#editor-panel p { margin: 0; }
+.editor-status { color: var(--text-muted); }
+.editor-status.ok { color: var(--player-hp); }
+.editor-status.warning { color: var(--enemy-hp); }
+.editor-focus { font-variant-numeric: tabular-nums; }
+.editor-help { margin: 0; padding-left: 16px; color: var(--text-muted); font-size: 12px; line-height: 1.45; }
+body.editing #info, body.editing #activity-bar, body.editing #edge-arrow { display: none !important; }
+.editing .cluster-header { pointer-events: all; cursor: move; }
+.header-grip { fill: transparent; stroke: var(--line); stroke-dasharray: 4 6; vector-effect: non-scaling-stroke; opacity: 0.35; }
+.editing .node { cursor: move; }
+.ed-bounds { fill: none; stroke: var(--line); stroke-dasharray: 12 10; opacity: 0.35; pointer-events: none; }
+.ed-handle { fill: var(--background); stroke: #62B8F0; stroke-width: 1.5; vector-effect: non-scaling-stroke; cursor: grab; pointer-events: all; }
+.ed-bend { stroke: var(--line); opacity: 0.7; }
+.ed-bent { stroke: #F5CF6B; opacity: 1; }
+.ed-road { stroke: var(--text-muted); }
+.ed-start { fill: #F5CF6B; stroke: var(--background); }
+.ed-focus { stroke: #F5CF6B; }
+.ed-landmark { fill: none; stroke: var(--text-muted); stroke-dasharray: 6 6; vector-effect: non-scaling-stroke; opacity: 0.5; pointer-events: none; }
+.ed-landmark.ed-focus { stroke: #F5CF6B; opacity: 1; }
+.ed-selected { fill: none; stroke: #F5CF6B; stroke-width: 2; vector-effect: non-scaling-stroke; pointer-events: none; }
+.ed-label { fill: var(--text-muted); pointer-events: none; paint-order: stroke; stroke: var(--background); stroke-width: 3px; }

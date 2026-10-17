@@ -11,3 +11,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# The map editor writes world.js through a temporary file
+*.tmp

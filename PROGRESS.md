@@ -14,7 +14,9 @@ Last updated: 2026-10-16
 | Theme: starchart | Complete: 106 of 106 approved by the check | [themes/starchart](themes/starchart), [kilder/stjernekort](kilder/stjernekort) |
 | Prototype | Playable with all 58 nodes and all layers, offline progress and versioned saves | [prototype/](prototype/) |
 | Balance | Measured with a bot simulator: all milestones within their targets, the boss falls after about 33 min. Not tested with real players | [balance.md](docs/balance.md) |
-| Tests | 26 tests of the game engine, all passing | [tests/](tests/) |
+| World design | Principles agreed for the tree and the world; the assistant's suggestions are marked | [world-design.md](docs/world-design.md) |
+| Map editor | Drag nodes, headers, landmarks and roads, bend edges, save to `world.js` (`?edit`) | [editor.js](prototype/js/editor.js), [world.js](prototype/js/world.js) |
+| Tests | 32 tests of the game engine and the map layout, all passing | [tests/](tests/) |
 | Language | The game and all project files are in English; the conversation with the user is in Danish | [AGENTS.md](AGENTS.md) |
 | Art direction | Not chosen. The starchart is the full theme; cartoon and pixel are being explored | [grafik/](grafik/) |
 
@@ -24,20 +26,22 @@ Last updated: 2026-10-16
 
 ## Next steps
 
-1. Playtests with real players: measure milestone times (stored in `milestones` in the saved game) and compare them with the bot.
-2. Review the pixel moodboards (delivered, waiting for the user), and compare them with the starchart and the cartoon style.
-3. After the review: rename Codex's archives `kilder/`, `grafik/` and `konceptbilleder/` to English together with Codex, and agree on the English delivery paths (e.g. `sources/<theme>/round-NN/DELIVERY.md`).
-4. The user plays the prototype through and chooses an art direction.
-5. Test offline progress: 8 hours at full effect gives many levels compared with the prototype's roughly 40 minutes of content.
-6. The bot never reaches Forestry (300 oak) on its route. Consider whether the threshold should be lowered, or whether it is fine that Forestry comes later.
-7. Slow movement of the fog with two copies at different scales, as theme.json suggests.
-8. Deliberately left out for now: food and cooking, more gear tiers, prestige and sound.
+1. Lay out the current 58 nodes again with the map editor, following docs/world-design.md: organic clusters with a spine, one wilderness path and one secret.
+2. Playtests with real players: measure milestone times (stored in `milestones` in the saved game) and compare them with the bot.
+3. Review the pixel moodboards (delivered, waiting for the user), and compare them with the starchart and the cartoon style.
+4. After the review: rename Codex's archives `kilder/`, `grafik/` and `konceptbilleder/` to English together with Codex, and agree on the English delivery paths (e.g. `sources/<theme>/round-NN/DELIVERY.md`).
+5. The user plays the prototype through and chooses an art direction.
+6. Test offline progress: 8 hours at full effect gives many levels compared with the prototype's roughly 40 minutes of content.
+7. The bot never reaches Forestry (300 oak) on its route. Consider whether the threshold should be lowered, or whether it is fine that Forestry comes later.
+8. Slow movement of the fog with two copies at different scales, as theme.json suggests.
+9. Deliberately left out for now: food and cooking, more gear tiers, prestige and sound.
 
 ## Open questions for the user
 
 - Which art direction should the game have? Starchart, cartoon or a pixel style?
 - The cartoon delivery talks about "the chosen cartoon style". Is cartoon decided, or is it still a sample?
 - Is it ok that gear is crafted once and chosen in its slot without an actual inventory? The prototype does it that way now.
+- Where does the base sit: in the middle of the map, or at the bottom as the root of a tree that grows upwards? (more questions in docs/world-design.md)
 - Should offline progress give full effect for up to 8 hours, or less? It is the assistant's choice for now.
 
 ## Known issues
@@ -50,6 +54,12 @@ Last updated: 2026-10-16
 ## Log
 
 Newest first.
+
+### 2026-10-16 · Claude · World design and map editor
+
+- `docs/world-design.md`: the user's decisions about the tree and the world (organic clusters, scattered secrets and dungeons, gate bosses in clusters, residents) and the assistant's suggestions, clearly separated.
+- The map layout moved out of `data.js` into `prototype/js/world.js`. The map editor (`?edit`, or the button in the Developer panel) drags nodes, headers, landmarks, road ends and the start marker, bends edges into curves, and saves straight to `world.js` through the dev server (only from this computer). Undo, snapping and arrow-key nudging are included. Tested in a browser with Playwright; the layout itself is unchanged so far.
+- 6 new tests (32 in total), including the save endpoint against a temporary file.
 
 ### 2026-10-16 · Claude · Everything in English
 

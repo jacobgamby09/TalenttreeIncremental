@@ -123,3 +123,35 @@ Ja, begynd på prototypen nu med de assets, der er klar, og pladsholdere for res
 *Translation:* Yes, start on the prototype now with the assets that are ready, and placeholders for the rest.
 
 The assistant built the first prototype in `prototype/`, which is started with `node tools/serve.mjs`.
+
+## 12. Skills, dungeons and the base
+
+Okay super. Jeg synes vi skal brainstorme på forskellige typer af skills vi kan have med i spillet, og hvordan de kan spille sammen. 
+
+Jeg kunne også godt tænke mig at kigge ind i hvordan vi kan introducere Dungeons og ikke “bare” uendelige kampe. 
+
+Derudover synes jeg også der er meget mere potentiale i “basen”, og at den skal bruge forskellige ressourcer fra alle mulige steder. Jeg føler også det er den, der gør vores koncept mere originalt, så det er også et sted jeg vil gå “all in”
+
+*Translation:* Okay, great. I think we should brainstorm different types of skills we could have in the game, and how they can play together. I would also like to look into how we can introduce dungeons and not "just" endless fights. On top of that, I think there is a lot more potential in the "base", and that it should use different resources from all sorts of places. I also feel it is the base that makes our concept more original, so it is also a place where I want to go "all in".
+
+Ja det tænker jeg godt basen kunne faktisk. Jeg kan godt lide idéen med at man “reder” beboer i Dungeons, som kan arbejde i byen!
+
+Men jeg kan ikke finde ud af hvilken rækkefølge vi skal lave tingene. Hvad er dit forslag?
+
+*Translation:* Yes, I actually think the base could do that. I like the idea that you "rescue" residents in dungeons, who can then work in the town! But I can't work out which order we should do things in. What do you suggest?
+
+## 13. The tree and the world are one
+
+Gode inputs. Men jeg tror også det er vigtigt er viber enige om hvordan vi griber selve træet og verdenen an, inden vi tilføjer for meget. 
+
+Nu sagde jeg at basen var vores originale idé, men det er kortet jo egentlig også, og måske faktisk i endnu højere grad. 
+
+Den tanke jeg har kan bedst beskrives som, at træet og verdenen er en og samme ting. Vi skal derfor finde en balance mellem at det føles som et worldmap man udforsker, samtidig med det er et talent tree. Jeg hælder derfor stadig til at skills sider i clusters, men det behøves ikke at være 90 graders lige linjer, det må godt være dynamisk så det også giver noget “spil” og liv på kortet. 
+
+Derudover skal vi have skjulte og interessante nodes spredt ud, som skal opdages eller man skal gøre noget specielt for at unlocke. Det kunne være alt muligt forskelligt. En ny beboer, en Dungeon, en sjælden skill eller noget helt tredje. 
+
+Og apropos Dungeons, så er det ikke noget jeg synes skal clusters, de skal være spredt ud over hele træet. Jeg synes også vi skal holde fast i at der kan være både bosser og Dungeon i en skill cluster, som man skal overvinde for at komme videre. 
+
+Hvad tænker du om det?
+
+*Translation:* Good input. But I also think it is important that we agree on how we approach the tree and the world itself before we add too much. I said the base was our original idea, but the map really is too, maybe even more so. The thought I have is best described as: the tree and the world are one and the same thing. So we need to find a balance where it feels like a world map you explore while also being a talent tree. I therefore still lean towards skills sitting in clusters, but they don't have to be 90-degree straight lines; they can be dynamic, so there is some "play" and life on the map. We also need hidden and interesting nodes spread out, which have to be discovered or which need something special to unlock. It could be all sorts of things: a new resident, a dungeon, a rare skill or something else entirely. And speaking of dungeons, I don't think they should be clusters; they should be spread out over the whole tree. I also think we should keep the idea that there can be both bosses and dungeons inside a skill cluster that you have to overcome to move on. What do you think?

@@ -5,20 +5,24 @@ import { loadTheme } from './theme.js'
 import { setupMap, frame, markDirty, flyTo, runReveal, keepHidden, nodePop, playerPop, shake, toScreen } from './map.js'
 import { setupUi, uiFrame, select, showMessage, updateInfo, showOffline } from './ui.js'
 import { T, num } from './text.js'
+import { setupEditor, editorFrame } from './editor.js'
 
 const params = new URLSearchParams(location.search)
 const themeName = params.get('theme') ?? 'starchart'
 const demo = params.get('load') === 'all' ? 'all' : null
+// The map editor shows the saved game read-only: no ticking, no offline progress and no saving
+const editMode = params.has('edit')
 
 async function start() {
   await loadTheme(themeName)
   if (demo) useDemo(demo)
   load()
-  const offline = runOffline()
+  const offline = editMode ? null : runOffline()
   setupMap({ onSelect: id => select(id) })
   if (demo) flyTo(1850, 1450, 0.42, 1)
   setupUi()
   bindEvents()
+  if (editMode) setupEditor()
   document.getElementById('loader').remove()
   if (offline) {
     const play = () => offline.clusters.forEach(k => runReveal(k, () => showMessage(T.message.newCluster(CLUSTERS[k].name), 'big')))
@@ -31,22 +35,25 @@ async function start() {
   const loop = now => {
     const dt = Math.min(0.25, (now - last) / 1000)
     last = now
-    tick(dt)
-    statusClock += dt
-    if (statusClock > 0.25) {
-      statusClock = 0
-      const before = [...game.status.values()].join()
-      computeStatus()
-      if ([...game.status.values()].join() !== before) { markDirty(); updateInfo() }
+    if (editMode) editorFrame()
+    else {
+      tick(dt)
+      statusClock += dt
+      if (statusClock > 0.25) {
+        statusClock = 0
+        const before = [...game.status.values()].join()
+        computeStatus()
+        if ([...game.status.values()].join() !== before) { markDirty(); updateInfo() }
+      }
+      saveClock += dt
+      if (saveClock > 5) { saveClock = 0; save() }
     }
-    saveClock += dt
-    if (saveClock > 5) { saveClock = 0; save() }
     frame(now)
     uiFrame()
     requestAnimationFrame(loop)
   }
   requestAnimationFrame(loop)
-  window.addEventListener('beforeunload', save)
+  if (!editMode) window.addEventListener('beforeunload', save)
   window.game = game
 }
 

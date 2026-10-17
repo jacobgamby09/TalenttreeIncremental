@@ -1,5 +1,5 @@
 // The map: a large SVG world map with camera, nodes, edges, fog, combat at the node and reveals.
-import { NODES, EDGES, CLUSTERS, ROADS, LANDMARKS, WORLD } from './data.js'
+import { NODES, EDGES, CLUSTERS, ROADS, LANDMARKS, WORLD, edgeBend } from './data.js'
 import {
   game, nodes, rank, level, xpProgress, combatPoints, activityTime, playerStats, clusterRevealed, requirementList, socketCount, dungeonOrder,
 } from './game.js'
@@ -26,6 +26,31 @@ let selected = null
 const revealQueue = []
 const hiddenClusters = new Set()
 let revealing = false
+let editing = false
+let afterDraw = null
+
+export const svgEl = el
+export const mapLayer = name => layers[name]
+// The map editor shows every node, ignores fog and redraws its handles after each static draw
+export function setEditing(on) { editing = on; svg.classList.toggle('editing', on); dirty = true }
+export function onDrawn(fn) { afterDraw = fn }
+
+// A quadratic curve from a to b whose middle is pushed `bend` px to the side (0 = straight)
+export function curvePath(a, b, bend = 0) {
+  if (!bend) return `M${a[0]} ${a[1]}L${b[0]} ${b[1]}`
+  const c = bendPoint(a, b, bend * 2)
+  return `M${a[0]} ${a[1]}Q${c[0]} ${c[1]} ${b[0]} ${b[1]}`
+}
+// The point on the curve halfway along it, where the editor puts the bend handle
+export function bendPoint(a, b, bend) {
+  const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy) || 1
+  return [(a[0] + b[0]) / 2 - (dy / len) * bend / 2, (a[1] + b[1]) / 2 + (dx / len) * bend / 2]
+}
+// The bend that puts the curve's middle under the point p
+export function bendFrom(a, b, p) {
+  const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.hypot(dx, dy) || 1
+  return 2 * ((p[0] - (a[0] + b[0]) / 2) * -dy / len + (p[1] - (a[1] + b[1]) / 2) * dx / len)
+}
 
 export function markDirty() { dirty = true }
 export function setSelected(id) { selected = id; dirty = true }
@@ -48,6 +73,11 @@ export function toScreen(x, y) {
   return { x: (x - camera.x) * camera.zoom + w / 2, y: (y - camera.y) * camera.zoom + h / 2 }
 }
 export const zoomedOut = () => camera.zoom < ZOOMED_OUT
+export function toWorld(clientX, clientY) {
+  const { w, h } = viewport()
+  const r = svg.getBoundingClientRect()
+  return [camera.x + (clientX - r.left - w / 2) / camera.zoom, camera.y + (clientY - r.top - h / 2) / camera.zoom]
+}
 
 function setupInput() {
   let drag = null
@@ -203,24 +233,30 @@ function ensureClip(s) {
   clipSizes.add(k)
 }
 
-// The extent of each cluster (for veils and reveals)
-const clusterBox = {}
-for (const n of NODES) {
-  const b = (clusterBox[n.cluster] ??= { x0: Infinity, y0: Infinity, x1: -Infinity, y1: -Infinity })
-  b.x0 = Math.min(b.x0, n.pos[0]); b.y0 = Math.min(b.y0, n.pos[1]); b.x1 = Math.max(b.x1, n.pos[0]); b.y1 = Math.max(b.y1, n.pos[1])
+// The extent of each cluster (for veils and reveals); measured again on every draw, because the editor moves nodes
+let clusterBox = {}
+function measureClusters() {
+  clusterBox = {}
+  for (const n of NODES) {
+    const b = (clusterBox[n.cluster] ??= { x0: Infinity, y0: Infinity, x1: -Infinity, y1: -Infinity })
+    b.x0 = Math.min(b.x0, n.pos[0]); b.y0 = Math.min(b.y0, n.pos[1]); b.x1 = Math.max(b.x1, n.pos[0]); b.y1 = Math.max(b.y1, n.pos[1])
+  }
 }
-export const clusterCenter = k => CLUSTERS[k].center ?? [(clusterBox[k].x0 + clusterBox[k].x1) / 2, (clusterBox[k].y0 + clusterBox[k].y1) / 2]
+measureClusters()
+export const clusterCenter = k => [(clusterBox[k].x0 + clusterBox[k].x1) / 2, (clusterBox[k].y0 + clusterBox[k].y1) / 2]
 
 // Static drawing of the map (called when something has changed)
 function drawStatic() {
   for (const g of Object.values(layers)) if (g !== layers.defs && g !== layers.combat && g !== layers.effects && g !== layers.reveal) g.replaceChildren()
+  measureClusters()
   const status = game.status
-  const vis = id => (hiddenClusters.has(nodes.get(id).cluster) ? 'hidden' : status.get(id) ?? 'hidden')
+  const vis = id => (editing ? 'open' : hiddenClusters.has(nodes.get(id).cluster) ? 'hidden' : status.get(id) ?? 'hidden')
+  const shown = k => editing || (clusterRevealed(k) && !hiddenClusters.has(k))
   const out = zoomedOut()
 
   // Veils behind the clusters
   for (const k of Object.keys(CLUSTERS)) {
-    if (!clusterRevealed(k) || hiddenClusters.has(k)) continue
+    if (!shown(k)) continue
     const visible = NODES.filter(n => n.cluster === k && ['open', 'locked'].includes(vis(n.id)))
     if (!visible.length) continue
     const [cx, cy] = clusterCenter(k)
@@ -234,12 +270,12 @@ function drawStatic() {
   // Landmarks in the fog
   for (const l of LANDMARKS) {
     if (!theme.has(l.asset)) continue
-    if (l.until && level(l.until.skill) >= l.until.lvl) continue
+    if (!editing && l.until && level(l.until.skill) >= l.until.lvl) continue
     el('rect', { x: l.pos[0] - l.size / 2, y: l.pos[1] - l.size / 2, width: l.size, height: l.size, fill: theme.color(theme.data.silhouettes?.color ?? 'silhouette'), opacity: theme.data.silhouettes?.opacity ?? 0.25, mask: glyphMask(l.asset) }, layers.landmarks)
   }
 
   // Roads between the clusters
-  for (const [a, b] of ROADS) el('line', { x1: a[0], y1: a[1], x2: b[0], y2: b[1], class: 'road' }, layers.roads)
+  for (const [a, b, bend] of ROADS) el('path', { d: curvePath(a, b, bend), class: 'road' }, layers.roads)
 
   // Edges
   for (const [a, b] of EDGES) {
@@ -248,7 +284,7 @@ function drawStatic() {
     const na = nodes.get(a), nb = nodes.get(b)
     const fog = sa === 'fog' || sb === 'fog'
     const color = theme.clusterColor(na.cluster === nb.cluster ? na.cluster : nb.cluster)
-    el('line', { x1: na.pos[0], y1: na.pos[1], x2: nb.pos[0], y2: nb.pos[1], stroke: color, class: fog ? 'edge edge-fog' : 'edge' }, layers.edges)
+    el('path', { d: curvePath(na.pos, nb.pos, edgeBend(a, b)), stroke: color, class: fog ? 'edge edge-fog' : 'edge' }, layers.edges)
   }
 
   // Fog and nodes
@@ -321,13 +357,14 @@ function drawStatic() {
 
   // Headers with XP bars
   for (const [k, cl] of Object.entries(CLUSTERS)) {
-    if (!clusterRevealed(k) || hiddenClusters.has(k)) continue
+    if (!shown(k)) continue
     if (!NODES.some(n => n.cluster === k && ['open', 'locked'].includes(vis(n.id)))) continue
     const [hx, hy] = cl.header
     const scale = out ? Math.min(2.4, 0.75 / camera.zoom) : 1
-    const g = el('g', { class: 'cluster-header', transform: `translate(${hx} ${hy}) scale(${scale})` }, layers.headers)
+    const g = el('g', { class: 'cluster-header', 'data-header': k, transform: `translate(${hx} ${hy}) scale(${scale})` }, layers.headers)
     const color = theme.clusterColor(k)
     const e = 44
+    if (editing) el('rect', { x: -150, y: -32, width: 360, height: 66, rx: 10, class: 'header-grip' }, g)
     if (theme.has(cl.emblem)) el('image', { href: theme.url(cl.emblem), x: -140, y: -e / 2, width: e, height: e }, g)
     else { el('circle', { cx: -140 + e / 2, cy: 0, r: e / 2 - 2, fill: color, opacity: 0.3, stroke: color }, g); const t = el('text', { x: -140 + e / 2, y: 1, 'text-anchor': 'middle', 'dominant-baseline': 'central', class: 'placeholder-text', fill: color }, g); t.textContent = cl.name[0] }
     const name = el('text', { x: -86, y: -4, class: 'cluster-header-name' }, g)
@@ -343,6 +380,7 @@ function drawStatic() {
     headerRefs.set(k, { st, fill, sub })
   }
   dirty = false
+  afterDraw?.()
 }
 
 // Header text and XP bar update every frame, so they keep up while gathering
@@ -501,7 +539,7 @@ export function setupMap({ onSelect }) {
   skyCtx = sky.getContext('2d')
   svg = document.getElementById('world')
   layers = { defs: el('defs', {}, svg) }
-  for (const name of ['veil', 'landmarks', 'roads', 'edges', 'fog', 'reveal', 'nodes', 'combat', 'headers', 'effects']) layers[name] = el('g', { class: `layer-${name}` }, svg)
+  for (const name of ['veil', 'landmarks', 'roads', 'edges', 'fog', 'reveal', 'nodes', 'combat', 'headers', 'editor', 'effects']) layers[name] = el('g', { class: `layer-${name}` }, svg)
 
   const f = el('filter', { id: 'silhouette', x: '-20%', y: '-20%', width: '140%', height: '140%' }, layers.defs)
   el('feColorMatrix', { type: 'matrix', values: '0 0 0 0 0.02  0 0 0 0 0.03  0 0 0 0 0.08  0 0 0 0.9 0' }, f)

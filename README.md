@@ -12,7 +12,7 @@ Requires Node.js 22 or newer. Nothing needs to be installed.
 npm start
 ```
 
-Then open http://localhost:5173/prototype/. To see the whole map, open http://localhost:5173/prototype/?load=all. That is a demo game where every cluster is open, and it is saved separately, so your normal game is not touched.
+Then open http://localhost:5173/prototype/. To see the whole map, open http://localhost:5173/prototype/?load=all. That is a demo game where every cluster is open, and it is saved separately, so your normal game is not touched. To move things around on the map, open http://localhost:5173/prototype/?edit (the map editor).
 
 The game is saved in the browser. The Developer button gives higher game speed, resources and levels for testing, plus a reset.
 
@@ -30,6 +30,7 @@ The game is saved in the browser. The Developer button gives higher game speed, 
 ## Documents
 
 - [Game concept and decisions](docs/game-concept.md): separates the user's decisions, the user's possible extensions and the agents' proposals
+- [World design](docs/world-design.md): how the talent tree and the world map fit together, and how to use the map editor
 - [Node list](docs/prototype-nodes.md): every node in the prototype with requirements, prices and effects
 - [Balance](docs/balance.md): milestone times from the balance simulator (generated)
 - [Idea history](docs/idea-history.md): the user's creative messages, verbatim
@@ -43,8 +44,8 @@ The game is saved in the browser. The Developer button gives higher game speed, 
 | `prototype/` | The playable prototype in plain JavaScript with no build step |
 | `themes/` | The asset manifest and one folder per theme. The starchart theme is complete |
 | `tools/` | Server, asset check, asset list generator and balance simulator |
-| `tests/` | Automated tests of the game engine |
-| `docs/` | Concept, node list, idea history, balance and asset list |
+| `tests/` | Automated tests of the game engine and the map layout |
+| `docs/` | Concept, world design, node list, idea history, balance and asset list |
 | `kilder/` | Codex's deliveries per round: originals, prompts, scripts and contact sheets |
 | `grafik/` | Graphic explorations: test batch 01, style samples and pixel moodboards |
 | `konceptbilleder/` | The first eight style sketches |
